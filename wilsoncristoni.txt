@@ -1,1 +1,1 @@
-Listex 0
+Listex 0 - adicionando um comentario para gerar um conflito, com o arquivo da branche nova criada
