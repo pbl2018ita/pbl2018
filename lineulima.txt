@@ -1,1 +1,2 @@
 Fazendo commit.
+Testando o comando merge.
