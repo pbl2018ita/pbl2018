@@ -1,3 +1,1 @@
-teste commit
-teste branch
-teste merge
+teste de resolucao de conflito
