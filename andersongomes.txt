@@ -1,2 +1,5 @@
-Listex 0 - resolvendo listex 0 na nova branch
+Listex 0 - resolvendo listex 0 
+- commit
+- merge
+
 
