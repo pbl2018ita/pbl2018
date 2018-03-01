@@ -1,5 +1,6 @@
 Listex 0 - resolvendo listex 0 
-- commit
-- merge
+commit
+merge
+- conflito
 
 
