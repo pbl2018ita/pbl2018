@@ -5,19 +5,29 @@ var Leitos = mongoose.model('Leitos')
 
 exports.getLeitos = function (req, res) {
 
+  var hospital = req.body.hospital
+  var status = req.body.status
+  var identificador = req.body.identificador
 
-  console.log(req.params)
-
-  Leitos.find({status:'livre'}, function(err, comments) {
-    // some code here
-    console.log(comments)
-    res.send(comments)
-  });
-  
+  var result = {
+      "hospital": {
+        "identificador": identificador,
+        "nome": hospital,
+      }
+  }
+    
+  Leitos.find({hospital:hospital, status:status}, function(err, leitos) {
+    if (err) return res.status(400).send(err)
+    if (leitos){
+      result["hospital"]["leitos"] = leitos
+      res.send(result)
+    }
+    else return res.status(400).json({ message: 'Leito não encontrado' })
+  });  
 }
 
-exports.addLeitos = function (req, res) {
 
+exports.addLeitos = function (req, res) {
   var leitos = new Leitos({
     hospital: "hc",
     status: "livre",  // livre - higienizacao - ocupado - servico - reservado - isolado
