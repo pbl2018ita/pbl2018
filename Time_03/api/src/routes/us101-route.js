@@ -3,23 +3,11 @@
 const express = require('express');
 const router = express.Router(); // criar um router
 
-//post -> enviar informacoes
-router.post('/', (req, res, next) => {
-    res.status(201).send(req.body);
-});
+const controller = require('../controllers/us101-controller');
 
-//put -> atualizar informacoes
-router.put('/:id', (req, res, next) => {
-    let id = req.params.id;
-    res.status(201).send({
-        id: id,
-        item: req.body
-    });
-});
-
-//delete
-router.delete('/', (req, res, next) => {
-    res.status(201).send(req.body);
-});
+//delego os metodos das rotas para os controllers
+router.post('/', controller.post);
+router.put('/:id', controller.put);
+router.delete('/', controller.delete);
 
 module.exports = router;

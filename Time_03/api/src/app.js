@@ -11,6 +11,8 @@ const router = express.Router(); // criar um router
 app.use(bodyParser.json()); //todo conteudo ser convertido para json
 app.use(bodyParser.urlencoded({ extended: false })) //para codificar as urls
 
+
+//Carrega as rotas
 const indexRoute = require('./routes/index-route')
 const us101Route = require('./routes/us101-route')
 
