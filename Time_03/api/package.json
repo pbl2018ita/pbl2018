@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "//": "Express eh um pacote que prove o MVC",
-    "//" : "body-parser auxilia a conversao de um corpo de para json, tipo middleware" 
+    "//": {
+          "comn1" : "Express eh um pacote que prove o MVC",
+          "comn2" : "body-parser auxilia a conversao de um corpo de para json, tipo middleware"
+          },
     "body-parser": "^1.18.2",
     "debug": "^3.1.0",
     "express": "^4.16.3",
