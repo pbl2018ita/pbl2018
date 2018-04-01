@@ -24,6 +24,7 @@ app.use('/', route);
 
 server.listen(port);
 server.on('error', onError);
+server.on('listening', onListening);
 
 console.log('Api rodando na porta ' + port);
 
@@ -57,4 +58,11 @@ function onError(error){
             throw error;
     }
 
+}
+
+//funcao de debug
+function onListening(){
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? 'Pipe ' + addr : 'port ' + addr.port;
+    debug('Listening on ' + bind);
 }
