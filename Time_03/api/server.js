@@ -23,6 +23,8 @@ const route = router.get('/', (req, res, next) => {
 app.use('/', route);
 
 server.listen(port);
+server.on('error', onError);
+
 console.log('Api rodando na porta ' + port);
 
 
@@ -32,4 +34,27 @@ function normalizePort(val){
     if (isNaN(port)){  return val;  }
     if (port>0){return port}
     return false;
+}
+
+//funcao para tratamento de erro
+function onError(error){
+    if(error.syscall !== 'listen'){
+        throw error;
+    }
+
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Pipe ' + port;
+
+    switch(error.code){
+        case 'EACCES': //erro de permissao
+            console.log(bind + ' require elevated privilages');
+            processs.exit(1);
+            break;
+        case 'EADDRINUSE': //erro de endereco em uso
+            console.log(bind + ' is already in use');
+            processs.exit(1);
+            break;
+        default:
+            throw error;
+    }
+
 }
