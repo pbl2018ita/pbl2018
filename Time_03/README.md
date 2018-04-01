@@ -3,5 +3,7 @@
 #Time Scrum 03
 
 Iniciando aplicacao do Node:
-npm init -y
+<li>npm init -y
 
+Instalacao de 3 pacotes
+<li>npm install debug express http -- save
