@@ -10,7 +10,7 @@ module.exports = function (cb) {
   var dbConfig = nconf.get('database')
   var dbAuth = (dbConfig.user === '' && dbConfig.password === '') ? '' : dbConfig.user + ':' + dbConfig.password + '@'
 
-  mongoose.connect('mongodb://' + dbAuth + dbConfig.server + ':' + dbConfig.port + '/' + dbConfig.name, { useMongoClient: true }, function (error) {
+  mongoose.connect('mongodb://' + dbAuth + dbConfig.server + ':' + dbConfig.port + '/' + dbConfig.name, function (error) {
     // Check error in initial connection. There is no 2nd param to the callback.
     if (!error) cb()
   })

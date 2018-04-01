@@ -7,7 +7,9 @@ nconf.set('url', 'mywebsite.com')
 nconf.set('database', {
   name: 'stagihobd-ts02',
   user: 'ts02',
-  password: '',
+  password: 'ieV3iehu',
   server: 'ds227119.mlab.com',
   port: '27119'
 })
+
+

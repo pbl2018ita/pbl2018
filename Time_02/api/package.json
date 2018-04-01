@@ -1,0 +1,27 @@
+{
+  "name": "api_ts02",
+  "version": "1.0.0",
+  "description": "REST",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pbl2018ita/pbl2018.git"
+  },
+  "author": "Samara Cardoso <samaracardosodossantos@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pbl2018ita/pbl2018/issues"
+  },
+  "homepage": "https://github.com/pbl2018ita/pbl2018#readme",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12",
+    "morgan": "^1.9.0",
+    "nconf": "^0.10.0",
+    "winston": "^2.4.1"
+  }
+}

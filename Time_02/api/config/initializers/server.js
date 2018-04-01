@@ -47,7 +47,7 @@ var start = function (cb) {
     res.status(404).send({ url: req.originalUrl + ' not found' })
   })
 
-  app.listen(config.get('NODE_PORT'))
+  app.listen(process.env.PORT || config.get('NODE_PORT'))
   logger.info('[SERVER] Listening on port ' + config.get('NODE_PORT'))
 
   if (cb) {
