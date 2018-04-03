@@ -6,8 +6,6 @@ module.exports = function (app) {
   var indexHandlers = require('../controllers/index')
   
   app.get('/', indexHandlers.index) 
-
-  app.get('/leitos', leitosHandlers.getLeitos) 
-
-  app.post('/leitos', leitosHandlers.addLeitos) 
+  app.post('/leitos', leitosHandlers.getLeitos)
+  
 }

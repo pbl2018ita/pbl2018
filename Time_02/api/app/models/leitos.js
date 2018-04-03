@@ -15,11 +15,7 @@ var LeitoSchema = new Schema({
 
   ala: { type: String }, // A - B - C
 
-  tipo: { type: String }, // enfermaria - apartamento - berçario - uti - bloco cirurgico 
-
-  created: { type: Date, default: Date.now },
-
-  updated: { type: Date, default: Date.now }
+  tipo: { type: String } // enfermaria - apartamento - berçario - uti - bloco cirurgico 
 
 })
 
