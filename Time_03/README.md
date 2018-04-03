@@ -2,8 +2,12 @@
 
 #Time Scrum 03
 
-Iniciando aplicacao do Node:
-<li>npm init -y
+Config Heroku
+<li>heroku git:remote -a stagihobd-ts03
+<li>heroku config:add BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-nodejs
 
-Instalacao de 3 pacotes
-<li>npm install debug express http -- save
+Criacao do arquivo .buildpack
+
+Ir para a raiz do diretorio e executar o seguinte comando
+<li> git subtree push --prefix Time_03/api heroku master
+

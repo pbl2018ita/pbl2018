@@ -19,7 +19,5 @@ const us101Route = require('./routes/us101-route')
 
 app.use('/', indexRoute);
 app.use('/us101', us101Route);
-app.use('/us101', us101Route);
-app.use('/us101', us101Route);
 
 module.exports = app;

@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
     //403 -> acesso negado
     //500 -> Internal server error
     res.status(200).send({
-        title: "Node store api",
+        title: "Application STAGIHO-BS TS03",
         version: "0.0.2"
     });
 });
