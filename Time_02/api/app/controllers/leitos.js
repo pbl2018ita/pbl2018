@@ -5,9 +5,9 @@ var Leitos = mongoose.model('Leitos')
 
 exports.getLeitos = function (req, res) {
 
-  var hospital = req.body.hospital
-  var status = req.body.status
-  var identificador = req.body.identificador
+  var hospital = req.query.hospital
+  var status = req.query.status
+  var identificador = req.query.identificador
 
   var result = {
       "hospital": {
