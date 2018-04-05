@@ -14,7 +14,7 @@ app.use(function(err, req, res, next){
 });
 
 //conectar ao MongoDB
-mongoose.connect('mongodb://localhost/especialista');
+mongoose.connect("mongodb://ts01:zi7EezaW@ds127129.mlab.com:27129/stagihobd-ts01");
 mongoose.Promise = global.Promise;
 
 /*app.get('/', function(req, res){
@@ -22,6 +22,6 @@ mongoose.Promise = global.Promise;
     res.send({name: 'Teste especialistas'});
 });*/
 
-app.listen(process.env.port || 9000, function(){
+app.listen(process.env.PORT || 9000, function(){
     console.log('Aguardando requests');
 });
