@@ -1,0 +1,18 @@
+{
+  "name": "plantonista",
+  "version": "1.0.0",
+  "description": "TS 01 plantonista",
+  "main": "plantonista.js",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "us107"
+  ],
+  "author": "jean carlos lourenço costa",
+  "license": "ISC"
+}
