@@ -1,75 +1,45 @@
 'use strict';
 
-var key ='AIzaSyCQbgeeEd7gdy6mzNc2a6qHbfROHqDVuHw';
-var link = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=&destinations=&key=';
-var origin = '41.43206,-81.38992';
-var destinations = '41.23206,-81.18992';
+var key = 'AIzaSyCQbgeeEd7gdy6mzNc2a6qHbfROHqDVuHw';
+var googleMaps = require('@google/maps').createClient({ key: key, Promise: Promise });
 
-var ex = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=41.43206,-81.3899&destinations=41.23206,-81.18992&key=AIzaSyCQbgeeEd7gdy6mzNc2a6qHbfROHqDVuHw';
+function getDateFromGoogleMaps(origins, destinations) {
+    return googleMaps.distanceMatrix({
+        origins: origins,
+        destinations: destinations,
+        departure_time: new Date().getTime(),
+        mode: 'driving',
+        avoid: ['tolls', 'ferries'],
+        traffic_model: 'best_guess'
+    });
+}
 
 
-var googleMaps = require('@google/maps').createClient({
-    key: 'AIzaSyCQbgeeEd7gdy6mzNc2a6qHbfROHqDVuHw',
-    //Promise: require('q').Promise
-  });
-var myr = '';
 
-//googleMaps.geocode({
-//    address: '1600 Amphitheatre Parkway, Mountain View, CA'
-//  }, function(err, response) {
-//    if (!err) {
-//        //res.status(201).send(response.json.results);
-//        myr = response.json.results;
-//    }
-//    else{
-//        myr = err;
-//    }
-//  });
-  
-googleMaps.distanceMatrix({
-    origins: ['Hornsby Station, NSW', 'Chatswood Station, NSW'],
-    destinations: ['Central Station, NSW', 'Parramatta Station, NSW'],
-    //departure_time: new Date().getTime(),
-    mode: 'driving',
-    avoid: ['tolls', 'ferries'],
-    traffic_model: 'best_guess'
-  }  , function(err, response) {
-        if (!err) {
-            //res.status(201).send(response.json.results);
-            //myr = response.json.results;
-            myr = 123;
-        }
-        else{
-            myr = err;
-        }
-      }) ;
-  //.asPromise()
-  //.then(expectOK)
-  //.then(done, fail);
-
+exports.get = (req, res, next) => {
+    getDateFromGoogleMaps(['-23.207905, -45.854510'],
+        ['-23.198176, -45.915881', '-23.163200, -45.900261'])
+        .asPromise()
+        .then((response) => {
+            res.status(201).send(response.json);
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        });
+};
 
 //post -> enviar informacoes
 exports.post = (req, res, next) => {
+    //res.status(201).send(req.body.origins) 
+    getDateFromGoogleMaps(req.body.origins,req.body.destinations)
+        .asPromise()
+        .then((response) => {
+            res.status(201).send(response.json);
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        });
 
- 
-    //  .asPromise()
-    //  .then(expectOK)
-    //  .then(done, fail);
-
-      res.status(201).send(myr);
 };
 
 
-//put -> atualizar informacoes
-exports.put = (req, res, next) => {
-    let id = req.params.id;
-    res.status(201).send({
-        id: id,
-        item: req.body
-    });
-};
-
-//delete
-exports.delete = (req, res, next) => {
-    res.status(201).send(req.body);
-};
