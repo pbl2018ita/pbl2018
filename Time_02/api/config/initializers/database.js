@@ -2,7 +2,7 @@
 
 var nconf = require('nconf')
 var mongoose = require('mongoose')
-require('../../app/models/leitos') // created model loading here
+require('../../app/models/models') // created model loading here
 
 module.exports = function (cb) {
   'use strict'
