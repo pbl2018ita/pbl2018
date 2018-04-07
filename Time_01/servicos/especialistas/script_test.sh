@@ -13,7 +13,7 @@ curl -X POST https://stagihobd-ts01.herokuapp.com/api/especialistas -H "Content-
 echo "\n\n1. [ Teste 4 - listando todos os especialistas cadastrados ]---------\n\n"
 curl -X GET https://stagihobd-ts01.herokuapp.com/api/especialistas
 
-echo "\n\n5. [ Teste 5 - apagando o especialista com ID = 4 ]------------------\n\n"
+echo "\n\n5. [ Teste 5 - apagando o especialista com ID = 123456 ]------------------\n\n"
 curl -X DELETE https://stagihobd-ts01.herokuapp.com/api/especialistas/123456
 
 echo "\n\n6. [ Teste 6 - listando todos os especialistas cadastrados ]---------\n\n"
