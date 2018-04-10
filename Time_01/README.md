@@ -42,7 +42,7 @@ Foram desenvolvidas 3 US's, sendo elas:
   <b>A US105 (vaga), faz integração com a US106 (ESPECIALISTA), US107 (PLANTONISTAS), ambas descritas acima e US108 (LEITO do TS#02)</b>
 
   <li> uri: https://stagihobd-ts02.herokuapp.com/leitos
-  <li> Comando para chamada do serviço: <code>curl -X GET https://stagihobd-ts02.herokuapp.com/leitos -H "Content-Type: application/json"  -d '{"hospital": "hc", "status":"livre"}'</code>
+  <li> Comando para chamada do serviço: <code>curl -X GET https://stagihobd-ts02.herokuapp.com/leitos?hospital=hc&status=livre</code>
 
 </p>
 
