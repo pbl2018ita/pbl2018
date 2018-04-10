@@ -1,7 +1,5 @@
-# BROKER
+# KAFKA
 
-Serviço
----
 - **kafka**: General Message broker 
 
 **OBS**: Ajuste as variáveis de ambiente (environment) no `docker-compose.yml` conforme sua necessidade
