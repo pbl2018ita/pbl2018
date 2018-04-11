@@ -24,4 +24,7 @@ app.use('/us101', us101Route);
 const mapRoute = require('./routes/map-route');
 app.use('/map', mapRoute);
 
+const kafkaRoute = require('./routes/kafka-route');
+app.use('/kafka', kafkaRoute);
+
 module.exports = app;
