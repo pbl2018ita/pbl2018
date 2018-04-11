@@ -1,0 +1,10 @@
+{
+  "simulation": "computerdatabase.advanced.AdvancedSimulationStep02",
+  "simulationId": "teste_performance_US106",
+  "start": 1523361642953,
+  "description": "Teste de perfoemance do serviço REST da US106 no Heroku",
+  "scenarios": ["Users", "Admins"],
+  "assertions": [
+
+  ]
+}

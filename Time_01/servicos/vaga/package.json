@@ -1,0 +1,19 @@
+{
+  "name": "vaga",
+  "version": "1.0.0",
+  "description": "criacao do microservico hospital-vaga",
+  "main": "vaga.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/pbl2018-hospital-vaga.git"
+  },
+  "author": "Wilson Cristoni Neto",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "request": "^2.85.0"
+  }
+}

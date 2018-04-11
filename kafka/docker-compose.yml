@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - 2181:2181
+    restart: always
+
+  kafka:
+    image: wurstmeister/kafka:latest
+    ports:
+      - 9092:9092
+    restart: always
+    depends_on:
+      - zookeeper
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=192.168.99.100 #PRECISA AJUSTAR O IP 
+      - KAFKA_CREATE_TOPICS=cross:1:1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_LOG_RETENTION_BYTES=-1
+      - KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS=300000
+      - KAFKA_LOG_RETENTION_MS=3600000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

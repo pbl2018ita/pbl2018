@@ -5,11 +5,11 @@ nconf.set('url', 'mywebsite.com')
  DATABSE SETTINGS
 */
 nconf.set('database', {
-  name: 'mongo_test',
-  user: 'test',
-  password: 't3stmongo',
-  server: 'ds229609.mlab.com',
-  port: '29609'
+  name: 'stagihobd-ts02',
+  user: 'ts02',
+  password: 'ieV3iehu',
+  server: 'ds227119.mlab.com',
+  port: '27119'
 })
 
 
