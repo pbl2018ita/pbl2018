@@ -1,5 +1,9 @@
 'use strict';
 
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 const { Kafka } = require('kafkajs')
 const topic = 'teste';
 
@@ -15,9 +19,9 @@ exports.post = (req, res, next) => {
 
     producer.connect()
     producer.send({
-        topic: req.body.topic ,
+        topic: req.body.topic,
         messages: [
-            { key: 'key1', value: req.body.message }
+            { key: 'key1', value: JSON.stringify(req.body.message) }
         ],
     });
 
@@ -28,7 +32,7 @@ exports.post = (req, res, next) => {
 };
 
 exports.get = (req, res, next) => {
-    const consumer = kafka.consumer({ groupId: topic });
+    const consumer = kafka.consumer({ groupId: '' });
 
     consumer.connect();
 
@@ -40,12 +44,12 @@ exports.get = (req, res, next) => {
     //console.log(consumer);
     consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
-          console.log({
-            key: message.key.toString(),
-            value: message.value.toString()
-          })
+            console.log({
+                key: message.key.toString(),
+                value: message.value.toString()
+            })
         },
-      })
+    })
 
     // before you exit your app
     consumer.disconnect();
@@ -53,3 +57,12 @@ exports.get = (req, res, next) => {
     res.status(201).send('OK');
 
 };
+
+
+io.on('connection', function (socket) {
+    console.log('a user connected');
+});
+
+//http.listen(8091, function () {
+//    console.log('listening on *:8091');
+//});
