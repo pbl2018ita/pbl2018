@@ -15,10 +15,9 @@ exports.post = (req, res, next) => {
 
     producer.connect()
     producer.send({
-        topic: topic,
+        topic: req.body.topic ,
         messages: [
-            { key: 'key1', value: 'hello world' },
-            { key: 'key2', value: 'hey hey!' }
+            { key: 'key1', value: req.body.message }
         ],
     });
 
