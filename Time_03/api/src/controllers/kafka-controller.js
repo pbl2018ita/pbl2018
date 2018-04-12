@@ -37,7 +37,7 @@ exports.get = (req, res, next) => {
     consumer.connect();
 
     // Subscribe can be called several times
-    consumer.subscribe({ topic: topic });
+    consumer.subscribe({ topic: topic, fromBeginning: true });
 
     // It's possible to start from the beginning:
     // await consumer.subscribe({ topic: 'topic-name', fromBeginning: true })

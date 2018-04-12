@@ -437,7 +437,7 @@
   </notepads>
   <order>
     <hop>
-      <from>LESAO_ESPECIALIDADE</from>
+      <from>VW_RESULTADO_CONSULTA</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
@@ -457,7 +457,7 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ESPECIALIDADE</from>
+      <from>TBL_SETOR</from>
       <to>Select values 3 3</to>
       <enabled>Y</enabled>
     </hop>
@@ -585,7 +585,7 @@
     </GUI>
   </step>
   <step>
-    <name>ESPECIALIDADE</name>
+    <name>TBL_SETOR</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -619,7 +619,7 @@
     </file>
     <fields>
       <field>
-        <name>LE_ID</name>
+        <name>SE_ID</name>
         <type>Number</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -631,7 +631,7 @@
         <group/>
       </field>
       <field>
-        <name>LE_DESCRICAO</name>
+        <name>SE_DESCRICAO</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -645,7 +645,7 @@
     </fields>
     <sheets>
       <sheet>
-        <name>TBL_ESPECIALIDADE</name>
+        <name>TBL_SETOR</name>
         <startrow>0</startrow>
         <startcol>0</startcol>
       </sheet>
@@ -779,7 +779,7 @@
     </GUI>
   </step>
   <step>
-    <name>LESAO_ESPECIALIDADE</name>
+    <name>VW_RESULTADO_CONSULTA</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -837,7 +837,7 @@
         <group/>
       </field>
       <field>
-        <name>Não Urgente</name>
+        <name>Gravidade</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -849,67 +849,7 @@
         <group/>
       </field>
       <field>
-        <name>Pouco Urgente</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Urgente</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Muito Urgente</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Emergencia</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Fonte:</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Revista Brasileira de Ciências da Saúde</name>
+        <name>Setor</name>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -923,7 +863,7 @@
     </fields>
     <sheets>
       <sheet>
-        <name>VW_LESAO_ESPECIALIDADE</name>
+        <name>VW_RESULTADO_CONSULTA</name>
         <startrow>0</startrow>
         <startcol>0</startcol>
       </sheet>
@@ -960,6 +900,473 @@
     </GUI>
   </step>
   <step>
+    <name>MongoDB Output</name>
+    <type>MongoDbOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <mongo_host>ds127589.mlab.com</mongo_host>
+    <mongo_port>27589</mongo_port>
+    <use_all_replica_members>N</use_all_replica_members>
+    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
+    <mongo_user>ts03</mongo_user>
+    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
+    <auth_mech>MONGODB-CR</auth_mech>
+    <auth_kerberos>N</auth_kerberos>
+    <mongo_db>stagihobd-ts03</mongo_db>
+    <mongo_collection>setor</mongo_collection>
+    <batch_insert_size>100</batch_insert_size>
+    <connect_timeout/>
+    <socket_timeout/>
+    <read_preference>primary</read_preference>
+    <write_concern/>
+    <w_timeout/>
+    <journaled_writes>N</journaled_writes>
+    <truncate>N</truncate>
+    <update>N</update>
+    <upsert>N</upsert>
+    <multi>N</multi>
+    <modifier_update>N</modifier_update>
+    <write_retries>5</write_retries>
+    <write_retry_delay>10</write_retry_delay>
+    <mongo_fields>
+      <mongo_field>
+        <incoming_field_name>SE_ID</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy/>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+      <mongo_field>
+        <incoming_field_name>SE_DESCRICAO</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy/>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+    </mongo_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>MongoDB Output 2</name>
+    <type>MongoDbOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <mongo_host>ds127589.mlab.com</mongo_host>
+    <mongo_port>27589</mongo_port>
+    <use_all_replica_members>N</use_all_replica_members>
+    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
+    <mongo_user>ts03</mongo_user>
+    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
+    <auth_mech>MONGODB-CR</auth_mech>
+    <auth_kerberos>N</auth_kerberos>
+    <mongo_db>stagihobd-ts03</mongo_db>
+    <mongo_collection>resultado_consulta</mongo_collection>
+    <batch_insert_size>100</batch_insert_size>
+    <connect_timeout/>
+    <socket_timeout/>
+    <read_preference>primary</read_preference>
+    <write_concern/>
+    <w_timeout/>
+    <journaled_writes>N</journaled_writes>
+    <truncate>N</truncate>
+    <update>N</update>
+    <upsert>N</upsert>
+    <multi>N</multi>
+    <modifier_update>N</modifier_update>
+    <write_retries>5</write_retries>
+    <write_retry_delay>10</write_retry_delay>
+    <mongo_fields>
+      <mongo_field>
+        <incoming_field_name>tipo_lesao</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy/>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+      <mongo_field>
+        <incoming_field_name>area_corporal</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy/>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+      <mongo_field>
+        <incoming_field_name>Gravidade</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy/>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+      <mongo_field>
+        <incoming_field_name>Setor</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy/>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+    </mongo_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>32</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>MongoDB Output 3</name>
+    <type>MongoDbOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <mongo_host>ds127589.mlab.com</mongo_host>
+    <mongo_port>27589</mongo_port>
+    <use_all_replica_members>N</use_all_replica_members>
+    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
+    <mongo_user>ts03</mongo_user>
+    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
+    <auth_mech>MONGODB-CR</auth_mech>
+    <auth_kerberos>N</auth_kerberos>
+    <mongo_db>stagihobd-ts03</mongo_db>
+    <mongo_collection>manchester</mongo_collection>
+    <batch_insert_size>100</batch_insert_size>
+    <connect_timeout/>
+    <socket_timeout/>
+    <read_preference>primary</read_preference>
+    <write_concern/>
+    <w_timeout/>
+    <journaled_writes>N</journaled_writes>
+    <truncate>N</truncate>
+    <update>N</update>
+    <upsert>N</upsert>
+    <multi>N</multi>
+    <modifier_update>N</modifier_update>
+    <write_retries>5</write_retries>
+    <write_retry_delay>10</write_retry_delay>
+    <mongo_fields>
+      <mongo_field>
+        <incoming_field_name>PM_ID</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy>Insert&amp;Update</modifier_policy>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+      <mongo_field>
+        <incoming_field_name>PM_DESCRICAO</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy>Insert&amp;Update</modifier_policy>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+    </mongo_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>MongoDB Output 4</name>
+    <type>MongoDbOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <mongo_host>ds127589.mlab.com</mongo_host>
+    <mongo_port>27589</mongo_port>
+    <use_all_replica_members>N</use_all_replica_members>
+    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
+    <mongo_user>ts03</mongo_user>
+    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
+    <auth_mech>MONGODB-CR</auth_mech>
+    <auth_kerberos>N</auth_kerberos>
+    <mongo_db>stagihobd-ts03</mongo_db>
+    <mongo_collection>lesao</mongo_collection>
+    <batch_insert_size>100</batch_insert_size>
+    <connect_timeout/>
+    <socket_timeout/>
+    <read_preference>primary</read_preference>
+    <write_concern/>
+    <w_timeout/>
+    <journaled_writes>N</journaled_writes>
+    <truncate>N</truncate>
+    <update>N</update>
+    <upsert>N</upsert>
+    <multi>N</multi>
+    <modifier_update>N</modifier_update>
+    <write_retries>5</write_retries>
+    <write_retry_delay>10</write_retry_delay>
+    <mongo_fields>
+      <mongo_field>
+        <incoming_field_name>LE_ID</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy>Insert&amp;Update</modifier_policy>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+      <mongo_field>
+        <incoming_field_name>LE_DESCRICAO</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy>Insert&amp;Update</modifier_policy>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+    </mongo_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>MongoDB Output 5</name>
+    <type>MongoDbOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <mongo_host>ds127589.mlab.com</mongo_host>
+    <mongo_port>27589</mongo_port>
+    <use_all_replica_members>N</use_all_replica_members>
+    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
+    <mongo_user>ts03</mongo_user>
+    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
+    <auth_mech>MONGODB-CR</auth_mech>
+    <auth_kerberos>N</auth_kerberos>
+    <mongo_db>stagihobd-ts03</mongo_db>
+    <mongo_collection>area_corpo</mongo_collection>
+    <batch_insert_size>100</batch_insert_size>
+    <connect_timeout/>
+    <socket_timeout/>
+    <read_preference>primary</read_preference>
+    <write_concern/>
+    <w_timeout/>
+    <journaled_writes>N</journaled_writes>
+    <truncate>N</truncate>
+    <update>N</update>
+    <upsert>N</upsert>
+    <multi>N</multi>
+    <modifier_update>N</modifier_update>
+    <write_retries>5</write_retries>
+    <write_retry_delay>10</write_retry_delay>
+    <mongo_fields>
+      <mongo_field>
+        <incoming_field_name>AC_ID</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy>Insert&amp;Update</modifier_policy>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+      <mongo_field>
+        <incoming_field_name>AC_DESCRICAO</incoming_field_name>
+        <mongo_doc_path/>
+        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
+        <update_match_field>N</update_match_field>
+        <modifier_update_operation>N/A</modifier_update_operation>
+        <modifier_policy>Insert&amp;Update</modifier_policy>
+        <json_field>N</json_field>
+        <allow_null>N</allow_null>
+      </mongo_field>
+    </mongo_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>PROTOCOLO_MANCHESTER</name>
+    <type>ExcelInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
+    <limit>0</limit>
+    <encoding/>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field/>
+    <accept_stepname/>
+    <file>
+      <name>E:\Projetos\pbl2018\Time_03\Dicionario\Dicionarios.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>PM_ID</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>PM_DESCRICAO</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>TBL_PROTOCOLO_MANCHESTER</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <spreadsheet_type>POI</spreadsheet_type>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>112</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Select values</name>
     <type>SelectValues</type>
     <description/>
@@ -980,24 +1387,12 @@
         <rename>area_corporal</rename>
       </field>
       <field>
-        <name>Não Urgente</name>
-        <rename>pm1</rename>
+        <name>Gravidade</name>
+        <rename/>
       </field>
       <field>
-        <name>Pouco Urgente</name>
-        <rename>pm2</rename>
-      </field>
-      <field>
-        <name>Urgente</name>
-        <rename>pm3</rename>
-      </field>
-      <field>
-        <name>Muito Urgente</name>
-        <rename>pm4</rename>
-      </field>
-      <field>
-        <name>Emergencia</name>
-        <rename>pm5</rename>
+        <name>Setor</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -1211,12 +1606,12 @@
     <fields>
       <select_unspecified>N</select_unspecified>
       <meta>
-        <name>LE_ID</name>
-        <rename>LE_ID</rename>
-        <type>Integer</type>
+        <name>SE_ID</name>
+        <rename>SE_ID</rename>
+        <type>None</type>
         <length>-2</length>
         <precision>-2</precision>
-        <conversion_mask>#</conversion_mask>
+        <conversion_mask/>
         <date_format_lenient>false</date_format_lenient>
         <date_format_locale/>
         <date_format_timezone/>
@@ -1228,8 +1623,8 @@
         <storage_type/>
       </meta>
       <meta>
-        <name>LE_DESCRICAO</name>
-        <rename>LE_DESCRICAO</rename>
+        <name>SE_DESCRICAO</name>
+        <rename>SE_DESCRICAO</rename>
         <type>None</type>
         <length>-2</length>
         <precision>-2</precision>
@@ -1255,503 +1650,6 @@
     <GUI>
       <xloc>304</xloc>
       <yloc>368</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>PROTOCOLO_MANCHESTER</name>
-    <type>ExcelInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <header>Y</header>
-    <noempty>Y</noempty>
-    <stoponempty>N</stoponempty>
-    <filefield/>
-    <sheetfield/>
-    <sheetrownumfield/>
-    <rownumfield/>
-    <sheetfield/>
-    <filefield/>
-    <limit>0</limit>
-    <encoding/>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <accept_filenames>N</accept_filenames>
-    <accept_field/>
-    <accept_stepname/>
-    <file>
-      <name>E:\Projetos\pbl2018\Time_03\Dicionario\Dicionarios.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>PM_ID</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>PM_DESCRICAO</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-    </fields>
-    <sheets>
-      <sheet>
-        <name>TBL_PROTOCOLO_MANCHESTER</name>
-        <startrow>0</startrow>
-        <startcol>0</startcol>
-      </sheet>
-    </sheets>
-    <strict_types>N</strict_types>
-    <error_ignored>N</error_ignored>
-    <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory/>
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory/>
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory/>
-    <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <spreadsheet_type>POI</spreadsheet_type>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>112</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>MongoDB Output</name>
-    <type>MongoDbOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <mongo_host>ds127589.mlab.com</mongo_host>
-    <mongo_port>27589</mongo_port>
-    <use_all_replica_members>N</use_all_replica_members>
-    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
-    <mongo_user>ts03</mongo_user>
-    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
-    <auth_mech>MONGODB-CR</auth_mech>
-    <auth_kerberos>N</auth_kerberos>
-    <mongo_db>stagihobd-ts03</mongo_db>
-    <mongo_collection>Especialidade</mongo_collection>
-    <batch_insert_size>100</batch_insert_size>
-    <connect_timeout/>
-    <socket_timeout/>
-    <read_preference>primary</read_preference>
-    <write_concern/>
-    <w_timeout/>
-    <journaled_writes>N</journaled_writes>
-    <truncate>N</truncate>
-    <update>N</update>
-    <upsert>N</upsert>
-    <multi>N</multi>
-    <modifier_update>N</modifier_update>
-    <write_retries>5</write_retries>
-    <write_retry_delay>10</write_retry_delay>
-    <mongo_fields>
-      <mongo_field>
-        <incoming_field_name>LE_ID</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>LE_DESCRICAO</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-    </mongo_fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>368</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>MongoDB Output 2</name>
-    <type>MongoDbOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <mongo_host>ds127589.mlab.com</mongo_host>
-    <mongo_port>27589</mongo_port>
-    <use_all_replica_members>N</use_all_replica_members>
-    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
-    <mongo_user>ts03</mongo_user>
-    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
-    <auth_mech>MONGODB-CR</auth_mech>
-    <auth_kerberos>N</auth_kerberos>
-    <mongo_db>stagihobd-ts03</mongo_db>
-    <mongo_collection>lesao_especialidade</mongo_collection>
-    <batch_insert_size>100</batch_insert_size>
-    <connect_timeout/>
-    <socket_timeout/>
-    <read_preference>primary</read_preference>
-    <write_concern/>
-    <w_timeout/>
-    <journaled_writes>N</journaled_writes>
-    <truncate>N</truncate>
-    <update>N</update>
-    <upsert>N</upsert>
-    <multi>N</multi>
-    <modifier_update>N</modifier_update>
-    <write_retries>5</write_retries>
-    <write_retry_delay>10</write_retry_delay>
-    <mongo_fields>
-      <mongo_field>
-        <incoming_field_name>tipo_lesao</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>area_corporal</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>pm1</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>pm2</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>pm3</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>pm4</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>pm5</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-    </mongo_fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>560</xloc>
-      <yloc>32</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>MongoDB Output 3</name>
-    <type>MongoDbOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <mongo_host>ds127589.mlab.com</mongo_host>
-    <mongo_port>27589</mongo_port>
-    <use_all_replica_members>N</use_all_replica_members>
-    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
-    <mongo_user>ts03</mongo_user>
-    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
-    <auth_mech>MONGODB-CR</auth_mech>
-    <auth_kerberos>N</auth_kerberos>
-    <mongo_db>stagihobd-ts03</mongo_db>
-    <mongo_collection>manchester</mongo_collection>
-    <batch_insert_size>100</batch_insert_size>
-    <connect_timeout/>
-    <socket_timeout/>
-    <read_preference>primary</read_preference>
-    <write_concern/>
-    <w_timeout/>
-    <journaled_writes>N</journaled_writes>
-    <truncate>N</truncate>
-    <update>N</update>
-    <upsert>N</upsert>
-    <multi>N</multi>
-    <modifier_update>N</modifier_update>
-    <write_retries>5</write_retries>
-    <write_retry_delay>10</write_retry_delay>
-    <mongo_fields>
-      <mongo_field>
-        <incoming_field_name>PM_ID</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>PM_DESCRICAO</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-    </mongo_fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>560</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>MongoDB Output 4</name>
-    <type>MongoDbOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <mongo_host>ds127589.mlab.com</mongo_host>
-    <mongo_port>27589</mongo_port>
-    <use_all_replica_members>N</use_all_replica_members>
-    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
-    <mongo_user>ts03</mongo_user>
-    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
-    <auth_mech>MONGODB-CR</auth_mech>
-    <auth_kerberos>N</auth_kerberos>
-    <mongo_db>stagihobd-ts03</mongo_db>
-    <mongo_collection>lesao</mongo_collection>
-    <batch_insert_size>100</batch_insert_size>
-    <connect_timeout/>
-    <socket_timeout/>
-    <read_preference>primary</read_preference>
-    <write_concern/>
-    <w_timeout/>
-    <journaled_writes>N</journaled_writes>
-    <truncate>N</truncate>
-    <update>N</update>
-    <upsert>N</upsert>
-    <multi>N</multi>
-    <modifier_update>N</modifier_update>
-    <write_retries>5</write_retries>
-    <write_retry_delay>10</write_retry_delay>
-    <mongo_fields>
-      <mongo_field>
-        <incoming_field_name>LE_ID</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>LE_DESCRICAO</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-    </mongo_fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>560</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>MongoDB Output 5</name>
-    <type>MongoDbOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <mongo_host>ds127589.mlab.com</mongo_host>
-    <mongo_port>27589</mongo_port>
-    <use_all_replica_members>N</use_all_replica_members>
-    <mongo_auth_database>stagihobd-ts03</mongo_auth_database>
-    <mongo_user>ts03</mongo_user>
-    <mongo_password>Encrypted 2be98afc86aa7f2e484118871d78bfdcf</mongo_password>
-    <auth_mech>MONGODB-CR</auth_mech>
-    <auth_kerberos>N</auth_kerberos>
-    <mongo_db>stagihobd-ts03</mongo_db>
-    <mongo_collection>area_corpo</mongo_collection>
-    <batch_insert_size>100</batch_insert_size>
-    <connect_timeout/>
-    <socket_timeout/>
-    <read_preference>primary</read_preference>
-    <write_concern/>
-    <w_timeout/>
-    <journaled_writes>N</journaled_writes>
-    <truncate>N</truncate>
-    <update>N</update>
-    <upsert>N</upsert>
-    <multi>N</multi>
-    <modifier_update>N</modifier_update>
-    <write_retries>5</write_retries>
-    <write_retry_delay>10</write_retry_delay>
-    <mongo_fields>
-      <mongo_field>
-        <incoming_field_name>AC_ID</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-      <mongo_field>
-        <incoming_field_name>AC_DESCRICAO</incoming_field_name>
-        <mongo_doc_path/>
-        <use_incoming_field_name_as_mongo_field_name>Y</use_incoming_field_name_as_mongo_field_name>
-        <update_match_field>N</update_match_field>
-        <modifier_update_operation>N/A</modifier_update_operation>
-        <modifier_policy/>
-        <json_field>N</json_field>
-        <allow_null>N</allow_null>
-      </mongo_field>
-    </mongo_fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>560</xloc>
-      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
