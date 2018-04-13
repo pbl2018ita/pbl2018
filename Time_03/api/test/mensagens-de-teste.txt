@@ -89,3 +89,11 @@ curl -X POST -H "Content-Type: application/json" -d '{"topic":"teste","message":
 curl -X POST -H "Content-Type: application/json" -d '{"topic":"teste","message":{"vitima":"X","gravidade":"urgente","lesao":"traumatismo","areacorporal":"cabeca","location":{"lat":37.4224764,"lng":-122.0842499}}}' http://192.168.99.100:3000/cross
 
 =====================
+
+{
+	"origins": ["-23.206827, -45.859720"],
+	"destinations": ["-23.198176, -45.915881", "-23.163200, -45.900261"] 
+}
+
+
+curl -X POST -H "Content-Type: application/json" -d '{	"origins": ["-23.206827, -45.859720"],	"destinations": ["-23.198176, -45.915881", "-23.163200, -45.900261"] }' http://192.168.99.100:3000/map
