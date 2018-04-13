@@ -3,6 +3,7 @@
 const kafka = require('kafka-node');
 const client = new kafka.Client(process.env.ZOOKEEPER || 'stagihobd.hashtagsource.com:2181');
 
+//analisar quais topicos devem existir no sistema. ex: cross, hospital_a, hospital_b, hospital_c
 const topic = process.env.TOPIC || "cross";
 
 const producer = new kafka.HighLevelProducer(client);
