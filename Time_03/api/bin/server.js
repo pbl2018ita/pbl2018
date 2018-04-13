@@ -1,56 +1,72 @@
-'use strict'
+'use strict' //forca o javascript ser mais criterioso, para falhar durante a compilacao
 
 const http = require('http');
-const debug = require('debug')('nodestr:server');
-const app = require('../src/app'); //importando modulo para aplicacao
+const app = require('../src/app'); //nossa app
+const server = http.createServer(app); 
 
-const port = normalizePort(process.env.PORT || 3000); //Define porta da aplicacao
-app.set('port', port);
-const server = http.createServer(app); //Cria server
+//socket.io - precisa melhorar este bloco. acho que nao deve ficar aqui.
+const io = require('socket.io').listen(server);
+const kafka = require('../src/services/KafkaService');
 
+io.sockets.on('connection', function (client) {
+    client.on('toServer', function (message) {
+        kafka.send(JSON.stringify(message));
+    }); 
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+    kafka.consumer.on('message', function (message) {
+        client.emit('toClient', message.value);
 
-console.log('Api rodando na porta ' + port);
+        var setor;
 
+        let ocorrencia = JSON.parse(message.value);
 
-//funcao de normalizacao da porta
-function normalizePort(val){
-    const port = parseInt(val, 10);
-    if (isNaN(port)){  return val;  }
-    if (port>0){return port}
-    return false;
-}
+        //banco de especialidades
+        let bdEspecialidade = [
+            {lesao: "fratura", areacorporal: "cabeca", gravidade: "emergencia", setor: "ortopedia e traumatologia"},
+            {lesao: "escoriacao", areacorporal: "cabeca", gravidade: "nao urgente", setor: "clinica medica"},
+            {lesao: "ferimento", areacorporal: "cabeca", gravidade: "pouco urgente", setor: "clinica medica"},
+            {lesao: "contusao", areacorporal: "cabeca", gravidade: "pouco urgente", setor: "clinica medica"},
+            {lesao: "traumatismo", areacorporal: "cabeca", gravidade: "urgente", setor: "ortopedia e traumatologia"},
+        ];
 
+        //matching de vitima com especialidade
+        for (let i = 0; i < bdEspecialidade.length; i++) {
+            if ((bdEspecialidade[i].lesao == ocorrencia.message.lesao) && (bdEspecialidade[i].areacorporal == ocorrencia.message.areacorporal) && (bdEspecialidade[i].gravidade == ocorrencia.message.gravidade)) {
+                setor = bdEspecialidade[i].setor;
+                client.emit('toClient', "Especialidade requisitada: " + setor);
+            }
+        }
 
-//funcao para tratamento de erro
-function onError(error){
-    if(error.syscall !== 'listen'){
-        throw error;
-    }
+        //banco de leitos do hospital HC
+        let bdHospital = {
+            id: 3,
+            hospital: "HC",
+            location: { lat: 37.434234, lng: -122.23424 },
+            leitos: [
+                {id: 1, setor: "ortopedia e traumatologia"},
+                {id: 2, setor: "clinica medica"}
+            ]
+        };
 
-    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Pipe ' + port;
+        //matching e reserva de leito
+        for (let i = 0; i < bdHospital.leitos.length; i++) {
+            if (bdHospital.leitos[i].setor == setor) {
+                //leito encontrado
+                client.emit('toClient', "Leito encontrado no hospital: " + bdHospital.hospital);
 
-    switch(error.code){
-        case 'EACCES': //erro de permissao
-            console.log(bind + ' require elevated privilages');
-            processs.exit(1);
-            break;
-        case 'EADDRINUSE': //erro de endereco em uso
-            console.log(bind + ' is already in use');
-            processs.exit(1);
-            break;
-        default:
-            throw error;
-    }
+                //reserva de leito
+                var reserva = {
+                    vitima: ocorrencia.message.vitima,
+                    hospital: bdHospital.hospital,
+                    leito: bdHospital.leitos[i].setor
+                };
 
-}
+                //realiza a reserva do leito
+                //kafka.send(JSON.stringify(reserva));
+                client.emit('toClient', "Reserva realizada: " + JSON.stringify(reserva));
+            }
+        }
+    });
+});
 
-//funcao de debug
-function onListening(){
-    const addr = server.address();
-    const bind = typeof addr === 'string' ? 'Pipe ' + addr : 'port ' + addr.port;
-    debug('Listening on ' + bind);
-}
+server.listen(process.env.PORT || 3000);
