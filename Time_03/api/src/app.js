@@ -1,30 +1,33 @@
-'use strict' //forca o javascript ser mais criterioso, para falhar compilacao
+'use strict' 
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
-const app = express(); //Cria aplicacao
-const router = express.Router(); // criar um router
+//cria e configura a aplicacao
+const app = express();
 
-//conecta com o MongoDb
-mongoose.connect('mongodb://ts03:OhFaiy2u@ds127589.mlab.com:27589/stagihobd-ts03');
-
-//poderia configurar outas coisas pelo bodyParser, como tamanho maximo da requisicao
-app.use(bodyParser.json()); //todo conteudo ser convertido para json
+app.use(bodyParser.json()); //todo conteudo deve convertido para json
 app.use(bodyParser.urlencoded({ extended: false })); //para codificar as urls
 
-//Carrega as rotas
-const indexRoute = require('./routes/index-route');
+//precisa melhorar isto aqui
+//app.use(express.static(__dirname + '/views'));
+
+const indexRoute = require('./routes/index-route')(app);
 app.use('/', indexRoute);
 
-const us101Route = require('./routes/us101-route');
-app.use('/us101', us101Route);
+const crossRoute = require('./routes/cross-route')(app);
+app.use('/cross', crossRoute);
 
-const mapRoute = require('./routes/map-route');
-app.use('/map', mapRoute);
+//desativado - verificar
+//const us101Route = require('./routes/us101-route');
+//app.use('/us101', us101Route);
 
-const kafkaRoute = require('./routes/kafka-route');
-app.use('/kafka', kafkaRoute);
+//desativado - verificar
+//const mapRoute = require('./routes/map-route');
+//app.use('/map', mapRoute);
+
+//desativado - verificar
+//const kafkaRoute = require('./routes/kafka-route');
+//app.use('/kafka', kafkaRoute);
 
 module.exports = app;
