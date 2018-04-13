@@ -18,16 +18,8 @@ app.use('/', indexRoute);
 const crossRoute = require('./routes/cross-route')(app);
 app.use('/cross', crossRoute);
 
-//desativado - verificar
-//const us101Route = require('./routes/us101-route');
-//app.use('/us101', us101Route);
 
-//desativado - verificar
-//const mapRoute = require('./routes/map-route');
-//app.use('/map', mapRoute);
-
-//desativado - verificar
-//const kafkaRoute = require('./routes/kafka-route');
-//app.use('/kafka', kafkaRoute);
+const mapRoute = require('./routes/map-route')(app);
+app.use('/map', mapRoute);
 
 module.exports = app;
