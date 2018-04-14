@@ -6,7 +6,7 @@ const router = express.Router();
 
 var route = router.get('/', (req, res, next) => {
     res.status(200).send({
-        title: "Node Store API",
+        title: "STAGIHO-BD",
         version : "0.0.1"
     });
 });

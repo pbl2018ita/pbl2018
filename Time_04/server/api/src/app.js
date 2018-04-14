@@ -17,6 +17,7 @@ const Paciente = require('./models/paciente-model');
 const Acidente = require('./models/acidente-model');
 const Transporte = require('./models/tansporte-model');
 const Hospital = require('./models/hospital-model');
+const Ocorrencia = require('./models/ocorrencia-model');
 
 
 const index = require('./routes/index');
@@ -24,7 +25,7 @@ const pacientes = require('./routes/paciente');
 const acidentes = require('./routes/acidente');
 const transportes = require('./routes/transporte');
 const hospitais = require('./routes/hospital');
-
+const ocorrencia = require('./routes/ocorrencia');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
@@ -36,6 +37,7 @@ app.use('/pacientes', pacientes);
 app.use('/acidentes', acidentes);
 app.use('/transportes', transportes);
 app.use('/hospitais', hospitais);
+app.use('/ocorrencias', ocorrencia);
 
 
 

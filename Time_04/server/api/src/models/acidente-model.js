@@ -41,6 +41,14 @@ const schema = new Schema({
         type: Number,
         required : true,
         index : true
+    },
+    reg_transporte:{
+        type: Number,
+        required : true
+    },
+    tipo_transporte : {
+        type: String,
+        required : true
     }
 });
 

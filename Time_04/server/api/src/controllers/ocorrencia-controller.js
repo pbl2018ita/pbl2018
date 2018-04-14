@@ -1,10 +1,10 @@
 
 'use strict'
 const mongoose = require('mongoose');
-const Paciente = mongoose.model('Paciente');
+const Ocorrencia = mongoose.model('Ocorrencia');
 
 exports.get = (req, res, next) =>{
-    Paciente.find({}).then(data => {
+    Ocorrencia.find({}).then(data => {
         res.status(200).send(data);
     }).catch(e => {
         res.status(400).send({message : 'Erro :', data: e});
@@ -12,8 +12,8 @@ exports.get = (req, res, next) =>{
 };
 
 exports.getById =(req, res, next) =>{
-    const cpf  =  req.params.docto_cpf;
-    Paciente.find({docto_cpf : cpf}).then(data => {
+    const id  =  req.params.id;
+    Ocorrencia.find({id : id}).then(data => {
         res.status(200).send(data);
     }).catch(e => {
         res.status(400).send({message : 'Erro :', data: e});
@@ -21,19 +21,11 @@ exports.getById =(req, res, next) =>{
 };
 
 
-exports.getOcorrencias =(req, res, next) =>{
-    const oco  =  req.params.ocorrencias;
-    Paciente.find({ocorrencia : oco}).then(data => {
-        res.status(200).send(data);
-    }).catch(e => {
-        res.status(400).send({message : 'Erro :', data: e});
-    });
-};
 exports.post =  (req, res, next) =>{
-    var paciente =  new Paciente(req.body);
-    paciente
+    var ocorrencia =  new Ocorrencia(req.body);
+    ocorrencia
     .save().then(x => {
-        res.status(201).send({message : 'Paciente cadastrado com sucesso'});
+        res.status(201).send({message : 'Ocorrência cadastrada com sucesso'});
     }).catch(e => {
         res.status(400).send({message : 'Erro ao efetuar o cadastro ', data: e});
     });

@@ -19,6 +19,15 @@ exports.getById =(req, res, next) =>{
         res.status(400).send({message : 'Erro :', data: e});
     });
 };
+
+exports.getRecursos =(req, res, next) =>{
+    const rec  =  req.params.recursos;
+    Hospital.find({recursos : rec}).then(data => {
+        res.status(200).send(data);
+    }).catch(e => {
+        res.status(400).send({message : 'Erro :', data: e});
+    });
+};
 exports.post =  (req, res, next) =>{
     var hospital =  new Hospital(req.body);
     hospital

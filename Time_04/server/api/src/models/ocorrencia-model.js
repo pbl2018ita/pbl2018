@@ -4,37 +4,32 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    registro:{
+    id:{
         type : Number,
         required: true,
-        unique : true,
-        index : true
+        unique : true
     },
-    nome:{
-        type : String,
+    quantidade_pacientes:{
+        type : Number,
         required : true
     },
-    estado :{
+    data :{
         type : String,
         required: true,
     },
-    cidade: {
+    horario: {
         type : String,
         required : true
     },
-    latitude : {
+    hospital_ref : {
         type: Number,
         required : true
     },
-    longitude : {
-        type: Number,
+    tempo_percurso :{
+        type : String,
         required : true
-    },
-    recursos :{
-        type : Boolean,
-        required :true
     }
 });
 
 
-module.exports = mongoose.model('Hospital', schema);
+module.exports = mongoose.model('Ocorrencia', schema);

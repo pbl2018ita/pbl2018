@@ -19,6 +19,33 @@ exports.getById =(req, res, next) =>{
         res.status(400).send({message : 'Erro :', data: e});
     });
 };
+
+exports.getOcorrencia =(req, res, next) =>{
+    const oco  =  req.params.ocorrencia;
+    Acidente.find({ocorrencia : oco}).then(data => {
+        res.status(200).send(data);
+    }).catch(e => {
+        res.status(400).send({message : 'Erro :', data: e});
+    });
+};
+exports.getTransportes =(req, res, next) =>{
+    const tras  =  req.params.transporte;
+    Acidente.find({reg_transporte : tras}).then(data => {
+        res.status(200).send(data);
+    }).catch(e => {
+        res.status(400).send({message : 'Erro :', data: e});
+    });
+};
+exports.getTransportesTipo =(req, res, next) =>{
+    const tip  =  req.params.transporte_tipo;
+    Acidente.find({tipo_transporte : tip}).then(data => {
+        res.status(200).send(data);
+    }).catch(e => {
+        res.status(400).send({message : 'Erro :', data: e});
+    });
+};
+
+
 exports.post =  (req, res, next) =>{
     var acidente =  new Acidente(req.body);
     acidente

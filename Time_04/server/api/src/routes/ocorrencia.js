@@ -2,12 +2,11 @@
 
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/hospital-controller');
+const controller = require('../controllers/ocorrencia-controller');
 
 
 router.get('/',controller.get);
-router.get('/:registro',controller.getById);
-router.get('/recursos/:recursos',controller.getRecursos);
+router.get('/:id',controller.getById);
 router.post('/',controller.post);
 router.put('/:id',controller.put);
 
