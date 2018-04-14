@@ -5,6 +5,8 @@ var googleMaps = require('@google/maps').createClient({ key: key, Promise: Promi
 
 
 exports.getDateFromGoogleMaps = function (origins, destinations) {
+    //console.log(origins);
+    //console.log(destinations);
     return googleMaps.distanceMatrix({
         origins: origins,
         destinations: destinations,
