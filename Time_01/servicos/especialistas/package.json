@@ -4,11 +4,15 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "main.js"
+    "start": "node main.js",
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
-    "express": "*",
     "body-parser": "*",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "*",
+    "mocha": "^5.0.5",
     "mongoose": "*"
   },
   "author": "",

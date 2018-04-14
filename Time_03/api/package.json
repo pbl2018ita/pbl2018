@@ -12,15 +12,17 @@
   "license": "ISC",
   "dependencies": {
     "//": {
-      "comn1": "Express eh um pacote que prove o MVC",
-      "comn2": "body-parser auxilia a conversao de um corpo de para json, tipo middleware"
+      "comn1": "express eh um pacote que prove o MVC",
+      "comn2": "body-parser auxilia a conversao de um body para json, tipo middleware"
     },
     "@google/maps": "^0.4.6",
     "body-parser": "^1.18.2",
     "debug": "^3.1.0",
     "express": "^4.16.3",
     "http": "0.0.0",
-    "mongoose": "^5.0.12"
+    "kafka-node": "^2.5.0",
+    "mongoose": "^5.0.12",
+    "socket.io": "^2.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"
