@@ -49,7 +49,7 @@ io.sockets.on('connection', function (client) {
             ]
         };
 
-        //../src/services/GoogleMapsService
+        //consumo do API da Google - Matching de localizacao
         var gMaps = require('../src/services/GoogleMapsService');
         var dest = gMaps.getDateFromGoogleMaps([ocorrencia.message.location.lat + ' , ' + ocorrencia.message.location.lng],
             [bdHospital.location.lat + ' , ' + bdHospital.location.lng]);
@@ -57,7 +57,6 @@ io.sockets.on('connection', function (client) {
         dest.asPromise()
             .then((response) => {
                 var g = response.json;
-                console.log(g.rows[0].elements[0].distance.text)
                 client.emit('toClient', "<b>Coordenadas do Hospital:</b> " + g.destination_addresses[0]);
                 client.emit('toClient', "<b>Tempo de Chegada:</b> " + g.rows[0].elements[0].duration.text);
                 client.emit('toClient', "<b>Distancia:</b> " + g.rows[0].elements[0].distance.text);
@@ -65,7 +64,6 @@ io.sockets.on('connection', function (client) {
             .catch((err) => {
                 console.log(err);
             });
-
 
 
         //matching e reserva de leito
