@@ -54,9 +54,12 @@ io.sockets.on('connection', function (client) {
         var dest = gMaps.getDateFromGoogleMaps([ocorrencia.message.location.lat + ' , ' + ocorrencia.message.location.lng],
             [bdHospital.location.lat + ' , ' + bdHospital.location.lng]);
 
+         
         dest.asPromise()
             .then((response) => {
+
                 var g = response.json;
+                client.emit('toClient', "<b>Origem do Acidente:</b> " + g.origin_addresses[0]);
                 client.emit('toClient', "<b>Coordenadas do Hospital:</b> " + g.destination_addresses[0]);
                 client.emit('toClient', "<b>Tempo de Chegada:</b> " + g.rows[0].elements[0].duration.text);
                 client.emit('toClient', "<b>Distancia:</b> " + g.rows[0].elements[0].distance.text);
