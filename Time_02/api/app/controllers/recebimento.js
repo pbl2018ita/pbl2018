@@ -10,7 +10,6 @@ exports.getRecebimento = function (req, res) {
   		"to":"cross"
   	}
 
-    console.log(req.query)
 
     if(Object.keys(req.query).length == 0){
       res.send("Parametros inválidos")
