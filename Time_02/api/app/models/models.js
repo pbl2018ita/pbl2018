@@ -16,7 +16,6 @@ var LeitoSchema = new Schema({
 
 
 var PacienteSchema = new Schema({
-
   patientID: { type: String },
   firstName: { type: String },
   lastName: { type: String },
@@ -28,9 +27,16 @@ var PacienteSchema = new Schema({
   address: Schema.Types.Mixed
 })
 
+
+
+var ReservaSchema = new Schema({
+  id_paciente: { type: String },
+  id_leito: { type: String },
+  data_internacao: { type: Date }
+})
+
+
 module.exports = mongoose.model('Leitos', LeitoSchema)
 module.exports = mongoose.model('Paciente', PacienteSchema)
-
-
-
-                
+module.exports = mongoose.model('Reserva', ReservaSchema)
+          

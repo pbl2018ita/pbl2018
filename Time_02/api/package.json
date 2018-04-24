@@ -4,8 +4,7 @@
   "description": "REST",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -19,12 +18,13 @@
   "homepage": "https://github.com/pbl2018ita/pbl2018#readme",
   "dependencies": {
     "dotenv": "^5.0.1",
+    "ejs": "^2.5.9",
     "express": "^4.16.3",
     "merge-json": "0.1.0-b.3",
     "mongoose": "^5.0.12",
     "morgan": "^1.9.0",
     "nconf": "^0.10.0",
-    "nodemon": "^1.17.3",
+    "tape": "^4.9.0",
     "winston": "^2.4.1"
   }
 }

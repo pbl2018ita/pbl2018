@@ -19,7 +19,12 @@ var start = function (cb) {
   // Configure express
   app = express()
 
+  
+  app.set('views', 'app/views');
+  app.set('view engine', 'ejs')
+
   app.use(morgan('common'))
+
 
   // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: true }))
