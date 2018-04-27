@@ -7,6 +7,8 @@ var Leitos = mongoose.model('Leitos')
 
 exports.getInfos = function (req, res) {
 
+
+
   Leitos.find({}, function(err, leitos) {
       if (err) return res.status(400).send(err)
       if (leitos){
