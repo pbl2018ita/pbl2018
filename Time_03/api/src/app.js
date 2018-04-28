@@ -22,4 +22,9 @@ app.use('/cross', crossRoute);
 const mapRoute = require('./routes/map-route')(app);
 app.use('/map', mapRoute);
 
+
+const schedulerRoute = require('./routes/scheduler-route')(app);
+app.use('/scheduler', schedulerRoute);
+
+
 module.exports = app;
