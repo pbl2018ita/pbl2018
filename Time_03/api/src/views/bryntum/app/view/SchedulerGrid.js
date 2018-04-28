@@ -11,7 +11,7 @@ Ext.define('App.view.SchedulerGrid', {
     userName           : 'John Doe',
     draggingRecord     : null,
     socketHost         : null,
-    rowHeight          : 75,
+    rowHeight          : 50,
     barMargin          : 10,
     eventBarTextField  : 'Name',
     viewPreset         : {
@@ -22,8 +22,12 @@ Ext.define('App.view.SchedulerGrid', {
             increment : 15
         }
     },
+    columns : [
+        { header : 'Nome', width : 120, dataIndex : 'Name', sortable : true },
+        { header : 'Recurso', width : 120, dataIndex : 'Resource', sortable : true },
+    ],
     eventBodyTemplate  : '<div>{Name}</div><div class="blocked-by {[values.Blocked ? \"\" : \"x-hidden\"]}">{BlockedBy}</div>',
-    enableDragCreation : false,
+    enableDragCreation : true,
 
     dragConfig : {
         onBeforeDrag : function(data) {
@@ -36,10 +40,6 @@ Ext.define('App.view.SchedulerGrid', {
             return true;
         }
     },
-
-    columns : [
-        { header : 'Name', width : 120, dataIndex : 'Name', sortable : true }
-    ],
 
     eventRenderer : function(event, resource, tplData) {
         tplData.cls = '';
@@ -101,7 +101,7 @@ Ext.define('App.view.SchedulerGrid', {
         me.on({
             eventdragstart   : me.onDragStart,
             eventdrag        : me.onEventDrag,
-            eventcontextmenu : me.onEventContextMenu,
+            //eventcontextmenu : me.onEventContextMenu,
 
             aftereventdrop : me.onDragEnd,
             scope          : me
@@ -155,24 +155,24 @@ Ext.define('App.view.SchedulerGrid', {
         records[0].unblock();
     },
 
-    onEventContextMenu : function(scheduler, rec, e) {
-        var me = this;
-        e.stopEvent();
-
-        if (!me.gCtx) {
-            me.gCtx = new Ext.menu.Menu({
-                items : [
-                    {
-                        text    : 'Delete event',
-                        iconCls : 'icon-delete',
-                        handler : function() {
-                            me.eventStore.remove(me.gCtx.rec);
-                        }
-                    }
-                ]
-            });
-        }
-        me.gCtx.rec = rec;
-        me.gCtx.showAt(e.getXY());
-    }
+    //onEventContextMenu : function(scheduler, rec, e) {
+    //    var me = this;
+    //    e.stopEvent();
+    //
+    //    if (!me.gCtx) {
+    //        me.gCtx = new Ext.menu.Menu({
+    //            items : [
+    //                {
+    //                    text    : 'Delete event',
+    //                    iconCls : 'icon-delete',
+    //                    handler : function() {
+    //                        me.eventStore.remove(me.gCtx.rec);
+    //                    }
+    //                }
+    //            ]
+    //        });
+    //    }
+    //    me.gCtx.rec = rec;
+    //    me.gCtx.showAt(e.getXY());
+    //}
 }); 

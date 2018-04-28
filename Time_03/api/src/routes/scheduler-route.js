@@ -2,15 +2,14 @@
 
 const express = require('express');
 const router = express.Router();
-
 const controller = require('../controllers/scheduler-controller');
 
-const d__dirname = 'E:/Projetos/pbl2018/Time_03/api/src/views/bryntum';
-
-
 module.exports = function(app) {
+	//para permitir o correto direcionamento entre diretorios
+	var path = require("path");
+
    //envio de conteudo statico (CSS, Image, HTML, JS, etc.)
-	app.use(express.static(d__dirname));
+	app.use(express.static(path.join(__dirname, '/../views/bryntum')));
     
 	router.get('/', controller.get);
 	//router.post('/', controller.post);
