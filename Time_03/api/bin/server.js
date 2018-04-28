@@ -17,6 +17,9 @@ io.sockets.on('connection', function (client) {
         client.emit('toClient', "<hr>");
         client.emit('toClient', message.value);
 
+        var ms = require('../src/services/MongoService');
+        client.emit('toClient', ms.getConsult());
+
         var setor;
 
         let ocorrencia = JSON.parse(message.value);
