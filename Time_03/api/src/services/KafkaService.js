@@ -1,9 +1,15 @@
 'use strict'
 
-const kafka = require('kafka-node');
-const client = new kafka.Client(process.env.ZOOKEEPER || 'stagihobd.hashtagsource.com:2181');
+/*
+ Definido os seguintes topicos:  
+ * cross => Para comunicar um evento de acidente e reserva de vaga
+ * schedule => Para ser usado pelo Scheduler
+*/
 
 module.exports = module = function (topic) {
+    const kafka = require('kafka-node');
+    const client = new kafka.Client(process.env.ZOOKEEPER || 'stagihobd.hashtagsource.com:2181');
+
     //analisar quais topicos devem existir no sistema. ex: cross, hospital_a, hospital_b, hospital_c
     //topic = process.env.TOPIC || "cross";
 

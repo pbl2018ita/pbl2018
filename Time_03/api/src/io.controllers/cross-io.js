@@ -1,6 +1,6 @@
 'use strict';
 
-exports.cross_io = function (io) {
+module.exports = function (io) {
     //DEFINE TOPIC
     const topic = process.env.TOPIC || "cross";
 

@@ -14,7 +14,7 @@ module.exports = function(app) {
 	//router => controller.get1(router, app);
 
 	router.get('/', controller.get);
-	//router.post('/', controller.post);
+	router.post('/', controller.post);
 	//router.put('/:id', controller.put);
 	//router.delete('/', controller.delete);
 	return router;
