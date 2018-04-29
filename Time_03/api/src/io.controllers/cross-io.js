@@ -1,6 +1,10 @@
 'use strict';
 
-exports.cross_io = function (io, kafka) {
+exports.cross_io = function (io) {
+    //DEFINE TOPIC
+    const topic = "cross";
+
+    const kafka = require('../services/KafkaService')(topic);
 
     io.sockets.on('connection', function (client) {
         client.on('toServer', function (message) {
@@ -11,6 +15,7 @@ exports.cross_io = function (io, kafka) {
             client.emit('toClient', "<hr>");
             client.emit('toClient', message.value);
 
+            //teste de consumo do Mongo
             var ms = require('../services/MongoService');
             client.emit('toClient', ms.getConsult());
 
