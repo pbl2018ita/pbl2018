@@ -2,7 +2,7 @@
 
 exports.cross_io = function (io) {
     //DEFINE TOPIC
-    const topic = "cross";
+    const topic = process.env.TOPIC || "cross";
 
     const kafka = require('../services/KafkaService')(topic);
 

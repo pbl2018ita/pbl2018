@@ -1,12 +1,11 @@
 'use strict'
 
-
 const kafka = require('kafka-node');
 const client = new kafka.Client(process.env.ZOOKEEPER || 'stagihobd.hashtagsource.com:2181');
 
 module.exports = module = function (topic) {
     //analisar quais topicos devem existir no sistema. ex: cross, hospital_a, hospital_b, hospital_c
-    topic = process.env.TOPIC || "cross";
+    //topic = process.env.TOPIC || "cross";
 
     const producer = new kafka.HighLevelProducer(client);
     producer.on("ready", function () {
