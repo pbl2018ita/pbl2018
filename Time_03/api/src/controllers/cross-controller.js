@@ -22,10 +22,8 @@ exports.post = (req, res, next) => {
 //get -> enviar informacoes
 exports.get = (req, res, next) => {
     try {
-        //tem como melhorar isto aqui
-        //res.sendFile('../views/cross.index.html')
-        //res.sendFile('E:/Projetos/pbl2018/Time_03/api/src/views/cross.index.html')
-        res.sendFile('/app/src/views/cross.index.html');
+        var path = require("path");
+        res.sendFile(path.join(__dirname, '/../views/cross.index.html'));
     } catch (err) {
         console.error(err);
         
