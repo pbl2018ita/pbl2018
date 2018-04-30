@@ -19,8 +19,9 @@ Ext.application({
 
     // Initialize application
     launch : function() {
-        var vp;
 
+        var vp; //viewport
+         
         if (Ext.versions.touch) {
             vp = Ext.Viewport;
         } else {
@@ -28,7 +29,7 @@ Ext.application({
             vp = new Ext.Viewport(this.viewport);
             Ext.QuickTips.init();
         }
-
+         
         vp.add([
             {
                 xtype: 'scheduler',

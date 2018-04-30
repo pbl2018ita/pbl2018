@@ -1,95 +1,24 @@
-a {
-    color : #00B7FF;
+.sch-event {
+    border: none;
+    color:#000;
+    background:cyan;
 }
 
-div.sch-event {
-    background    : #D7E5F5;
-    border        : none;
-    color         : #1A3E66;
-    white-space   : nowrap;
-    overflow      : visible;
-    border-radius : 4px;
+.sch-event-selected {
+    background-color: rgba(255,100,100,0.5)!important;
+    box-shadow: 1px 1px 1px rgba(100,100,100,0.5)!important;
 }
 
-div.sch-event-done {
-    background : #63A62F;
-    color      : #f4f4f4;
-}
 
-.sch-event-inner {
-    line-height : 1.5em;
-    font-size   : 1.1em;
-}
 
-.sch-event-inner:before {
-    font-family  : FontAwesome;
-    content      : '\f00c';
-    float        : left;
-    margin-right : 5px;
-    margin-left  : 5px;
-    color        : #747474;
-}
 
-div.sch-event-done .sch-event-inner:before {
-    color : #f4f4f4;
+.paciente{
+    border:2px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .8em;
+    padding-left: 2px;
 }
-
-div.sch-event-blocked {
-    opacity : 0.6;
-    z-index : 5;
+.p1{
+    background-color: #a0c409 !important;
 }
-
-.sch-event-blocked .sch-resizable-handle {
-    display : none !important;
-}
-
-.sch-timelinepanel-compact .sch-event-inner {
-    line-height : 15px;
-    height      : 13px;
-}
-
-.sch-event-blocked .sch-event-inner {
-    overflow : visible;
-}
-
-.sch-timelinepanel-compact .blocked-by {
-    display : none;
-}
-
-.sch-schedulerview td.ubergrid-cell {
-    overflow : visible;
-}
-
-.sch-timetd,
-.sch-timetd .x-grid-cell-inner {
-    overflow : visible; /* For the hand cursor icon */
-}
-
-.x-hidden {
-    display : none;
-}
-
-.blocked-by {
-    position     : absolute;
-    color        : darkRed;
-    font-size    : 80%;
-    left         : 20%;
-    top          : 30%;
-    height       : 69px;
-    width        : 100px;
-    padding-left : 48px;
-    padding-top  : 30px;
-}
-
-.blocked-by:before {
-    font-family: FontAwesome;
-    font-size: 300%;
-    content: '\f25a';
-    position: relative;
-    top: -20px;
-}
-
-.icon-delete:before {
-    font-family: FontAwesome;
-    content: '\f1f8';
-}
+.p2{background-color: #f00 !important; color: #fff; }

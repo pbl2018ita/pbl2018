@@ -6,12 +6,13 @@ Ext.define('App.store.mixin.SocketIO', {
     },
 
     initSocket : function () {
-
+ 
         var that   = this;
         var socket = this.getSocket();
 
         socket.on('server-doInitialLoad', function (data) {
             that.onInitialLoad(data);
+    
         });
         socket.on('server-doUpdate', function (data) {
             that.onRemoteUpdate(data);
@@ -150,6 +151,7 @@ Ext.define('App.store.mixin.SocketIO', {
      */
     onInitialLoad : function (data) {
         var d = data.data;
+        console.log(this);
         (this.loadData || this.setData).call(this, d);
     },
 

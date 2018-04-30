@@ -1,17 +1,21 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!--Ext and ux styles -->
-    <link href="lib/classic/theme-triton/resources/theme-triton-all.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/classic/theme-triton/resources/theme-triton-all.css" rel="stylesheet" type="text/css" />
 
     <!--Scheduler styles-->
-    <link href="css/sch-all-triton.css" rel="stylesheet" type="text/css"/>
+    <link href="css/sch-all-triton.css" rel="stylesheet" type="text/css" />
 
     <!--Example styles -->
-    <link href="css/app.css" rel="stylesheet" type="text/css"/>
+    <link href="css/app.css" rel="stylesheet" type="text/css" />
+
+    <!-- MomentJS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
 
     <!-- Socket IO-->
     <script src="/socket.io/socket.io.js"></script>
@@ -37,5 +41,9 @@
     <!--Websockets are handled with <a href="http://socket.io">socket.io</a> library.-->
     <!--Database is in a form of Javascript Arrays generated when server is created. Restarting server-->
     <!--will cause the data to be restored to initial state.-->
+    <hr>
+    <div id="SchedulerPanel"></div>
+    <hr>
 </body>
+
 </html>

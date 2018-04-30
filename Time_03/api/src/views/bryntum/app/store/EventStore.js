@@ -23,6 +23,7 @@ Ext.define('App.store.EventStore', {
     },
 
     constructor : function() {
+        console.log('EventStore Line 26');
         this.callParent(arguments);
         this.initSocket();
     }
