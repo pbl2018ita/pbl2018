@@ -7,9 +7,14 @@
 
     <!--Ext and ux styles -->
     <link href="lib/classic/theme-triton/resources/theme-triton-all.css" rel="stylesheet" type="text/css" />
+    <!--Ext JS includes-->
+    <script src="lib/ext-all.js" crossorigin="anonymous" type="text/javascript"></script>
+    <script src="lib/classic/theme-triton/theme-triton.js" crossorigin="anonymous" type="text/javascript"></script>
+    <!--Scheduler files-->
+    <script src="lib/sch-all.js?ver=5.1.13" type="text/javascript"></script>
 
     <!--Scheduler styles-->
-    <link href="css/sch-all-triton.css" rel="stylesheet" type="text/css" />
+    <link href="css/sch-triton-all.css" rel="stylesheet" type="text/css" />
 
     <!--Example styles -->
     <link href="css/app.css" rel="stylesheet" type="text/css" />
@@ -20,13 +25,6 @@
     <!-- Socket IO-->
     <script src="/socket.io/socket.io.js"></script>
 
-    <!--Ext JS includes-->
-    <script src="lib/ext-all.js" crossorigin="anonymous" type="text/javascript"></script>
-    <script src="lib/classic/theme-triton/theme-triton.js" crossorigin="anonymous" type="text/javascript"></script>
-
-
-    <!--Scheduler files-->
-    <script src="lib/sch-all-debug.js?ver=5.1.13" type="text/javascript"></script>
 
     <!--Application files-->
     <script src="app/app.js" type="text/javascript"></script>
@@ -42,7 +40,7 @@
     <!--Database is in a form of Javascript Arrays generated when server is created. Restarting server-->
     <!--will cause the data to be restored to initial state.-->
     <hr>
-    <div id="SchedulerPanel"></div>
+    <div class="scheduler" id="scheduler-container"></div>
     <hr>
 </body>
 

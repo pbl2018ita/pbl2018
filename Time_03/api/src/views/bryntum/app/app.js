@@ -7,7 +7,7 @@ Ext.Loader.setConfig({
 });
 
 Ext.require([
-    'App.view.SchedulerGrid'
+    'App.SchedulerGrid'
 ]);
 
 Ext.application({
