@@ -1,4 +1,8 @@
 
+.x-panel-header .fa{
+    font-size               : .7em!important;
+}
+
 /*move FontAwesome icon styles to :before pseudo */
 .fa:before {
     display                 : inline-block;
@@ -56,3 +60,19 @@
     background-color: #a0c409 !important ;color: #000; 
 }
 .p2{background-color: #f00 !important; color: #fff; }
+
+/*
+.x-tip{
+    height: 500px!important;
+}*/
+/*Referente ao tooltip*/
+.card .fa-heartbeat {
+    color: #ff8080;
+}
+.card p, .card i {
+    line-height: normal;
+}
+
+.card li {
+    margin-left: 5px
+}

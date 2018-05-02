@@ -11,8 +11,13 @@ Ext.define('App.SchedulerGrid', {
     //height: myHeight,
     //renderTo: "SchedulerPanel",
     allowOverlap: true,
-    //requires: ['App.configHeaderBar'],
-    //requires : ['App.store.EventStore',  'App.store.ResourceStore'],
+    requires: [
+        'App.ext.eventFilter',
+        'App.ext.configHeaderBar',
+        'App.ext.tooltip',
+        'App.store.EventStore',
+        'App.store.ResourceStore'
+    ],
 
     title: 'STAGIHO-BD / Centro Cirúrgico HS',
     startDate: new Date(2018, 0, 11, 8),
@@ -38,75 +43,27 @@ Ext.define('App.SchedulerGrid', {
         { header: 'Recurso', width: 120, dataIndex: 'Resource', sortable: true },
     ],
     /*----------------------------------------------------------------
-configuracao do painel e colunas do painel estatico (esquerdo)          
------------------------------------------------------------------*/
-    resourceStore: {
-        type: 'resourcestore',
-        //sorters : { property  : 'Name', direction : 'ASC'},
-        sortInfo: { field: 'Name', direction: 'ASC' },
+    configuracao do painel e colunas do painel estatico (esquerdo)          
+    -----------------------------------------------------------------*/
 
-        data: [
-            { Id: "r1", Name: 'Dr. João Paulo', Resource: "Médico", FavoriteColor: 'red' },
-            { Id: "r2", Name: 'Dra. Maria', Resource: "Médico", FavoriteColor: 'navy' },
-            { Id: "r3", Name: 'Fernanda', Resource: "Enfermeiro", FavoriteColor: 'black' },
-            { Id: "r4", Name: 'Lurdes', Resource: "Enfermeiro", FavoriteColor: 'green' },
-            { Id: "r5", Name: 'Medicamento', Resource: "Medicamento", FavoriteColor: 'lime' }
-        ]
-    },
     /*---------------------------------------------------------------
     Relativo a rederizacao dos eventos no painel dinamico (direito)
     -----------------------------------------------------------------*/
-    eventRenderer : function (event, resource, tplData) {
-        var cls = 'evt-{0} paciente {1}'
-        tplData.cls = Ext.String.format(cls, event.data.ResourceId, event.get('cls'));
-
-console.log(event);
-console.log(event.get('cls'));
+    eventRenderer: function (event, resource, tplData) {
+        var cls = 'evt-{0} paciente {1} {2}'
+        if (event.get('temperature') > 37) {
+            tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'p2')
+        }
+        else {
+            tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'p1')
+        };
         return event.data;
-    },            
-    eventBodyTemplate: '{Title}',
-
-    eventStore: {
-        type: 'eventstore',
-        //model : 'Sch.examples.configuration.model.MyEventModel', // See definition above
-        data: [
-            {
-                ResourceId: 'r1',
-                PercentDone: 60,
-                StartDate: new Date(2018, 0, 11, 10),
-                EndDate: new Date(2018, 0, 11, 12),
-                Title: "Paciente 1",
-                cls: "p1",
-                //IconCls : "fa fa-user-circle"
-            },
-            {
-                ResourceId: 'r2',
-                PercentDone: 20,
-                StartDate: new Date(2018, 0, 11, 12),
-                EndDate: new Date(2018, 0, 11, 13),
-                Title: "Paciente 1",
-                cls: "p1"
-            },
-            {
-                ResourceId: 'r3',
-                PercentDone: 80,
-                StartDate: new Date(2018, 0, 11, 14),
-                EndDate: new Date(2018, 0, 11, 16),
-                Title: "Paciente 1",
-                cls: "p1",
-                IconCls : "fa fa-users"
-            },
-            {
-                ResourceId: 'r4',
-                PercentDone: 70,
-                StartDate: new Date(2018, 0, 11, 16),
-                EndDate: new Date(2018, 0, 11, 18),
-                Draggable: true,
-                Title: "Paciente 2",
-                cls: "p2"
-            }
-        ]
     },
+    eventBodyTemplate: '{Name}',
+
+
+    //tipCfg: tooltipConfig,
+    //tooltipTpl: tooltipTemplate,
 
 
 
@@ -132,13 +89,13 @@ console.log(event.get('cls'));
                 }
             },
 
-            //resourceStore : new App.store.ResourceStore({ /* Extra configs here */ }),
+            //
 
-            /*
-            eventStore : new App.store.EventStore({
-                socket : socket
+
+            eventStore: new App.store.EventStore({
+                // socket : socket
             }),
-            */
+            resourceStore: new App.store.ResourceStore({ /* Extra configs here */ }),
 
             //header : {
             //    items: [
@@ -152,12 +109,19 @@ console.log(event.get('cls'));
             //        }
             //    ]
             //}
+            /*------------------------------
+            Setup da Barra de Titulo
+            --------------------------------*/
+            header: new App.ext.configHeaderBar(me),
+
+            /*------------------------------
+            configuracao do Tooltip 
+            --------------------------------*/
+            tipCfg: App.ext.tooltip().config,
+            tooltipTpl: new App.ext.tooltip(),
+
         });
 
-        /*------------------------------
-        Setup da Barra de Titulo
-        --------------------------------*/
-        aux.configHeaderBar(me, Ext);
 
         me.callParent(arguments);
 
@@ -246,7 +210,7 @@ console.log(event.get('cls'));
     //    me.gCtx.rec = rec;
     //    me.gCtx.showAt(e.getXY());
     //}
-
+    tbar: []
 });
 
 
@@ -280,73 +244,11 @@ function SchedulerAuxiliary() {
         return true;
     }
 
-    /*------------------------------
-    Setup da Barra de Titulo
-    --------------------------------*/
-    this.configHeaderBar = function (me, Ext) {
-
-        Ext.apply(me, {
-            header: {
-                items: [
-                    {
-                        iconCls: 'fa fa-refresh', // 'icon-prev',
-                        tooltip: 'Reload',
-                        handler: function () {
-                            location.reload();
-                        }
-                    },
-                    {
-                        iconCls: 'fa fa-search-plus', // 'icon-prev',
-                        tooltip: 'Zoom In',
-                        handler: function () {
-                            me.zoomIn()
-                        }
-                    },
-                    {
-                        //xtype  : 'button',
-                        iconCls: 'fa fa-search-minus',
-                        tooltip: 'Zoom Out',
-                        width: null,
-                        handler: function () {
-                            me.zoomOut();
-                        }
-                    },
-                    {
-                        //xtype  : 'button',
-                        iconCls: 'x-fa fa-arrow-left',
-                        handler: function () {
-                            me.shiftPrevious();
-                        }
-                    },
-                    {
-                        //xtype  : 'button',
-                        iconCls: 'x-fa fa-arrow-right',
-                        handler: function () {
-                            me.shiftNext();
-                        }
-                    },
-                    {
-                        xtype: 'button',
-                        iconCls: 'x-fa fa-unlock',
-                        text: 'Unlocked',
-                        enableToggle: true,
-                        handler: function () {
-                            me.setReadOnly(this.pressed);
-                            this.setIconCls(this.pressed ? 'x-fa fa-lock' : 'x-fa fa-unlock');
-                            this.setText(this.pressed ? 'Locked' : 'Unlocked');
-                        }
-                    },
-                    
-                ]
-            }
-        });
-    }
-
 }
 
 
-Ext.onReady(function() {
+Ext.onReady(function () {
     Ext.create('App.SchedulerGrid', {
-        renderTo : 'scheduler-container'
+        renderTo: 'scheduler-container'
     });
 });
