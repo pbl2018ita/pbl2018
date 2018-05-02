@@ -1,4 +1,4 @@
-Ext.define('App.ext.tooltip', {
+Ext.define('app.ext.tooltip', {
     template: null,
     config: {
         cls: 'sch-tip',

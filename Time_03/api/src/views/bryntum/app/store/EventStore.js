@@ -1,4 +1,4 @@
-Ext.define('App.store.EventStore', {
+Ext.define('app.store.EventStore', {
     extend: "Sch.data.EventStore",
 
     /*

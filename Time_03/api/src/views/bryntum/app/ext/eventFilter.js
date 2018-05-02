@@ -1,4 +1,4 @@
-Ext.define('App.ext.eventFilter', {
+Ext.define('app.ext.eventFilter', {
     extend : 'Ext.form.TextField',
     xtype  : 'taskFilterField', 
 

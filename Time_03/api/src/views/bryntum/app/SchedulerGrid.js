@@ -3,7 +3,7 @@ var aux = new SchedulerAuxiliary;
 
 
 /* globals io: true */
-Ext.define('App.SchedulerGrid', {
+Ext.define('app.SchedulerGrid', {
     extend: 'Sch.panel.SchedulerGrid',
     xtype: 'scheduler',
     //readOnly: true,
@@ -12,11 +12,11 @@ Ext.define('App.SchedulerGrid', {
     //renderTo: "SchedulerPanel",
     allowOverlap: true,
     requires: [
-        'App.ext.eventFilter',
-        'App.ext.configHeaderBar',
-        'App.ext.tooltip',
-        'App.store.EventStore',
-        'App.store.ResourceStore'
+        'app.ext.eventFilter',
+        'app.ext.configHeaderBar',
+        'app.ext.tooltip',
+        'app.store.EventStore',
+        'app.store.ResourceStore'
     ],
 
     title: 'STAGIHO-BD / Centro Cirúrgico HS',

@@ -1,8 +1,8 @@
 /*------------------------------
 Setup da Barra de Titulo
 --------------------------------*/
-Ext.define('App.ext.configHeaderBar', {
-    extend: 'App.ext.eventFilter',
+Ext.define('app.ext.configHeaderBar', {
+    extend: 'app.ext.eventFilter',
     me: null,
     constructor: function (me) {
         if (me) {

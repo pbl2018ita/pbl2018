@@ -1,4 +1,4 @@
-Ext.define('App.store.ResourceStore', {
+Ext.define('app.store.ResourceStore', {
     extend: 'Sch.data.ResourceStore',
 
     sortInfo: {
