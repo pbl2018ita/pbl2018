@@ -3,17 +3,17 @@ Ext.define('app.store.EventStore', {
 
     /*
     requires: [
-        'App.model.CustomEvent'
+        'app.model.CustomEvent'
     ],
 
     config: Ext.versions.touch ? {
         socket: null,
-        model: 'App.model.CustomEvent'
+        model: 'app.model.CustomEvent'
     } : null,
 
-    model: 'App.model.CustomEvent',
+    model: 'app.model.CustomEvent',
     mixins: [
-        'App.store.mixin.SocketIO'
+        'app.store.mixin.SocketIO'
     ],
 
     proxy: {

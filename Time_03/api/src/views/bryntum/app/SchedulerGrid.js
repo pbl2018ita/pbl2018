@@ -92,10 +92,10 @@ Ext.define('app.SchedulerGrid', {
             //
 
 
-            eventStore: new App.store.EventStore({
+            eventStore: new app.store.EventStore({
                 // socket : socket
             }),
-            resourceStore: new App.store.ResourceStore({ /* Extra configs here */ }),
+            resourceStore: new app.store.ResourceStore({ /* Extra configs here */ }),
 
             //header : {
             //    items: [
@@ -112,13 +112,13 @@ Ext.define('app.SchedulerGrid', {
             /*------------------------------
             Setup da Barra de Titulo
             --------------------------------*/
-            header: new App.ext.configHeaderBar(me),
+            header: new app.ext.configHeaderBar(me),
 
             /*------------------------------
             configuracao do Tooltip 
             --------------------------------*/
-            tipCfg: App.ext.tooltip().config,
-            tooltipTpl: new App.ext.tooltip(),
+            tipCfg: app.ext.tooltip().config,
+            tooltipTpl: new app.ext.tooltip(),
 
         });
 
