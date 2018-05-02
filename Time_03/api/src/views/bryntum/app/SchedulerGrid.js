@@ -248,7 +248,7 @@ function SchedulerAuxiliary() {
 
 
 Ext.onReady(function () {
-    Ext.create('App.SchedulerGrid', {
+    Ext.create('app.SchedulerGrid', {
         renderTo: 'scheduler-container'
     });
 });

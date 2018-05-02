@@ -11,7 +11,7 @@ Ext.require([
 ]);
 
 Ext.application({
-    name : 'App',
+    name : 'app',
 
     viewport : {
         layout : 'fit'
