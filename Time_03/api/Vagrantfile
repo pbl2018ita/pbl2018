@@ -64,8 +64,17 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-	  sudo apt-get install python
+		apt-get update
+		apt-get -y upgrade
+		curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+		sudo apt-get install -y nodejs
+		sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+		sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+		sudo apt-get update
+		sudo apt-get install -y docker-ce
+		sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+		sudo apt-get install -y build-essential
+		curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
    SHELL
 end
