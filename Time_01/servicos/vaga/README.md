@@ -10,6 +10,6 @@
 
 <p>
   <h3>Comando para chamar o serviço, via bash: </h3>
-  <li>Local: <code>curl -X GET http://localhost:9005/api/vagas</code>
+  <li>Local: <code>curl -X GET http://localhost:3000/api/vagas</code>
   <li>Produção: <code>curl -X GET https://pbl2018-hospital-vaga.herokuapp.com/api/vagas</code>
 </p>
