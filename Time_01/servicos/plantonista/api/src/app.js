@@ -10,9 +10,9 @@ const router = express.Router();
 //conectar ao banco
 
 mongoose.connect('mongodb://ts01:zi7EezaW@ds127129.mlab.com:27129/stagihobd-ts01')
-
 var plantonista        = require('./models/plantonista-model');
-var plantonistaReserva = require('./models/plantonista-reserva-model');
+var plantonistaReserva = require('./models/plantonistaReserva-model');
+
 var index              = require('./routes/index');
 
 var plantonistas       = require('./routes/plantonista');
@@ -24,7 +24,5 @@ app.use(bodyParser.urlencoded({extended : false}));
 app.use('/', index);
 app.use('/plantonista', plantonistas);
 app.use('/plantonista-reserva', plantonistaReservas);
-console.log("app: " + plantonistaReservas);
-
 
 module.exports = app;

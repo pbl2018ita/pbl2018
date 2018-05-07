@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var reservaPlantonistaSchema = new Schema({
+var plantonistaReservaSchema = new Schema({
             crm: { type: Number, required: true},
          status: { type: String, required: true}, // reservado - ocupado - cancelado - finalizado
     id_paciente: { type: String },
@@ -11,4 +11,4 @@ var reservaPlantonistaSchema = new Schema({
 data_internacao: { type: Date }
 })
 
-module.exports = mongoose.model('ReservaPlantonista', reservaPlantonistaSchema)
+module.exports = mongoose.model('plantonistaReserva', plantonistaReservaSchema)

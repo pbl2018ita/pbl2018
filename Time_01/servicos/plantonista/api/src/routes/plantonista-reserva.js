@@ -13,7 +13,7 @@ router.get('/',controller.get);
 router.get('/:codigo',controller.getById);
 router.post('/',controller.post);
 router.put('/confirmar',controller.put);
-router.put('/cancelar',controller.put);
-router.put('/finalizar',controller.put);
+//router.put('/cancelar',controller.put);
+//router.put('/finalizar',controller.put);
 
 module.exports = router;
