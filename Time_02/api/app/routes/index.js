@@ -17,10 +17,14 @@ module.exports = function (app) {
   
   
   //US299b
-  app.post('/reserva', reservaHandlers.newReservas); 
-  app.get('/reserva', reservaHandlers.getReservas); 
-  app.put('/reserva/:id/', reservaHandlers.updateReservas); 
-  app.delete('/reserva/:id/', reservaHandlers.deleteReservas); 
+  app.post('/leito/reserva', reservaHandlers.newReserva); 
+  app.get('/leito/reserva', reservaHandlers.getReservas); 
+  app.put('/leito/reserva/:id/', reservaHandlers.updateReserva); 
+  app.delete('/leito/reserva/:id/', reservaHandlers.deleteReserva); 
+  app.get('/leito/reserva/confirmar/:id/', reservaHandlers.confReserva); 
+
 
   app.get('/view', viewHandlers.getInfos); //US299d
+
+
 }
