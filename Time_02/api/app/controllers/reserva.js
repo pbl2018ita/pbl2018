@@ -34,18 +34,14 @@ var kafka = require('kafka-node'),
 
 
 consumer.on('message', function (message) {
-  mensagem = message.value
-//  console.log(message); 
+  mensagem = message
+  console.log(message); 
 });
 
 consumer.on('error', function (err) {
     console.log('Error:',err);
 })
 
-consumer.on('offsetOutOfRange', function (err) {
-    console.log('offsetOutOfRange:',err);
-})
- 
 
 
 exports.newReserva = function (req, res) {

@@ -35,15 +35,32 @@
             </div>
          </div>
          <div class="row">
-            <% for (ret of result){%>
+            <% for (ret of result.reserva){%>
+            <%if (ret.id_paciente != undefined && ret.id_leito != undefined && ret.id_especialista != undefined && ret.id_plantonista != undefined) { %>
             <div class="col-md-3 p-lg-3 mx-auto">
                <div class="card" style="width: 18rem; text-align: left;">
-                  <div class="card-body">
-                     <p>ID_Paciente: <%= ret.id_paciente %></p>
-                     <p>ID_Leito: <%= ret.id_leito %></p>
-                     <p>ID_Especialista: <%= ret.id_leito %></p>
-                     <p>ID_Plantonista: <%= ret.id_leito %></p>
-                     <p>Data da Internação: <%= ret.data_internacao %></p>
+                  <div class="card-body" style="background-color: #c56262">
+                     <p><b>ID Paciente: </b><%= ret.id_paciente %></p>
+                     <p><b>ID Leito: </b><%= ret.id_leito %></p>
+                     <p><b>ID Especialista: </b><%= ret.id_especialista %></p>
+                     <p><b>ID Plantonista: </b><%= ret.id_plantonista %></p>
+                  </div>
+               </div>
+            </div>
+               <% } %>
+            <% } %>
+         </div>
+         <div class="row">
+            <% for (ret of result.leitos){%>
+            <div class="col-md-3 p-lg-3 mx-auto">
+               <div class="card" style="width: 18rem; text-align: left;">
+                  <div class="card-body" style="background-color: #449651">
+                     <p><b>Hospital: </b><%= ret.hospital %></p>
+                     <p><b>Status: </b><%= ret.status %></p>
+                     <p><b>Andar: </b><%= ret.andar %></p>
+                     <p><b>Setor: </b><%= ret.setor %></p>
+                     <p><b>Ala: </b><%= ret.ala %></p>
+                     <p><b>Tipo: </b><%= ret.tipo %></p>
                   </div>
                </div>
             </div>
