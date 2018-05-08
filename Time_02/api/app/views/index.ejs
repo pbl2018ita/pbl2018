@@ -1,95 +1,59 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
-    <link href="https://getbootstrap.com/docs/4.0/examples/product/product.css" rel="stylesheet">
-
-    <title>Projeto STAGIHO-BD</title>
-  </head>
-  <body>
-    <nav class="site-header sticky-top py-1">
-      <div class="container d-flex flex-column flex-md-row justify-content-between">
-        <a class="py-2" href="#">
-         Projeto STAGIHO-BD
-        </a>
-        <a class="py-2 d-none d-md-inline-block" href="#">Leitos</a>
-        <a class="py-2 d-none d-md-inline-block" href="#">Reseva</a>
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+      <link href="https://getbootstrap.com/docs/4.0/examples/product/product.css" rel="stylesheet">
+      <title>Projeto STAGIHO-BD</title>
+   </head>
+   <body>
+      <nav class="site-header sticky-top py-1">
+         <div class="container d-flex flex-column flex-md-row justify-content-between">
+            <a class="py-2" href="#">
+            Projeto STAGIHO-BD
+            </a>
+            <a class="py-2 d-none d-md-inline-block" href="#">Leitos</a>
+            <a class="py-2 d-none d-md-inline-block" href="#">Reseva</a>
+         </div>
+      </nav>
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
+         <div class="row">
+            <div class="col-md-2 p-lg-2"><label for="select" style="float: right;">Setor: </label></div>
+            <div class="col-md-2 p-lg-2">
+               <select id="setor">
+                  <option value="ortopedia e traumatologia">Ortopedia e Traumatologia</option>
+                  <option value="emergencia">Emergência</option>
+                  <option value="uti">UTI</option>
+               </select>
+            </div>
+            <div class="col-md-1 p-lg-1">    			
+               <button class="btn btn-primary btn-sm" type="" style="margin-left: 25px;">Buscar</button>
+            </div>
+         </div>
+         <div class="row">
+            <% for (ret of result){%>
+            <div class="col-md-3 p-lg-3 mx-auto">
+               <div class="card" style="width: 18rem; text-align: left;">
+                  <div class="card-body">
+                     <p>ID_Paciente: <%= ret.id_paciente %></p>
+                     <p>ID_Leito: <%= ret.id_leito %></p>
+                     <p>ID_Especialista: <%= ret.id_leito %></p>
+                     <p>ID_Plantonista: <%= ret.id_leito %></p>
+                     <p>Data da Internação: <%= ret.data_internacao %></p>
+                  </div>
+               </div>
+            </div>
+            <% } %>
+         </div>
       </div>
-    </nav>
-
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-    	<div class="row">
-	      <div class="col-md-3 p-lg-3 mx-auto">
-	        <div class="card" style="width: 18rem;">
-			  <div class="card-body">
-			    <h5 class="card-title">Card title</h5>
-			    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			    <a href="#" class="card-link">Card link</a>
-			    <a href="#" class="card-link">Another link</a>
-			  </div>
-			</div>
-	      </div>
-	        <div class="col-md-3 p-lg-3 mx-auto">
-	        <div class="card" style="width: 18rem;">
-			  <div class="card-body">
-			    <h5 class="card-title">Card title</h5>
-			    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			    <a href="#" class="card-link">Card link</a>
-			    <a href="#" class="card-link">Another link</a>
-			  </div>
-			</div>
-	      </div>
-	            <div class="col-md-3 p-lg-3 mx-auto">
-	        <div class="card" style="width: 18rem;">
-			  <div class="card-body">
-			    <h5 class="card-title">Card title</h5>
-			    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			    <a href="#" class="card-link">Card link</a>
-			    <a href="#" class="card-link">Another link</a>
-			  </div>
-			</div>
-	      </div>
-	            <div class="col-md-3 p-lg-3 mx-auto">
-	        <div class="card" style="width: 18rem;">
-			  <div class="card-body">
-			    <h5 class="card-title">Card title</h5>
-			    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			    <a href="#" class="card-link">Card link</a>
-			    <a href="#" class="card-link">Another link</a>
-			  </div>
-			</div>
-	      </div>
-	     </div>
-    </div>
-
-
-    <form action="/reserva" method="POST">
-  <input type="text" placeholder="name" name="name">
-  <input type="text" placeholder="quote" name="quote">
-  <button type="submit">Submit</button>
-</form>
-
-<ul class="quotes">
-    <li class="quote">
-      <span><%= result %></span>
-    </li>
-  </ul>
-   
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   </body>
 </html>

@@ -3,7 +3,7 @@
 var mongoose = require('mongoose')
 var Reserva = mongoose.model('Reserva')
 var kafka = require('kafka-node')
-var topico = "robisontest";
+var topico = "cross";
 var payloads;
 var mensagem;
 
@@ -32,9 +32,10 @@ var kafka = require('kafka-node'),
         }
     );
 
+
 consumer.on('message', function (message) {
-    console.log(message);
-    mensagem = message.value
+  mensagem = message.value
+//  console.log(message); 
 });
 
 consumer.on('error', function (err) {
