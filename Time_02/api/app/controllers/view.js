@@ -1,6 +1,5 @@
 'use strict'
 
-const JSON = require('circular-json');
 var mongoose = require('mongoose')
 var Reserva = mongoose.model('Reserva')
 var Leitos = mongoose.model('Leitos')
