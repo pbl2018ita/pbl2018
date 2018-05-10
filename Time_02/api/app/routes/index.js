@@ -14,14 +14,14 @@ module.exports = function (app) {
   app.get('/leitos', leitosHandlers.getLeitos) //US108
   app.get('/vitima', vitimaHandlers.getVitimas); //US109a
   app.get('/recebimento', recebimentoHandlers.getRecebimento) //US109b
-  
-  
+
+
   //US299b
-  app.post('/leito/reserva', reservaHandlers.newReserva); 
-  app.get('/leito/reserva', reservaHandlers.getReservas); 
-  app.put('/leito/reserva/:id/', reservaHandlers.updateReserva); 
-  app.delete('/leito/reserva/:id/', reservaHandlers.deleteReserva); 
-  app.get('/leito/reserva/confirmar/:id/', reservaHandlers.confReserva); 
+  app.post('/leito/reserva', reservaHandlers.newReserva);
+  app.get('/leito/reserva', reservaHandlers.getReservas);
+  app.put('/leito/reserva/:id/', reservaHandlers.updateReserva);
+  app.delete('/leito/reserva/:id/', reservaHandlers.deleteReserva);
+  app.get('/leito/reserva/confirmar/:id/', reservaHandlers.confReserva);
 
 
   app.get('/view', viewHandlers.getInfos); //US299d
