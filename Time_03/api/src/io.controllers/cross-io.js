@@ -1,17 +1,18 @@
 'use strict';
 
-module.exports = function (io) {
+module.exports = module = function (io) {
     //DEFINE TOPIC
     const topic = process.env.TOPIC || "cross";
 
-    const kafka = require('../services/KafkaService')(topic);
+    var ks = require('../services/KafkaService')(topic);
 
     io.sockets.on('connection', function (client) {
         client.on('toServer', function (message) {
-            kafka.send(JSON.stringify(message));
+            ks.send(JSON.stringify(message), topic);
         });
 
-        kafka.consumer.on('message', function (message) {
+
+        ks.consumer.on('message', function (message) {
             client.emit('toClient', "<hr>");
             client.emit('toClient', message.value);
 
@@ -85,10 +86,16 @@ module.exports = function (io) {
                     };
 
                     //realiza a reserva do leito
-                    //kafka.send(JSON.stringify(reserva));
+                    //ks.send(JSON.stringify(reserva));
                     client.emit('toClient', "<b>Reserva realizada:</b> " + JSON.stringify(reserva));
                 }
             }
         });
     });
+
+    module.send =  (data) => {
+        ks.send(data, topic);
+    }
+
+    return module;
 }

@@ -25,11 +25,13 @@ module.exports = module = function (topic) {
     });
 
     //producer
-    module.send = (data) => {
+    module.send = (data, topic) => {
         const payload = [{
             topic: topic,
             messages: data
         }];
+
+        //console.log(payload)
 
         producer.send(payload, function (err, data) {
             if (err) {
@@ -38,9 +40,25 @@ module.exports = module = function (topic) {
         });
     };
 
+    //module.kafkaLib = kafka;
+
     //consumer
     const consumer = new kafka.Consumer(client, [{ topic: topic, fromOffset: -1 }]); //consome sempre o ultimo topico
     module.consumer = consumer;
+
+    module.consume2r = (topic) => {
+        var c = kafka.Consumer(client, [{ topic: topic, fromOffset: -1 }]); //consome sempre o ultimo topico
+        return c;
+    }
+
+    module.myConsumer = (topic) => {
+
+        var c = new kafka.Consumer(client, [{ topic: topic, fromOffset: -1 }]); //consome sempre o ultimo topico
+
+        return c.on('message', function (message) { return client});
+        //console.log(topic)
+        //return  new kafka.Consumer(client, [{ topic: topic, fromOffset: -1 }]); //consome sempre o ultimo topico
+    }
 
     return module;
 

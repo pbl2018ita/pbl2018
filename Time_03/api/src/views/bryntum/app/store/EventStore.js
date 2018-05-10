@@ -25,10 +25,23 @@ Ext.define('app.store.EventStore', {
     */
     constructor: function () {
 
+        var socket = io();
+
+        socket.on('toClientScheduler', function (message) {
+          //var messages = document.getElementById('messages');
+          //messages.innerHTML += message + '<br/>';
+          console.log(message);
+        });
+ 
+        var send = function() {
+          //var message = document.getElementById('message');
+          //socket.emit('toServer', message.value);
+        };
+
         //this.callParent(arguments);
         //this.initSocket();
 
-        console.log(this.data);
+        //console.log(this.data);
         return {
             type: 'eventstore',
             storeId: 'MyPatients',

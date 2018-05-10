@@ -76,3 +76,5 @@
 .card li {
     margin-left: 5px
 }
+
+.verticalLine { border-left: 3px dashed rgba(255, 0, 0, 0.5)!important; z-index:999999  }

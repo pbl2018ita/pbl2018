@@ -1,6 +1,24 @@
 'use strict';
 
-var DB = require('../models/scheduler-model');
+//var DB = require('../models/scheduler-model');
+var io = require('../io.controllers/scheduler-io');
+
+//post -> enviar informacoes
+exports.post = (req, res, next) => {
+    try {
+        io.send(JSON.stringify(req.body));
+
+        res.status(200).send({
+            result: "ok"
+        });
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).send({
+            result: "fail"
+        });
+    }
+};
 
 exports.get = (req, res, next) => {
     try {
@@ -18,21 +36,6 @@ exports.get = (req, res, next) => {
     }
 };
 
-//post -> enviar informacoes
-exports.post = (req, res, next) => {
-    try {
-        kafka.send(JSON.stringify(req.body));
 
-        res.status(200).send({
-            result: "ok"
-        });
-    } catch (err) {
-        console.error(err);
-
-        res.status(500).send({
-            result: "fail"
-        });
-    }
-};
 
 

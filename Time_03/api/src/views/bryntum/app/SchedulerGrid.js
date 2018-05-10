@@ -74,6 +74,14 @@ Ext.define('app.SchedulerGrid', {
     constructor: function () {
         var me = this;
 
+
+        /*----------------------------------------------------------------
+        Relativo as linhas verticais e Zonas Sombreadas
+        ----------------------------------------------------------------*/
+        Ext.define('Line', { extend: 'Ext.data.Model', fields: ['Date', 'Text', 'Cls'] });
+        var lineStore = Ext.create('Ext.data.JsonStore', { model: 'Line', data: [{ Date: new Date(2018, 0, 11, 13, 30), Text: '', Cls: 'verticalLine' }] });
+        plugins = [this.zonePlugin = Ext.create("Sch.plugin.Lines", { store: lineStore })];
+
         //create a WebSocket and connect to the server running at host domain
         //var socket = me.socket = io.connect(me.socketHost);
         //console.log(socket);
@@ -95,7 +103,9 @@ Ext.define('app.SchedulerGrid', {
             eventStore: new app.store.EventStore({
                 // socket : socket
             }),
-            resourceStore: new app.store.ResourceStore({ /* Extra configs here */ }),
+            resourceStore: new app.store.ResourceStore({ 
+                /* Extra configs here */ 
+            }),
 
             //header : {
             //    items: [
@@ -113,6 +123,8 @@ Ext.define('app.SchedulerGrid', {
             Setup da Barra de Titulo
             --------------------------------*/
             header: new app.ext.configHeaderBar(me),
+
+            plugins: plugins,
 
             /*------------------------------
             configuracao do Tooltip 
@@ -134,6 +146,10 @@ Ext.define('app.SchedulerGrid', {
             aftereventdrop: me.onDragEnd,
             scope: me
         });
+
+
+
+
 
         // Uncomment this to see what's happening in the EventStore
         //Ext.util.Observable.capture(me.eventStore, function() { console.log(arguments); });
@@ -210,7 +226,8 @@ Ext.define('app.SchedulerGrid', {
     //    me.gCtx.rec = rec;
     //    me.gCtx.showAt(e.getXY());
     //}
-    tbar: []
+    tbar: [],
+
 });
 
 

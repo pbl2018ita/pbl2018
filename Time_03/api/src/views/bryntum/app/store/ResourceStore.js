@@ -5,32 +5,30 @@ Ext.define('app.store.ResourceStore', {
         field: 'Name',
         direction: "ASC"
     },
-    //proxy: {
-    //    type: 'memory',
-    //    reader: {
-    //        type: 'json'
-    //    }
-    //},
-
-    /*
+  
     constructor: function (config) {
 
         this.callParent(arguments);
 
         this.setData([
-            { Id: "r1", Name: 'Dr. João Paulo', Resource: "Médico", FavoriteColor: 'red' },
-            { Id: "r2", Name: 'Dra. Maria', Resource: "Médico", FavoriteColor: 'navy' },
-            { Id: "r3", Name: 'Fernanda', Resource: "Enfermeiro", FavoriteColor: 'black' },
-            { Id: "r4", Name: 'Lurdes', Resource: "Enfermeiro", FavoriteColor: 'green' },
-            { Id: "r5", Name: 'Medicamento', Resource: "Medicamento", FavoriteColor: 'lime' }
+            { Id: "r1", Name: 'Dr. João Paulo', Resource: "Especialista", FavoriteColor: 'red' },
+            { Id: "r2", Name: 'Dra. Maria', Resource: "Especialista", FavoriteColor: 'navy' },
+            { Id: "r3", Name: 'Dr. Rodney', Resource: "Clinico", FavoriteColor: 'navy' },
+            { Id: "r4", Name: 'Fernanda', Resource: "Enfermeiro", FavoriteColor: 'black' },
+            { Id: "r5", Name: 'Lurdes', Resource: "Enfermeiro", FavoriteColor: 'green' },
+            { Id: "r6", Name: 'Medicamento', Resource: "Medicamento", FavoriteColor: 'lime' }
         ]);
-    },*/
+    },
 
-    data: [
-        { Id: "r1", Name: 'Dr. João Paulo', Resource: "Médico", FavoriteColor: 'red' },
-        { Id: "r2", Name: 'Dra. Maria', Resource: "Médico", FavoriteColor: 'navy' },
-        { Id: "r3", Name: 'Fernanda', Resource: "Enfermeiro", FavoriteColor: 'black' },
-        { Id: "r4", Name: 'Lurdes', Resource: "Enfermeiro", FavoriteColor: 'green' },
-        { Id: "r5", Name: 'Medicamento', Resource: "Medicamento", FavoriteColor: 'lime' }
-    ]
+
+    dat2a: [
+        { Id: "r1", Name: 'Dr. João Paulo', Resource: "Especialista", FavoriteColor: 'red' },
+        { Id: "r2", Name: 'Dra. Maria', Resource: "Especialista", FavoriteColor: 'navy' },
+        { Id: "r3", Name: 'Dr. Rodney', Resource: "Clinico", FavoriteColor: 'navy' },
+        { Id: "r4", Name: 'Fernanda', Resource: "Enfermeiro", FavoriteColor: 'black' },
+        { Id: "r5", Name: 'Lurdes', Resource: "Enfermeiro", FavoriteColor: 'green' },
+        { Id: "r6", Name: 'Medicamento', Resource: "Medicamento", FavoriteColor: 'lime' }
+    ],
+
+
 });
