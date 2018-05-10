@@ -1,29 +1,37 @@
-// fazendo as referencias para rodar a aplicacao
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-
-var urlBase = "http://localhost:9000/api";
-
-// configurando a aplicacao
-var app = express();
-var port = process.env.PORT || 9005;
 var router = express.Router();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+var kafka = require('kafka-node')
+var Producer = kafka.Producer
+var client = new kafka.Client("stagihobd.hashtagsource.com:2181")
+var producer = new Producer(client);
+
+var topico = "cross";
+var topicoOnline = false ;
 
 var vagas;
 var especialista;
 var plantonista;
 
+// Configurando o Kafka
+producer.on('ready', function () {
+    console.log("Producer para VAGA está pronto, no tópico 'cross'");
+    topicoOnline = true;
+});
+
+producer.on('error', function (err) {
+  console.error("Não foi possível iniciar o Producer do Kafka"+err);
+});
+
+// Configurando a view, quando chamando o '/'
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'VAGA | Express' });
+});
+
 function ProcessarPlantonista(callback, res){
-  // var url = "http://localhost:9001/api/plantonista";
-  // https://pbl2018-hospital-plantonista.herokuapp.com
-  //urlBase + "/plantonistas"
-
   var url = "https://pbl2018-hospital-plantonista.herokuapp.com/api/plantonista";
-
   request.get(url, (error, response, body) => {
     var plantonista = JSON.parse(body);
     callback(body, res);
@@ -31,7 +39,6 @@ function ProcessarPlantonista(callback, res){
 }
 
 function retornoProcessar(body, res){
-
   vagas = JSON.parse(body)["hospital"]["leitos"]
   vagas = { "from": "hc",
             "to": "cross",
@@ -50,21 +57,15 @@ function retornoProcessar(body, res){
 
 function retornoProcessarEspecialista(body, res){
   especialista = JSON.parse(body);
-
   if (vagas)
     ProcessarPlantonista(retornoProcessarPlantonista, res);
 }
 
 function ProcessarEspecialista(callback, res){
-
-  // var url = urlBase + "/especialistas"
-  // var url = "http://localhost:9002/api/especialistas/disponivel";
-
   // TODO: criar uma nova aplicação
   // var url = https://pbl2018-hospital-especialista.herokuapp.com
 
   var url = "https://stagihobd-ts01.herokuapp.com/api/especialistas/disponivel"
-
   request.get(url, (error, response, body) => {
       // var especialista = JSON.parse(body);
       callback(body, res);
@@ -73,9 +74,6 @@ function ProcessarEspecialista(callback, res){
 
 function Processar(callback, res){
   var url = "https://stagihobd-ts02.herokuapp.com/leitos?hospital=hc&status=livre"
-  // TODO: Descobrir pq dá erro quando executado local
-  // var url = "http://localhost:9003/leito";
-
   // TODO: Publicar uma nova aplicação
   // var url = "https://stagihobd-hospital-leito.herokuapp.com";
 
@@ -106,7 +104,35 @@ function processarVagas(){
 
 function retornoProcessarPlantonista(body, res){
   plantonista = JSON.parse(body);
-  res.json(processarVagas());
+  processarVagas();
+
+  // TODO: Refatorar
+  if (topicoOnline){
+    try {
+      sendMessageKafka(topico, JSON.stringify(vagas));
+      res.status(200).send({ result: "ok"});
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({result: "fail"});
+    }
+  }
+  else {
+    res.status(500).send({result: "fail - serviço kafka não está online"});
+  }
+
+}
+
+// enviar mensagem ao Kafka
+function sendMessageKafka(topic, msg) {
+    payloads = [ { topic: topic, messages: msg } ];
+
+    if (topicoOnline) {
+      producer.send(payloads, function (err, data) {
+          console.log(data);
+      });
+    } else {
+        console.error("desculpe, topico 'cross' não está pronto, falha ao enviar a mensagem ao Kafka.");
+    }
 }
 
 // VAGA = leito + especialista + plantonista
@@ -115,7 +141,4 @@ router.get('/vagas', function(req, res) {
     ProcessarEspecialista(retornoProcessarEspecialista, res);
 });
 
-app.use('/api', router);
-app.listen(port, function() {
-  console.log('serviço http://localhost:' + port + "/api/vagas iniciado.");
-});
+module.exports = router;

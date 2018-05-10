@@ -1,1 +1,1 @@
-web: node vaga.js
+web: npm start

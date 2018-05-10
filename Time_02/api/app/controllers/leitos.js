@@ -9,25 +9,19 @@ exports.getLeitos = function (req, res) {
   var status = req.query.status
   var identificador = req.query.identificador
 
-  if (req.query.status != "livre"){
-    res.send("Status Inválido")
-  }
-  else{
-
-    var result = {
-        "hospital": {
-          "identificador": identificador,
-          "nome": hospital,
-        }
-    }
-      
-    Leitos.find({hospital:hospital, status:status},{setor:1, andar:1, ala:1,tipo:1}, function(err, leitos) {
-      if (err) return res.status(400).send(err)
-      if (leitos){
-        result["hospital"]["leitos"] = leitos
-        res.send(result)
+  var result = {
+      "hospital": {
+        "identificador": identificador,
+        "nome": hospital,
       }
-      else return res.status(400).json({ message: 'Leito não encontrado' })
-    });  
   }
+      
+  Leitos.find({hospital:hospital, status:status},{setor:1, andar:1, ala:1,tipo:1}, function(err, leitos) {
+    if (err) return res.status(400).send(err)
+    if (leitos){
+      result["hospital"]["leitos"] = leitos
+      res.send(result)
+    }
+    else return res.status(400).json({ message: 'Leito não encontrado' })
+  });
 }

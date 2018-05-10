@@ -20,6 +20,8 @@
     "dotenv": "^5.0.1",
     "ejs": "^2.5.9",
     "express": "^4.16.3",
+    "kafka-node": "^2.6.1",
+    "merge-descriptors": "^1.0.1",
     "merge-json": "0.1.0-b.3",
     "mongoose": "^5.0.12",
     "morgan": "^1.9.0",

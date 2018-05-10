@@ -32,7 +32,10 @@ var PacienteSchema = new Schema({
 var ReservaSchema = new Schema({
   id_paciente: { type: String },
   id_leito: { type: String },
-  data_internacao: { type: Date }
+  id_plantonista: { type: String },
+  id_especialista: { type: String },
+  data_internacao: { type: Date },
+  status: { type: String },
 })
 
 
