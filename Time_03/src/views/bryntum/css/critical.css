@@ -1,0 +1,24 @@
+@keyframes blink {
+    0% { box-shadow: 0 0 15px red; }
+    50% { box-shadow: none; }
+    100% { box-shadow: 0 0 15px red; }
+}
+
+@-webkit-keyframes blink {
+    0% { box-shadow: 0 0 15px red; }
+    50% { box-shadow: 0 0 0; }
+    100% { box-shadow: 0 0 15px red; }
+}
+
+.CriticalPatient {
+    -webkit-animation: blink 1.0s linear infinite;
+    -moz-animation: blink 1.0s linear infinite;
+    -ms-animation: blink 1.0s linear infinite;
+    -o-animation: blink 1.0s linear infinite;
+    animation: blink 1.0s linear infinite;
+}
+
+.NormalPatient { 
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}

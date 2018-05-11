@@ -1,0 +1,9 @@
+time03:
+  build: .
+  ports:
+    - "3000:3000"
+  volumes:
+    - .:/app
+  environment:
+    - MONGODB='mongodb://ts03:OhFaiy2u@ds127589.mlab.com:27589/stagihobd-ts03'
+    - PORT=3000
