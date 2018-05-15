@@ -1,15 +1,18 @@
-var aux = new SchedulerAuxiliary;
 
-
+Ext.onReady(function () {
+    Ext.create('app.SchedulerGrid', {
+        renderTo: 'myContainer' //-> NAO FUNCIONOU AINDA
+    });
+});
 
 /* globals io: true */
 Ext.define('app.SchedulerGrid', {
     extend: 'Sch.panel.SchedulerGrid',
-    xtype: 'scheduler',
+    xtype: 'scheduler-STAGIHO-BD',
+    height     : '100%',
+    width      : '100%',
     //readOnly: true,
-    //width: myWidth,
-    //height: myHeight,
-    //renderTo: "SchedulerPanel",
+    //renderTo: "myContainer", //-> NAO FUNCIONOU AINDA
     allowOverlap: true,
     requires: [
         'app.ext.eventFilter',
@@ -22,7 +25,6 @@ Ext.define('app.SchedulerGrid', {
     title: 'STAGIHO-BD / Centro Cirúrgico HS',
     startDate: new Date(2018, 0, 11, 8),
     endDate: new Date(2018, 4, 11, 20),
-    //userName           : 'John Doe',
     //draggingRecord     : null,
     //socketHost         : null,
     rowHeight: 50,
@@ -51,6 +53,8 @@ Ext.define('app.SchedulerGrid', {
     -----------------------------------------------------------------*/
     eventRenderer: function (event, resource, tplData) {
         var cls = 'evt-{0} paciente {1} {2}'
+
+        //Deixa em vermelho o paciente que tem temperatura acima de 37 C
         if (event.get('temperature') > 37) {
             tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'p2')
         }
@@ -59,21 +63,11 @@ Ext.define('app.SchedulerGrid', {
         };
         return event.data;
     },
+    //Template de exibicao em cada Evento
     eventBodyTemplate: '{Name}',
-
-
-    //tipCfg: tooltipConfig,
-    //tooltipTpl: tooltipTemplate,
-
-
-
-    //dragConfig : aux.onBeforeDrag,
-
-
 
     constructor: function () {
         var me = this;
-
 
         /*----------------------------------------------------------------
         Relativo as linhas verticais e Zonas Sombreadas
@@ -264,8 +258,3 @@ function SchedulerAuxiliary() {
 }
 
 
-Ext.onReady(function () {
-    Ext.create('app.SchedulerGrid', {
-        renderTo: 'scheduler-container'
-    });
-});

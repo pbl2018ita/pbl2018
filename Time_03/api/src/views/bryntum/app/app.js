@@ -1,9 +1,7 @@
 Ext.Loader.setConfig({
-    enabled        : true,
-    disableCaching : true,
-    paths: {
-        //'images': '/scheduler/static/js/testapp',
-    }
+    enabled: true,
+    disableCaching: true,
+    paths: {        /*'images': '/scheduler/static/js/testapp',*/ }
 });
 
 Ext.require([
@@ -11,17 +9,16 @@ Ext.require([
 ]);
 
 Ext.application({
-    name : 'app',
+    name: 'app',
 
-    viewport : {
-        layout : 'fit'
+    viewport: {
+        layout: 'fit'
     },
 
     // Initialize application
-    launch : function() {
-
+    launch: function () {
         var vp; //viewport
-         
+
         if (Ext.versions.touch) {
             vp = Ext.Viewport;
         } else {
@@ -29,10 +26,10 @@ Ext.application({
             vp = new Ext.Viewport(this.viewport);
             Ext.QuickTips.init();
         }
-         
+
         vp.add([
             {
-                xtype: 'scheduler',
+                xtype: 'scheduler-STAGIHO-BD',
                 region: 'center'
             }
         ]);

@@ -25,13 +25,15 @@ Ext.define('app.store.EventStore', {
     */
     constructor: function () {
 
-        var socket = io();
+        //var socket = io();
 
+        /*
         socket.on('toClientScheduler', function (message) {
           //var messages = document.getElementById('messages');
           //messages.innerHTML += message + '<br/>';
           console.log(message);
         });
+        */
  
         var send = function() {
           //var message = document.getElementById('message');
