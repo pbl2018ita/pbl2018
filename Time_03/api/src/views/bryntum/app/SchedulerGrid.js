@@ -1,4 +1,12 @@
-
+/*----------------------------------------------------------------
+                |                                               
+                |                                               
+    Painel      |        Painel Dinamico                        
+    Estatico    |                                               
+                |                                               
+                |                                               
+                |                                               
+-----------------------------------------------------------------*/
 Ext.onReady(function () {
     Ext.create('app.SchedulerGrid', {
         renderTo: 'myContainer' //-> NAO FUNCIONOU AINDA
@@ -9,11 +17,14 @@ Ext.onReady(function () {
 Ext.define('app.SchedulerGrid', {
     extend: 'Sch.panel.SchedulerGrid',
     xtype: 'scheduler-STAGIHO-BD',
-    height     : '100%',
-    width      : '100%',
+    height: '100%',
+    width: '100%',
     //readOnly: true,
     //renderTo: "myContainer", //-> NAO FUNCIONOU AINDA
     allowOverlap: true,
+    /*----------------------------------
+    Instancia bibliotecas externas
+    ------------------------------------*/
     requires: [
         'app.ext.eventFilter',
         'app.ext.configHeaderBar',
@@ -44,9 +55,7 @@ Ext.define('app.SchedulerGrid', {
         { header: 'Nome', width: 120, dataIndex: 'Name', sortable: true },
         { header: 'Recurso', width: 120, dataIndex: 'Resource', sortable: true },
     ],
-    /*----------------------------------------------------------------
-    configuracao do painel e colunas do painel estatico (esquerdo)          
-    -----------------------------------------------------------------*/
+
 
     /*---------------------------------------------------------------
     Relativo a rederizacao dos eventos no painel dinamico (direito)
@@ -71,10 +80,11 @@ Ext.define('app.SchedulerGrid', {
 
         /*----------------------------------------------------------------
         Relativo as linhas verticais e Zonas Sombreadas
+        - Linha do Agora
         ----------------------------------------------------------------*/
         Ext.define('Line', { extend: 'Ext.data.Model', fields: ['Date', 'Text', 'Cls'] });
         var lineStore = Ext.create('Ext.data.JsonStore', { model: 'Line', data: [{ Date: new Date(2018, 0, 11, 13, 30), Text: '', Cls: 'verticalLine' }] });
-        plugins = [this.zonePlugin = Ext.create("Sch.plugin.Lines", { store: lineStore })];
+        plugins = [Ext.create("Sch.plugin.Lines", { store: lineStore })];
 
         //create a WebSocket and connect to the server running at host domain
         //var socket = me.socket = io.connect(me.socketHost);
@@ -91,37 +101,27 @@ Ext.define('app.SchedulerGrid', {
                 }
             },
 
-            //
-
-
             eventStore: new app.store.EventStore({
                 // socket : socket
             }),
-            resourceStore: new app.store.ResourceStore({ 
-                /* Extra configs here */ 
+
+            resourceStore: new app.store.ResourceStore({
+                /* Extra configs here */
             }),
 
-            //header : {
-            //    items: [
-            //        {
-            //            xtype    : 'textfield',
-            //            emptyText: 'Enter username',
-            //            listeners: {
-            //                change: me.onUsernameChange,
-            //                scope : me
-            //            }
-            //        }
-            //    ]
-            //}
             /*------------------------------
             Setup da Barra de Titulo
             --------------------------------*/
             header: new app.ext.configHeaderBar(me),
 
+            /*------------------------------
+            Inclusao de plugins (Linha vertical / area sombreada)
+            --------------------------------*/
             plugins: plugins,
 
             /*------------------------------
             configuracao do Tooltip 
+            (Hover sobre o evento)
             --------------------------------*/
             tipCfg: app.ext.tooltip().config,
             tooltipTpl: new app.ext.tooltip(),
@@ -140,9 +140,6 @@ Ext.define('app.SchedulerGrid', {
             aftereventdrop: me.onDragEnd,
             scope: me
         });
-
-
-
 
 
         // Uncomment this to see what's happening in the EventStore
@@ -200,61 +197,23 @@ Ext.define('app.SchedulerGrid', {
         */
     },
 
-    //onEventContextMenu : function(scheduler, rec, e) {
-    //    var me = this;
-    //    e.stopEvent();
-    //
-    //    if (!me.gCtx) {
-    //        me.gCtx = new Ext.menu.Menu({
-    //            items : [
-    //                {
-    //                    text    : 'Delete event',
-    //                    iconCls : 'icon-delete',
-    //                    handler : function() {
-    //                        me.eventStore.remove(me.gCtx.rec);
-    //                    }
-    //                }
-    //            ]
-    //        });
-    //    }
-    //    me.gCtx.rec = rec;
-    //    me.gCtx.showAt(e.getXY());
-    //}
+    addTask: function (resource) {
+        //var editor = this.normalGrid.findPlugin('myeditor');
+
+        var newTask = this.eventStore.add({
+            ResourceId: resource.getId(),
+            Title: 'New Task',
+            StartDate: this.getStart(),
+            EndDate: Sch.util.Date.add(this.getStart(), Sch.util.Date.HOUR, 3)
+        })[0];
+
+        //editor.showForEvent(newTask);
+    },
+
+
     tbar: [],
 
+
 });
-
-
-
-//Classe auxiliar para simplificar a leitura do programa principal
-function SchedulerAuxiliary() {
-    this.eventRenderer = function (event, resource, tplData) {
-        tplData.cls = '';
-
-        if (event.data.Done) {
-            tplData.cls += ' sch-event-done ';
-        }
-
-        if (event.data.Blocked) {
-            tplData.cls += ' sch-event-blocked ';
-
-            if (event === this.draggingRecord) {
-                tplData.cls += ' x-hidden ';
-            }
-        }
-
-        return event.data;
-    }
-    this.onBeforeDrag = function (data) {
-        for (var i = 0; i < data.draggedRecords.length; i++) {
-            var record = data.draggedRecords[i];
-            if (record.get('Blocked')) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-}
 
 

@@ -1,12 +1,11 @@
 'use strict';
 
-//var DB = require('../models/scheduler-model');
 var io = require('../io.controllers/scheduler-io');
 
 //post -> enviar informacoes
 exports.post = (req, res, next) => {
     try {
-        //io.send(JSON.stringify(req.body));
+        io.send(JSON.stringify(req.body));
 
         res.status(200).send({
             result: "ok"

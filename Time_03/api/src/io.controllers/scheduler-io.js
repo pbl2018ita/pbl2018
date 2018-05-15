@@ -2,19 +2,19 @@
 
 module.exports = module = function (io) {
     const topic = "schedule";
-    var kafka = require('../services/KafkaService')(topic);
+    var ks = require('../services/KafkaService')(topic);
     //var DB = require('../models/scheduler-model')
 
     io.sockets.on('connection', function (socket) {
         //socket.on('toServer', function (message) {
-        //    kafka.send(JSON.stringify(message));
+        //    ks.send(JSON.stringify(message));
         //});
         //
-        //kafka.consumer.on('message', function (message) {
+        //ks.consumer.on('message', function (message) {
         //
         //});
 
-        kafka.consumer.on('message', function (message) {
+        ks.consumer.on('message', function (message) {
             socket.emit('toClientScheduler', "teste");
         });
 
@@ -57,7 +57,7 @@ module.exports = module = function (io) {
     });
 
     module.send =  (data) => {
-        kafka.send(data, topic);
+        ks.send(data, topic);
     }
 
     return module;

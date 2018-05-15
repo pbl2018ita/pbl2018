@@ -73,6 +73,13 @@ Ext.define('app.ext.configHeaderBar', {
                 emptyText: 'Procurar...',
                 store: 'MyPatients',
                 property: 'Name'
+            },
+            {
+                xtype   : 'button',
+                text    : 'Add new task',
+                handler : function () {
+                    me.addTask(me.resourceStore.first());
+                }
             }
         ];
 

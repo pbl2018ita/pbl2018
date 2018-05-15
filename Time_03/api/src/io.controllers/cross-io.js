@@ -3,7 +3,6 @@
 module.exports = module = function (io) {
     //DEFINE TOPIC
     const topic = process.env.TOPIC || "cross";
-
     var ks = require('../services/KafkaService')(topic);
 
     io.sockets.on('connection', function (client) {
@@ -15,6 +14,9 @@ module.exports = module = function (io) {
         ks.consumer.on('message', function (message) {
             client.emit('toClient', "<hr>");
             client.emit('toClient', message.value);
+
+
+            client.emit('toClientScheduler', message.value);
 
             //teste de consumo do Mongo
             var ms = require('../services/MongoService');
@@ -93,7 +95,8 @@ module.exports = module = function (io) {
         });
     });
 
-    module.send =  (data) => {
+    module.send = (data) => {
+        //console.log(data);
         ks.send(data, topic);
     }
 

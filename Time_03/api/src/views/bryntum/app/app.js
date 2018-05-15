@@ -1,7 +1,7 @@
 Ext.Loader.setConfig({
     enabled: true,
     disableCaching: true,
-    paths: {        /*'images': '/scheduler/static/js/testapp',*/ }
+    paths: { /*'images': '/scheduler/static/js/testapp',*/ }
 });
 
 Ext.require([
@@ -10,10 +10,7 @@ Ext.require([
 
 Ext.application({
     name: 'app',
-
-    viewport: {
-        layout: 'fit'
-    },
+    viewport: { layout: 'fit' },
 
     // Initialize application
     launch: function () {
@@ -27,11 +24,9 @@ Ext.application({
             Ext.QuickTips.init();
         }
 
-        vp.add([
-            {
-                xtype: 'scheduler-STAGIHO-BD',
-                region: 'center'
-            }
-        ]);
+        vp.add([{
+            xtype: 'scheduler-STAGIHO-BD',
+            region: 'center'
+        }]);
     }
 });

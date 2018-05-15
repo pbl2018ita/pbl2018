@@ -39,6 +39,7 @@ module.exports = module = function (topic) {
     const consumer = new kafka.Consumer(client, [{ topic: topic, fromOffset: -1 }]); //consome sempre o ultimo topico
     module.consumer = consumer;
 
+    /*
     module.consume2r = (topic) => {
         var c = kafka.Consumer(client, [{ topic: topic, fromOffset: -1 }]); //consome sempre o ultimo topico
         return c;
@@ -52,6 +53,7 @@ module.exports = module = function (topic) {
         //console.log(topic)
         //return  new kafka.Consumer(client, [{ topic: topic, fromOffset: -1 }]); //consome sempre o ultimo topico
     }
+    */
 
     return module;
 
