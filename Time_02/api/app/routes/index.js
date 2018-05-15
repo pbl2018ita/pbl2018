@@ -23,8 +23,9 @@ module.exports = function (app) {
   app.delete('/leito/reserva/:id/', reservaHandlers.deleteReserva);
   app.get('/leito/reserva/confirmar/:id/', reservaHandlers.confReserva);
 
-
-  app.get('/view', viewHandlers.getInfos); //US299d
-
+  app.get('/view/leito', viewHandlers.getReservaView); //US299d
+  app.get('/view/reserva', viewHandlers.getLeitosView); //US299d
+  app.get('/view/especialista', viewHandlers.getEspecialistaView); //US299d
+  app.get('/view/plantonista', viewHandlers.getPlantonistaView); //US299d
 
 }

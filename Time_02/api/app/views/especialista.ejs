@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+      <link href="https://getbootstrap.com/docs/4.0/examples/product/product.css" rel="stylesheet">
+      <title>Projeto STAGIHO-BD</title>
+   </head>
+   <body>
+      <nav class="site-header sticky-top py-1">
+         <div class="container d-flex flex-column flex-md-row justify-content-between">
+            <a class="py-2" href="#">
+            Projeto STAGIHO-BD
+            </a>
+            <a class="py-2 d-none d-md-inline-block" href="/view/leito">Leitos</a>
+            <a class="py-2 d-none d-md-inline-block" href="/view/reserva">Reseva</a>
+            <a class="py-2 d-none d-md-inline-block" href="/view/especialista">Especialista</a>
+            <a class="py-2 d-none d-md-inline-block" href="/view/plantonista">Plantonista</a>
+         </div>
+      </nav>
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center">
+         <!--div class="row">
+            <div class="col-md-2 p-lg-2"><label for="select" style="float: right;margin-top: 15px;">Setor: </label></div>
+            <div class="col-md-4 p-lg-4">
+               <form action="/view" method="get">
+                  <select id="filterOption" name="filterOption" style="float: left;">
+                     <option value="ortopedia e traumatologia">Ortopedia e Traumatologia</option>
+                     <option value="emergencia">Emergência</option>
+                     <option value="uti">UTI</option>
+                  </select>
+                  <button class="btn btn-primary btn-sm" type="submit" value="Submit" style="margin-left: 25px;">Buscar</button>
+               </form>
+            </div>
+         </div-->
+         <h1>Especialistas</h1>
+         <div class="row">
+            <% for (ret of result.especialista){%>
+            <br>
+            <div class="col-md-3 mx-auto" style="margin-top: 25px;">
+               <div class="card" style="width: 18rem; text-align: left;">
+                  <div class="card-body" style="background-color: #e0d6d6; color: #42080d; font-size: 14px;">
+                     <p><b>ID: </b> <br> <%= ret._id %></p>
+                     <p><b>Especialidade: <br> </b><%= ret.especialidade %></p>
+                     <p><b>Status: </b> <br> <%= ret.status %></p><br>
+                  </div>
+               </div>
+            </div>
+            <% } %>
+         </div>
+         <br>
+      </div>
+      <div class="modal fade" id="modal_reserva" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Reserva</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <form>
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Paciente</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">    
+                     </div>
+                     <div class="form-group">
+                        <label for="exampleInputPassword1">Leito</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                     </div>
+                     <div class="form-group">
+                        <label for="exampleInputPassword1">Especialista</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                     </div>
+                     <div class="form-group">
+                        <label for="exampleInputPassword1">Plantonista</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                     </div>
+                     <button type="submit" class="btn btn-primary">Atualizar</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade" id="modal_leito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Leitos</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form>
+                        <div class="form-group">
+                           <label for="exampleInputEmail1">Hospital</label>
+                           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="Hospital das c">    
+                        </div>
+                        <div class="form-group">
+                           <label for="exampleInputPassword1">Status</label>
+                           <select class="form-control">
+                                <option value="livre">Livre</option>
+                                <option value="ocupado">Ocupado</option>
+                                <option value="reservado">Reservado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                           <label for="exampleInputPassword1">Andar</label>
+                           <input type="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="form-group">
+                           <label for="exampleInputPassword1">Setor</label>
+                           <input type="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Ala</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Tipo</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1">
+                        </div>                                               
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   </body>
+</html>
