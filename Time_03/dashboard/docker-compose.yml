@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    restart: always
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: nai6eo3yahNaip3shoh3g
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 80:3000
+    restart: always
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+    depends_on:
+      - mysql
+    environment:
+      GF_SERVER_ROOT_URL: http://stagihobd.hashtagsource.com
+      GF_SECURITY_ADMIN_PASSWORD: tho8doo1aiphuoch6Pi0i
+

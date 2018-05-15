@@ -1,7 +1,7 @@
 // Kafka configuration
 var kafka = require('kafka-node')
 var Producer = kafka.Producer
-var client = new kafka.Client("stagihobd.hashtagsource.com:2181")
+var client = new kafka.Client("stagihobd.hashtagsource.com:2181")  //9092 //2181
 var producer = new Producer(client);
 
 var topico = "cross";
