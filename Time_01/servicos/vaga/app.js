@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/vaga');
+var vagaRouter = require('./routes/vaga');
+var vagaReservarRouter = require('./routes/vaga-reservar');
 
 var app = express();
 
@@ -20,7 +21,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api', usersRouter);
+app.use('/api', vagaRouter);
+app.use('/api', vagaReservarRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
