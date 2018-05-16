@@ -8,6 +8,9 @@ Config Heroku
 
 Criacao do arquivo .buildpack
 
-Ir para a raiz do diretorio e executar o seguinte comando
+Para deploy a partir do subdiretorio do Repositorio GIT... Ir para a raiz do diretorio e executar o seguinte comando
 <li> git subtree push --prefix Time_03/api heroku master
 
+
+Para deploy a partir do clone do repositorio da Heroku:
+<li> git push heroku master 
