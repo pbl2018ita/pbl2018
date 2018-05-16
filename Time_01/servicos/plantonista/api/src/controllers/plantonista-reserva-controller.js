@@ -36,14 +36,16 @@ exports.post =  (req, res, next) =>{
 };
 
 exports.put = (req,res,next) => {
-    PlantonistaReserva.findOneAndUpdate(req.params.codigo,{
+        //PlantonistaReserva.findOneAndUpdate(req.params.codigo,{
+    PlantonistaReserva.findOneAndUpdate({crm: req.params.crm},{
         $set : {
-        crm: req.body.crm,
-        status: req.body.status
-    }
-}).then(data => {
-        res.status(200).send(data);
-    }).catch(e => {
-        res.status(400).send({message : 'Erro :', data: e});
-    });
+            //crm: req.body.crm,
+            status: req.body.status
+        }
+    // }).then(data => res.status(200).send(data) ) 
+    }).then(() => PlantonistaReserva.findOne({crm: req.params.crm})
+                    .then( newStatus =>  res.status(200).send(newStatus) )
+        ).catch(e => {
+            res.status(400).send({message : 'Erro :', data: e});
+        });
 };
