@@ -59,15 +59,22 @@ function httpGet(url, callback) {
 
 exports.getReservaView = function (req, res) {
   var obj = {}
-  obj['leitos'] = leitos_disponiveis
-  res.render('index.ejs', {result: obj})
+  obj['reserva'] = reserva
+  res.render('reserva.ejs', {result: obj})
 }
 
 
 exports.getLeitosView = function (req, res) {
   var obj = {}
-  obj['reserva'] = reserva;
-  res.render('reserva.ejs', {result: obj})
+
+  if (req.query.filterOption) {
+    obj['leitos'] = leitos_disponiveis.filter( x => {
+      return x.setor == req.query.filterOption;
+    })
+  } else {
+    obj['leitos'] = leitos_disponiveis
+  }
+  res.render('index.ejs', {result: obj})
 }
 
 

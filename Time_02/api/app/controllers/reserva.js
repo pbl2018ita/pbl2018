@@ -75,7 +75,13 @@ exports.newReserva = function (req, res) {
 
 
 exports.getReservas = function (req, res) {
-  res.send(mensagem)
+  Reserva.find({}, function(err, reservas) {
+    if (err) {
+      console.error(err);
+    } else {
+      res.send(reservas)
+    }
+  });
 }
 
 exports.updateReserva = function (req, res) {
