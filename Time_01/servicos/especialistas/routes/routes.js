@@ -13,7 +13,21 @@ router.get('/especialistas', function(req, res, next){
 
 //metodo para retornar lista de especialistas disponiveis
 router.get('/especialistas/disponivel', function(req, res, next){
-    Especialista.find({"disponivel" : true}).then(function(especialista){
+    Especialista.find({"status" : "disponivel"}).then(function(especialista){
+        res.send(especialista);
+    });
+});
+
+//metodo para retornar lista de especialistas reservados
+router.get('/especialistas/reservado', function(req, res, next){
+    Especialista.find({"status" : "reservado"}).then(function(especialista){
+        res.send(especialista);
+    });
+});
+
+//metodo para retornar lista de especialistas em atendimento
+router.get('/especialistas/atendimento', function(req, res, next){
+    Especialista.find({"status" : "atendimento"}).then(function(especialista){
         res.send(especialista);
     });
 });
