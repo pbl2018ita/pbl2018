@@ -35,6 +35,75 @@ exports.get = (req, res, next) => {
     }
 };
 
+var mysql = require('mysql');
+
+exports.resource = (req, res, next) => {
+
+    var con = mysql.createConnection({
+        host: "stagihobd.hashtagsource.com",
+        user: "root",
+        password: "nai6eo3yahNaip3shoh3g",
+        database: "stagihobd"
+    });
+
+    con.connect(function (err) {
+        if (err) throw err;
+
+        var sql = `SELECT
+        CONCAT('r', PLA_Id) Id
+                    , PLA_Name Name
+                    , PLA_Resource Resource
+                    , PLA_FavoriteColor FavoriteColor
+                    , HOS_Id
+                    FROM TBL_PLANTONISTA`;
+
+        con.query(sql, function (err, result, fields) {
+            if (err) throw err;
+
+            //res.status(200).send(JSON.stringify(result));
+            res.status(200).send(result);
+
+        });
+
+    });
+    //con.end();
+
+
+}
+
+
+
+exports.reservas = (req, res, next) => {
+    var con = mysql.createConnection({
+        host: "stagihobd.hashtagsource.com",
+        user: "root",
+        password: "nai6eo3yahNaip3shoh3g",
+        database: "stagihobd"
+    });
+
+    con.connect(function (err) {
+        if (err) throw err;
+
+        var sql = `SELECT
+        RES_Id
+      , RES_StartDate
+      , RES_EndDate
+      , PAC_Id
+      , LEI_Id
+      FROM TBL_RESERVA
+      `;
+
+        con.query(sql, function (err, result, fields) {
+            if (err) throw err;
+
+            //res.status(200).send(JSON.stringify(result));
+            res.status(200).send(result);
+
+        });
+
+    });
+
+}
 
 
 

@@ -19,6 +19,7 @@
     "http": "0.0.0",
     "kafka-node": "^2.6.1",
     "mongoose": "^5.0.16",
+    "mysql": "^2.15.0",
     "socket.io": "^2.1.0"
   },
   "devDependencies": {

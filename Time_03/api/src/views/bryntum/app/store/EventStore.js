@@ -1,21 +1,13 @@
 Ext.define('app.store.EventStore', {
-    extend: "Sch.data.EventStore",
+    extend: "Sch.data.EventStore",  
+ 
+    
+    mixins: [
+        //'app.store.SocketIO'
+    ],
+    
 
     /*
-    requires: [
-        'app.model.CustomEvent'
-    ],
-
-    config: Ext.versions.touch ? {
-        socket: null,
-        model: 'app.model.CustomEvent'
-    } : null,
-
-    model: 'app.model.CustomEvent',
-    mixins: [
-        'app.store.mixin.SocketIO'
-    ],
-
     proxy: {
         type: 'memory',
         reader: {
@@ -23,8 +15,23 @@ Ext.define('app.store.EventStore', {
         }
     },
     */
+    
+    /*
+     proxy: {
+        type: 'ajax',
+        Url: 'http://localhost:3000/scheduler/reservas',
+        reader: {
+            type: 'json',
+            //rootProperty: 'data'
+        }
+    },
+    */
+    
     constructor: function () {
+        this.callParent(arguments);
+        //this.initSocket();
 
+        /*
         var socket = io();
 
         socket.on('toClientScheduler', function (message) {
@@ -38,6 +45,7 @@ Ext.define('app.store.EventStore', {
           //var message = document.getElementById('message');
           //socket.emit('toServer', message.value);
         };
+        */
 
         //this.callParent(arguments);
         //this.initSocket();

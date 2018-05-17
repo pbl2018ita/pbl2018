@@ -77,6 +77,8 @@ Ext.define('app.SchedulerGrid', {
 
     constructor: function () {
         var me = this;
+        //create a WebSocket and connect to the server running at host domain
+        var socket = me.socket = io.connect(me.socketHost);
 
         /*----------------------------------------------------------------
         Relativo as linhas verticais e Zonas Sombreadas
@@ -102,10 +104,11 @@ Ext.define('app.SchedulerGrid', {
             },
 
             eventStore: new app.store.EventStore({
-                // socket : socket
+                 socket : socket
             }),
 
             resourceStore: new app.store.ResourceStore({
+                //socket : socket
                 /* Extra configs here */
             }),
 
