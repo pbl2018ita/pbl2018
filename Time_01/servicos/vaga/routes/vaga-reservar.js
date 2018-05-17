@@ -37,7 +37,7 @@ function retornarStatus(res, statusCode){
 
   console.log("[ok] - retornarStatus -> statusCode: "+statusCode);
 
-  if (statusCode == 200)
+  if (statusCode == 200 || statusCode == 201)
     res.status(200).send({ result: "Reserva Efetuada com Sucesso"});
 
   if (statusCode == 500)
@@ -70,7 +70,7 @@ function ProcessarReservaLeito(res, dados){
 function ProcessarReservaPlantonista(res, dados){
   //TODO: Informar a URI correta de PLANTONISTA (US-299c)
   var options = {
-    uri   : 'https://stagihobd-test-ts02.herokuapp.com/leito/reserva',
+    uri   : 'https://pbl2018-hospital-plantonista.herokuapp.com/plantonista-reserva',
     method: 'POST',
     json  :  dados
   };
@@ -78,7 +78,7 @@ function ProcessarReservaPlantonista(res, dados){
   ctrlPlantonista = 0;
 
   request(options, (error, response, body) => {
-    if (!error && response.statusCode == 200) {
+    if (!error && (response.statusCode == 200 || response.statusCode == 201)) {
       sendMessageKafka(topico, JSON.stringify(options));
       console.log("[ok] - ProcessarReservaPlantonista");
       ctrlPlantonista = 1;
@@ -90,7 +90,15 @@ function ProcessarReservaPlantonista(res, dados){
 };
 
 function ProcessarReservaEspecialista(res, dados){
+
+  ctrlEspecialista = 1;
+  if (ctrlPlantonista == 1 && ctrlLeito == 1)
+    retornarStatus(res, 200);
+
+  /*
   //TODO: Informar a URI correta de ESPECIALISTA (US-203)
+  // Ao ser criado o microserviço, precisamos apenas informar a URI e descomentar
+
   var options = {
     uri   : 'https://stagihobd-test-ts02.herokuapp.com/leito/reserva',
     method: 'POST',
@@ -108,7 +116,7 @@ function ProcessarReservaEspecialista(res, dados){
 
     if (ctrlPlantonista == 1 && ctrlLeito == 1)
       retornarStatus(res, response.statusCode);
-  });
+  });*/
 };
 
 // enviar mensagem ao Kafka
@@ -127,6 +135,8 @@ function sendMessageKafka(topic, msg) {
 // VAGA = leito + especialista + plantonista
 router.post('/vagas-reservar', function(req, res) {
   reservaData = {
+      "crm"             : req.body.crm,
+      "status"          : req.body.status,
       "id_reserva"      : req.body.id_reserva,
       "id_leito"        : req.body.id_leito,
       "id_paciente"     : req.body.id_paciente,
@@ -135,8 +145,10 @@ router.post('/vagas-reservar', function(req, res) {
       "data_internacao" : req.body.data_internacao
   };
   ProcessarReservaLeito(res, reservaData);
-  ProcessarReservaEspecialista(res, reservaData);
   ProcessarReservaPlantonista(res, reservaData);
+
+  // TODO: Implementar o backend de Especialista, que na US203 foi acessado diretamente o DB
+  ProcessarReservaEspecialista(res, reservaData);
 });
 
 module.exports = router;

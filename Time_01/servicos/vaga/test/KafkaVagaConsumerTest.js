@@ -3,8 +3,8 @@ var Consumer = kafka.Consumer,
 
 client = new kafka.Client("stagihobd.hashtagsource.com:2181"), //9092 //2181
 consumer = new Consumer(
-    client, [ { topic: 'cross' } ], { autoCommit: false });
-    //client, [ { topic: 'cross', partition: 0 } ], { autoCommit: false });
+    client, [ { topic: 'cross' } ], { autoCommit: true });
+    //client, [ { topic: 'cross', partition: 0 } ], { autoCommit: true });
 
     console.log("tentando conexão...");
 
