@@ -54,7 +54,7 @@ Ext.define('app.store.EventStore', {
         return {
             type: 'eventstore',
             storeId: 'MyPatients',
-            data: [
+            da1ta: [
                 {
                     ResourceId: 'r1',
                     PatientId: 'p1',
