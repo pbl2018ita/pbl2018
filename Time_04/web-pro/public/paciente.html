@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--Bootstra pede essa linha-->
+
+  <title>Localização Paciente</title>
+
+    <link rel="stylesheet" type="text/css" href="css/ol.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/ol.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+</head>
+<body>
+ <!-- border: 1px solid black; -->
+<style>
+ 
+ tr, td {
+ 
+  width: 155px;
+  height: 35px;
+  
+}
+
+.mapa_01{
+position: absolute;
+float: left;
+z-index: 1;
+}
+
+.tabela{
+  position: relative;
+  float: left;
+z-index: 2;
+}
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="medico.html">Médico</a>
+    </div>
+  </div>
+</nav>
+
+<form class="form">
+
+<b><h1>Pesquisar Paciente por:</h1></b>
+    <form>
+        <div class="row">
+          <div class="col-4">
+            Nome:</br>
+            <input type="text" class="form-control" name="nome" id="paciente_name" placeholder="Digite aqui o nome do Paciente"  maxlength="40"><br>
+          </div>
+
+          <div class="col-4">
+            Nº do Cartão do SUS:</br>
+            <input type="number" class="form-control"  name="register" id="sus_paciente" placeholder="Digite aqui o Cartão do SUS" maxlength="10">
+          </div>
+
+
+          
+        </div>
+
+       
+       <!-- <div class="col-md-4 col-sm-2">
+          <a  href="#" class="btn" id="btnSearch" onclick="iniciarIndicadores();">Pesquisar</button>
+        </div> -->
+
+      </form>
+      <p style="margin-top:2%;margin-left:5%">
+        <a class="btn btn-primary" id="pesquisar" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="iniciarIndicadores();">
+          Pesquisar
+        </a>
+       
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <h4 id="alerta"></h4>
+          <button class="btn white" type="button"  onclick="Close()">
+              close
+            </button>
+        </div>
+        
+      </div>
+
+
+
+<div>
+  <div class="mapa_01">
+    <img src="img/bluep-01.jpg"/>
+  </div>
+  <div class="tabela">
+   <table >
+      <tbody id="grid">
+
+
+          <tbody id="gridTime">
+
+          </tbody>
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>
+<script>
+var linhas =  10;
+var colunas =  10;
+
+function iniciarIndicadores(){
+  var m = 0;
+
+document.getElementById("pesquisar").style.visibility = "hidden";
+ var paciente =  document.getElementById('paciente_name').value;
+ var sus = document.getElementById('sus_paciente').value;
+
+ if(paciente == ''){
+   alert('Digite o nome do Paciente!');
+   location.reload();
+ }else if( sus == ''){
+  alert('Digite o número de identificação SUS!');
+  location.reload();
+ }else{
+
+  for(var i=1; i< linhas; i++){
+    //Essa linha é vertical
+    
+    document.getElementById('grid').innerHTML += "<tr id = "+i+"></tr>";
+    for(var j = 1; j<colunas; j++){
+      //Essa linha é horizontal
+      m =  m + 10//pq do m?
+      document.getElementById(i).innerHTML += "<td id="+m+"></td>";
+    }
+  
+  }
+  gerarMedico();
+ }
+}
+
+function gerarMedico(){
+  var medico  =    Math.floor(Math.random() * 80) * 10;
+  //medico  =  medico + ((medico - 10)*(-1))
+  //document.getElementById(this.medico).style.backgroundColor = red;
+  //alert(medico);
+  //document.getElementById(medico).innerHTML =  "MÈDICO";
+ // document.getElementById(medico).style.backgroundColor =  "blue";
+ document.getElementById(medico).style.backgroundRepeat = "no-repeat";
+  document.getElementById(medico).style.backgroundImage = "url('img/doctor2.2.png')";
+  gerarAtendimento(medico);
+   
+}
+
+function gerarAtendimento(x){
+  var atendimento  =    Math.floor(Math.random() * 80) * 10;
+  if(atendimento == x){
+    atendimento  =    Math.floor(Math.random() * 80) * 10;
+    document.getElementById(atendimento+20).style.backgroundRepeat = "no-repeat";
+    document.getElementById(atendimento+20).style.backgroundImage = "url('img/flag.png')";
+  }else{
+    document.getElementById(atendimento+20).style.backgroundRepeat = "no-repeat";
+    document.getElementById(atendimento+20).style.backgroundImage = "url('img/flag.png')";
+  }
+  timeGerado(x,atendimento);
+}
+function Close(){
+
+location.reload();
+
+}
+
+
+function timeGerado(x, y)
+ {
+
+ var paciente =  document.getElementById('paciente_name').value;
+ var sus = document.getElementById('sus_paciente').value;
+
+  /*var time;
+
+
+    if (x > y) {
+
+      time = (((x - y)/10)*3)*0.6;
+     
+
+     }else{
+       time = (((y - x)/10)*3)*0.6;
+     }
+
+
+     time = time.toString();
+
+      var h= time;
+      if(time.length == 3){ 
+        h  =  time.substr(0,1) + ' min ' + time.substr(1,time.lenth);
+       }
+*/
+var data  = new Date();
+  
+
+  m = Math.floor(Math.random() * 3);
+  s = data.getSeconds();
+  document.getElementById("alerta").innerHTML= "<h5><b>"+"TEMPO:"+"</b></br></h5>"+m+' min '+s+' segundos para o paciente: '+paciente+' - SUS: '+sus+' '+'  chegar ao local do exame.';
+
+ }
+
+
+
+
+
+
+
+
+</script>
+
+
+
+<!--
+
+-->
+
+
+<!-- Optional JavaScript
+https://pt.stackoverflow.com/questions/285773/desenhar-um-ponto-em-uma-imagem-com-base-em-suas-coordenadas-ao-clicar-sobre-ela
+https://www.youtube.com/watch?v=ZbpiLwUrh38
+https://www.w3schools.com/tags/canvas_drawimage.asp
+https://www.w3schools.com/tags/ref_canvas.asp
+https://www.youtube.com/watch?v=Lxsv4mYHXWQ
+https://www.youtube.com/watch?v=LBD-wD39UOc
+
+
+
+-->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+ </body>
+</html>

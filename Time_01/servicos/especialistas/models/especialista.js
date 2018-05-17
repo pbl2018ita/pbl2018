@@ -10,9 +10,9 @@ var EspecialistaSchema = new Schema({
     especialidade:{
         type: String
     },
-    disponivel:{
-        type: Boolean,
-        deafult: false
+    status:{
+        type: String,
+        deafult: "indisponivel"
     }
 });
 
