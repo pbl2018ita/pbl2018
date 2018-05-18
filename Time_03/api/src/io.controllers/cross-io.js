@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = module = function (io) {
+module.exports = module = function (io) { 
     //DEFINE TOPIC
     const topic = process.env.TOPIC || "cross";
     var ks = require('../services/KafkaService')(topic);
@@ -11,7 +11,9 @@ module.exports = module = function (io) {
         });
 
 
+        //console.log(ks);
         ks.consumer.on('message', function (message) {
+            console.log(message);
             client.emit('toClient', "<hr>");
             client.emit('toClient', message.value);
 
@@ -97,6 +99,7 @@ module.exports = module = function (io) {
 
     module.send = (data) => {
         //console.log(data);
+        //console.log(topic);
         ks.send(data, topic);
     }
 

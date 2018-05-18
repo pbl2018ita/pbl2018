@@ -38,6 +38,24 @@ Ext.define('app.ext.configHeaderBar', {
                 }
             },
             {
+                    id: 'col-slider',
+                    xtype: 'slider',
+                    width: 60,
+                    value: 90,
+                    increment: 10,
+                    minValue: 0,
+                    maxValue: 200,
+                    listeners: {
+                        change: function (slider, value) {
+                            me.setTimeColumnWidth(value);
+                        },
+
+                        changecomplete: function (slider, value) {
+                            me.setTimeColumnWidth(value);
+                        }
+                    }
+                },
+            {
                 //xtype  : 'button',
                 iconCls: 'x-fa fa-arrow-left',
                 tooltip: 'Shift Previous',

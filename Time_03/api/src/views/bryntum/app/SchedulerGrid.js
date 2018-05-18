@@ -9,18 +9,43 @@
 -----------------------------------------------------------------*/
 var g = null;
 
+var socket = io();
+socket.on('toClientScheduler', function (message) {
+    //var messages = document.getElementById('messages');
+    //messages.innerHTML += message + '<br/>';
+    console.log(message);
+  });
+
+socket.on('toClient', function (message) {
+    var messages = document.getElementById('messages');
+    console.log(message);
+    //messages.innerHTML += message + '<br/>';
+});
+
 Ext.onReady(function() {
     Ext.create('app.SchedulerGrid', {
         renderTo: 'myContainer'
     });
 
     g = Ext.create('app.SchedulerGrid', {});
-    $.getJSON('http://localhost:3000/scheduler/res', {}, function(resp) {
+    /*
+    $.getJSON('http://localhost:3000/scheduler/resource', {}, function(resp) {
         //JSON.parse()
+        g.resourceStore.loadRawData(resp);
+        resource
+        reserva
+    });
+    */
+
+    $.getJSON('http://localhost:3000/scheduler/reserva', {}, function(resp) {
+        //JSON.parse()
+        //resp = JSON.parse(resp);
+        //console.log(resp);
         g.resourceStore.loadRawData(resp.resources);
         g.eventStore.loadData(resp.events);
-        //console.log(resp);
+        
     })
+
 
 });
 
@@ -28,7 +53,7 @@ Ext.onReady(function() {
 relativo ao painel de recursos, Static Panel
 configuracao das colunas do Painel estatico
 ----------------------------------------------------------------*/
-Ext.define('Resource', { extend: 'Sch.model.Resource', fields: [{ Id: 'Id' }, { name: 'Available' }] });
+Ext.define('Resource', { extend: 'Sch.model.Resource', fields: [{ Id: 'ResourceId' }] });
 var resourceStore = Ext.create('Sch.data.ResourceStore', { model: 'Resource', sorters: { property: 'Id', direction: "ASC" /*--> relativo ordencao da coluna, static Panel*/ } });
 
 /*---------------------------------------------------------------------------------------------
@@ -36,7 +61,7 @@ relativo aos eventos, linhas de schedule, Dynamic Panel
 http://www.bryntum.com/docs/scheduling/4.x/?#!/api/Sch.data.EventStore
 Relativo ao Template de Formatacao e Renderizacao das barras dinamicas customizadas
 -----------------------------------------------------------------------------------------------*/
-Ext.define('Event', { extend: 'Sch.model.Event', nameField: 'Title' }); //, fields: [{ name: 'Title', mapping: 'Title' }, { name: 'ResourceId' }, { name: 'PatientId' }, { name: 'StartDate' }, { name: 'EndDate' }, { name: 'Name' }, { name: 'blood' }, { name: 'temperature' }, { name: 'heartbeat' }, { name: 'age' }, { name: 'place' }, { name: 'text' }] });
+Ext.define('Event', { extend: 'Sch.model.Event', nameField: 'Title', fields: [{ name: 'Title', mapping: 'Title' }, { name: 'ResourceId' }, { name: 'StartDate' }, { name: 'EndDate' }, { name: 'PatientId' }, { name: 'Name' }, { name: 'Title' },{ name: 'age' }, { name: 'blood' }, { name: 'temperature' }, { name: 'heartbeat' },  { name: 'text' } , { name: 'place' }] });
 var eventStore = Ext.create('Sch.data.EventStore', { model: 'Event' });
 
 /* globals io: true */
@@ -54,21 +79,20 @@ Ext.define('app.SchedulerGrid', {
     requires: [
         'app.ext.eventFilter',
         'app.ext.configHeaderBar',
-        'app.ext.tooltip',
-        //'app.store.EventStore',
-        //'app.store.ResourceStore'
+        'app.ext.tooltip'
     ],
 
     title: 'STAGIHO-BD / Centro Cirúrgico HS',
-    startDate: new Date(2018, 0, 11, 8),
-    endDate: new Date(2018, 4, 11, 20),
+    startDate: new Date(2018, 4, 9, 8),
+    endDate: new Date(2018, 4, 20, 20),
+    //  setTimeColumnWidth: 40,
     //draggingRecord     : null,
     //socketHost         : null,
     rowHeight: 50,
     barMargin: 10,
     eventBarTextField: 'Name',
     viewPreset: {
-        name: 'hourAndDay',
+        name: 'hourAndDay',  // hourAndDay dayAndWeek //http://www.bryntum.com/docs/scheduling/3.x/?#!/api/Sch.preset.Manager
         // Limit the resolution, to avoid putting too much data on the wire.
         timeResolution: {
             unit: 'MINUTE',
@@ -99,7 +123,7 @@ Ext.define('app.SchedulerGrid', {
         return event.data;
     },
     //Template de exibicao em cada Evento
-    eventBodyTemplate: '{Name}',
+    eventBodyTemplate: '{PLA_Name}',
 
     resourceStore: resourceStore,
     eventStore:eventStore,
@@ -117,7 +141,7 @@ Ext.define('app.SchedulerGrid', {
         - Linha do Agora
         ----------------------------------------------------------------*/
         Ext.define('Line', { extend: 'Ext.data.Model', fields: ['Date', 'Text', 'Cls'] });
-        var lineStore = Ext.create('Ext.data.JsonStore', { model: 'Line', data: [{ Date: new Date(2018, 0, 11, 13, 30), Text: '', Cls: 'verticalLine' }] });
+        var lineStore = Ext.create('Ext.data.JsonStore', { model: 'Line', data: [{ Date: new Date(2018, 4, 9, 13, 30), Text: '', Cls: 'verticalLine' }] });
         plugins = [Ext.create("Sch.plugin.Lines", { store: lineStore })];
 
         //create a WebSocket and connect to the server running at host domain

@@ -1,6 +1,6 @@
 'use strict';
 
-var io = require('../io.controllers/cross-io');
+var io = require('../io.controllers/cross-io'); 
 
 //post -> enviar informacoes
 exports.post = (req, res, next) => {

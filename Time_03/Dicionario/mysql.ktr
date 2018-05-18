@@ -491,6 +491,11 @@
     </attributes>
   </connection>
   <order>
+    <hop>
+      <from>TBL_RESERVA</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>LEITO</name>
@@ -594,7 +599,7 @@ FROM TBL_PLANTONISTA
     </GUI>
   </step>
   <step>
-    <name>RESERVA</name>
+    <name>TBL_RESERVA</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -611,6 +616,7 @@ FROM TBL_PLANTONISTA
 , RES_EndDate
 , PAC_Id
 , LEI_Id
+, PLA_Id
 FROM TBL_RESERVA
 </sql>
     <limit>0</limit>
@@ -626,8 +632,69 @@ FROM TBL_RESERVA
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>304</yloc>
+      <xloc>288</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>RES_StartDate</name>
+        <rename>RES_StartDate</rename>
+        <type>Date</type>
+        <length>0</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy/MM/dd HH:mm:ss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>RES_EndDate</name>
+        <rename>RES_EndDate</rename>
+        <type>Date</type>
+        <length>0</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy/MM/dd HH:mm:ss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>432</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
