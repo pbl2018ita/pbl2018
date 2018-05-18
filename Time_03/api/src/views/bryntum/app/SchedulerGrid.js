@@ -14,7 +14,7 @@ var socket = io();
 socket.on('toSchedule', function (message) {
     var msg = JSON.parse(message);
 
-    $.post('http://localhost:3000/scheduler/reserva', msg.message, function(resp, textStatus) {
+    $.post('/scheduler/reserva', msg.message, function(resp, textStatus) {
         //data contains the JSON object
         //textStatus contains the status: success, error, etc
         g.resourceStore.loadRawData(resp.resources);
@@ -31,16 +31,8 @@ Ext.onReady(function() {
     });
 
     g = Ext.create('app.SchedulerGrid', {});
-    /*
-    $.getJSON('http://localhost:3000/scheduler/resource', {}, function(resp) {
-        //JSON.parse()
-        g.resourceStore.loadRawData(resp);
-        resource
-        reserva
-    });
-    */
 
-    $.getJSON('http://localhost:3000/scheduler/reserva', {}, function(resp) {
+    $.getJSON('/scheduler/reserva', {}, function(resp) {
         //JSON.parse()
         //resp = JSON.parse(resp);
         //console.log(resp);
