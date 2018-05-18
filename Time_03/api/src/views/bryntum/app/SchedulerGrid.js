@@ -10,15 +10,18 @@
 var g = null;
 
 var socket = io();
-socket.on('toClientScheduler', function (message) {
-    //var messages = document.getElementById('messages');
-    //messages.innerHTML += message + '<br/>';
-    console.log(message);
-  });
 
-socket.on('toClient', function (message) {
-    var messages = document.getElementById('messages');
-    console.log(message);
+socket.on('toSchedule', function (message) {
+    var msg = JSON.parse(message);
+
+    $.post('http://localhost:3000/scheduler/reserva', msg.message, function(resp, textStatus) {
+        //data contains the JSON object
+        //textStatus contains the status: success, error, etc
+        g.resourceStore.loadRawData(resp.resources);
+        g.eventStore.loadData(resp.events);
+      }, "json");
+
+
     //messages.innerHTML += message + '<br/>';
 });
 
@@ -83,7 +86,7 @@ Ext.define('app.SchedulerGrid', {
     ],
 
     title: 'STAGIHO-BD / Centro Cirúrgico HS',
-    startDate: new Date(2018, 4, 9, 8),
+    startDate: new Date(2018, 4, 18, 0),
     endDate: new Date(2018, 4, 20, 20),
     //  setTimeColumnWidth: 40,
     //draggingRecord     : null,
@@ -141,7 +144,7 @@ Ext.define('app.SchedulerGrid', {
         - Linha do Agora
         ----------------------------------------------------------------*/
         Ext.define('Line', { extend: 'Ext.data.Model', fields: ['Date', 'Text', 'Cls'] });
-        var lineStore = Ext.create('Ext.data.JsonStore', { model: 'Line', data: [{ Date: new Date(2018, 4, 9, 13, 30), Text: '', Cls: 'verticalLine' }] });
+        var lineStore = Ext.create('Ext.data.JsonStore', { model: 'Line', data: [{ Date: Date.now(), Text: '', Cls: 'verticalLine' }] });
         plugins = [Ext.create("Sch.plugin.Lines", { store: lineStore })];
 
         //create a WebSocket and connect to the server running at host domain

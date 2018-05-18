@@ -16,6 +16,7 @@ module.exports = function(app) {
 	router.get('/', controller.get);
 	router.post('/', controller.post);
 	router.get('/reserva', controller.reservas);
+	router.post('/reserva', controller.reservasPost);
 	//router.put('/:id', controller.put);
 	//router.delete('/', controller.delete);
 	return router;

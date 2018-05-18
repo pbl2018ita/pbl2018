@@ -14,6 +14,8 @@ module.exports = function (io) {
             client.emit('toClient', "<hr>");
             client.emit('toClient', message.value);
 
+            client.emit('toSchedule', message.value);
+
             //teste de consumo do Mongo
             var ms = require('../services/MongoService');
             client.emit('toClient', ms.getConsult());
