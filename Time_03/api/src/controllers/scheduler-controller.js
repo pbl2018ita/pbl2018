@@ -121,14 +121,18 @@ exports.reservasPost = (req, res, next) => {
         if (err) throw err;
         con.query(sql, function (err, r1, fields) {
             if (err) throw err;
-            //console.log(r1);
+
             var h = 1;
-            if (r1.peso > 20) {
-                h = 5
-            }else if (r1.peso > 14){
-                h = 3
-            } else if (r1.pese >10){
-                h=2
+            var m =1;
+            if (r1[0].prio > 20) {
+                h = 5;
+                m=1;
+            }else if (r1[0].prio > 14){
+                h = 3;
+                m =2;
+            } else if (r1[0].prio >10){
+                h=2;
+                m = 3;
             }
             var sql1 = `INSERT INTO  TBL_RESERVA 
             (RES_StartDate ,
@@ -145,7 +149,7 @@ exports.reservasPost = (req, res, next) => {
 
             sql1 = util.format(sql1,
                 Math.floor(Math.random() * 4) + 1,
-                Math.floor(Math.random() * 3) + 1,
+                m,
                 h);
 
 
