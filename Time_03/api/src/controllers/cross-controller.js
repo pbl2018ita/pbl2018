@@ -1,11 +1,11 @@
 'use strict';
 
-var io = require('../io.controllers/cross-io'); 
+var kafka = require('../services/KafkaService');
 
 //post -> enviar informacoes
 exports.post = (req, res, next) => {
     try {
-        io.send(JSON.stringify(req.body));
+        kafka.send(JSON.stringify(req.body));
 
         res.status(200).send({
             result: "ok"

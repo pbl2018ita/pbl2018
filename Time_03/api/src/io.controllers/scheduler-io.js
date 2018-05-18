@@ -1,24 +1,19 @@
 'use strict';
 
-module.exports = module = function (io) {
+module.exports = function (io) {
     const topic = "schedule";
-    var ks = require('../services/KafkaService')(topic);
+    const kafka = require('../services/KafkaService')(topic);
     //var DB = require('../models/scheduler-model')
 
     io.sockets.on('connection', function (socket) {
         //socket.on('toServer', function (message) {
-        //    ks.send(JSON.stringify(message));
+        //    kafka.send(JSON.stringify(message));
         //});
         //
-        //ks.consumer.on('message', function (message) {
+        //kafka.consumer.on('message', function (message) {
         //
         //});
 
-        ks.consumer.on('message', function (message) {
-            socket.emit('toClientScheduler', "teste");
-        });
-
-        /*
         //Load initial data to client Store
         socket.on('client-doInitialLoad', function (data) {
             socket.emit('server-doInitialLoad', { data: DB.getEventsData() });
@@ -53,12 +48,5 @@ module.exports = module = function (io) {
 
             socket.broadcast.emit('server-doRemove', { data: data.ids });
         });
-        */
-    });
-
-    module.send =  (data) => {
-        ks.send(data, topic);
-    }
-
-    return module;
+    })
 }

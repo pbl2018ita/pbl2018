@@ -35,17 +35,19 @@ exports.get = (req, res, next) => {
     }
 };
 
-var mysql = require('mysql');
+
 
 
 exports.reservas = (req, res, next) => {
-var con = mysql.createConnection({
+    var mysql = require('mysql');
+    
+    var con = mysql.createConnection({
         host: "stagihobd.hashtagsource.com",
         user: "root",
         password: "nai6eo3yahNaip3shoh3g",
         database: "stagihobd"
     });
-  
+
     con.connect(function (err) {
         if (err) throw err;
 
@@ -76,8 +78,10 @@ var con = mysql.createConnection({
 
             con.query(sql2, function (err, r2, fields) {
                 if (err) throw err;
-                var data = {                    resources: r1,
-                    events : r2}
+                var data = {
+                    resources: r1,
+                    events: r2
+                }
                 res.status(200).send(JSON.stringify(data));
                 //res.status(200).send(result);
             });
