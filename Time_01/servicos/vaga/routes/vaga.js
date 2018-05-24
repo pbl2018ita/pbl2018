@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 });
 
 function ProcessarPlantonista(callback, res){
-  var url = "https://pbl2018-hospital-plantonista.herokuapp.com/api/plantonista";
+  var url = "https://pbl2018-hospital-plantonista.herokuapp.com/plantonista";
   request.get(url, (error, response, body) => {
     var plantonista = JSON.parse(body);
     callback(body, res);
@@ -39,14 +39,13 @@ function ProcessarPlantonista(callback, res){
 }
 
 function retornoProcessar(body, res){
-  vagas = JSON.parse(body)["hospital"]["leitos"]
   vagas = { "from": "hc",
             "to": "cross",
             "content":{
               "hospital":{
                   "identificador": "123456",
                   "nome": "hc",
-                  "leitos": vagas
+                  "leitos": JSON.parse(body)["leitos"]
                 }
             }
         };
@@ -62,55 +61,46 @@ function retornoProcessarEspecialista(body, res){
 }
 
 function ProcessarEspecialista(callback, res){
-  // TODO: criar uma nova aplicação
-  // var url = https://pbl2018-hospital-especialista.herokuapp.com
-
   var url = "https://stagihobd-ts01.herokuapp.com/api/especialistas/disponivel"
   request.get(url, (error, response, body) => {
-      // var especialista = JSON.parse(body);
       callback(body, res);
   });
 }
 
 function Processar(callback, res){
   var url = "https://stagihobd-ts02.herokuapp.com/leitos?hospital=hc&status=livre"
-  // TODO: Publicar uma nova aplicação
-  // var url = "https://stagihobd-hospital-leito.herokuapp.com";
-
   request.get(url, (error, response, body) => {
-      /*
-        console.log("\n\n\n\n[Processar()]\n\n\n");
-        console.log(body);
-        console.log("\n\n\n\n");
-      */
       callback(body, res);
     });
 }
 
-function processarVagas(){
+function processarVagas(callback, res){
 
+  console.log("[Plantonista]:" + JSON.stringify(plantonista));
+  console.log("\n\n\n[Especialista]:" + JSON.stringify(especialista));
   for (p in plantonista){
     for (e in especialista){
-
-      if (plantonista[p].crm != especialista[e]._id)
-        return
-
-      vagas["content"]["hospital"]["plantonista"] = especialista[e];
-      return vagas;
+      console.log("plantonista = " + plantonista[p].crm + " especialista =" + especialista[e] + "\n");
+      if (plantonista[p].crm == especialista[e]._id){
+        vagas["content"]["hospital"]["plantonista"] = especialista[e];
+        console.log("\n\n==\n\n");
+      }
     }
   }
-
+  callback(res);
 }
 
 function retornoProcessarPlantonista(body, res){
   plantonista = JSON.parse(body);
-  processarVagas();
+  processarVagas(finalizarProcessamento, res);
+}
 
-  // TODO: Refatorar
+function finalizarProcessamento(res){
   if (topicoOnline){
+    console.log("[finalizarProcessamento]: " + JSON.stringify(vagas));
     try {
       sendMessageKafka(topico, JSON.stringify(vagas));
-      res.status(200).send({ result: "ok"});
+      res.status(200).send(JSON.stringify(vagas));
     } catch (err) {
       console.error(err);
       res.status(500).send({result: "fail"});
