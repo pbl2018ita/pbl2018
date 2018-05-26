@@ -15,17 +15,21 @@ router.get('/paciente', function(req, res, next) {
 });
 
 //Retorna o hash do Cliente
-function validarRetorno(hashBlochChain, res){
-
-  res.status(200).send({"result": hashBlochChain});
+function finalizar(hashBlochChain, res, st){
+  var literal = ((st == 200) ? "result" : "erro");
+  var msg = {
+     literal: hashBlochChain
+  };
+  msg = JSON.parse(JSON.stringify(msg).replace('literal',literal));
+  res.status(st).send(msg);
 }
 
 //Cadastra o Cliente, no BC, quando não encontrado
 function cadastrarPaciente(callback, obj, res){
-
-  console.log("TODO: Implementar o cadastro paciente no BlockChain");
   // TODO: Implementar a comunicação com o Serviço do BlockChain, quando estiver pronto
-  
+  console.log("TODO: Implementar o cadastro paciente no BlockChain");
+
+  var id = Math.round(Math.random() * (9 - 0));
   var hashBlochChainMock = [
     "BD5943F620B00FDCB67088D884313CFCF5AFEDC336B97E88BB1EAD9AE748DD99",
     "0A2EE86E3FD11F54115957CCD03B9E4D2009409717449C10EA138A549D590D60",
@@ -38,18 +42,23 @@ function cadastrarPaciente(callback, obj, res){
     "BD5943F620B00FDCB67088D884313CFCF5AFEDC336B97E88BB1EAD9AE748DD99",
     "4850C415D7F66EB4434CC0288638E2823D9677BB82B683D77712E1A829D51503"
   ];
-
-  validarRetorno(hashBlochChainMock[Math.random() * (9 - 0)], res)
+  
+  finalizar(hashBlochChainMock[id], res, 200)
 }
 
-function BuscarHash(callback, campo, valor, obj, res){
 
-  // var querySQL = 'SELECT hashBC AS hashBC FROM PACIENTE WHERE ' + campo + '= "' + valor + '" ;';
+function ConsultarDataBaseEvent(err, identificadorBlockChain, obj, res, callback){
+  if (err){
+    callback(err, res, 500);
+  }
 
-  var querySQL = 'call sp_LocalizarPaciente("' + campo + '", "' + valor + '");';
-  var hashBlochChain;
-  
-  //Conectar no banco de dados
+  if (identificadorBlockChain)
+    callback(identificadorBlockChain, res, 200);
+  else
+    cadastrarPaciente(callback, obj, res);
+}
+
+function ConsultarDataBase(querySQL, callback, obj, res, callbackOriginal){
   connection = mysql.createConnection({
     host     : 'stagihobd.hashtagsource.com',
     database : 'time1',
@@ -59,29 +68,29 @@ function BuscarHash(callback, campo, valor, obj, res){
   });
   connection.connect();
   connection.query(querySQL, function(err, rows, fields) {
-    if (err) {
-      throw err;
-    }
-    try{
-      if (rows){
-        hashBlochChain = (rows[0][0].hashBC) ? rows[0][0].hashBC: rows[0].hashBC;
-         // rows[0][0].hashBC -> é o retornoo se for utiizada PROCEDURE
-         // rows[0].hashBC    -> se for utiizada SELECT hard code
+    if (err)
+      callbackOriginal(err, res, 500);
+    else if (rows){
+      try{
+        var hashBC = ((JSON.parse(JSON.stringify(rows))[0].hashBC) ? 
+                          (JSON.parse(JSON.stringify(rows))[0].hashBC) 
+                          : (JSON.parse(JSON.stringify(rows))[0][0].hashBC));
+        callback(null, hashBC, obj, res, callbackOriginal);
+      }
+      catch(erro){
+        callback(null,null, obj, res, callbackOriginal);
       }
     }
-    catch(erro){
-      hashBlochChain = null;
-    }
-    console.log('O Hash do paciente é: ', hashBlochChain);
+    else
+      callback(null,null, obj, res, callbackOriginal);
   });
   connection.end();
+}
 
-  if (hashBlochChain){
-    callback(hashBlochChain, res);
-  }
-  else{
-    cadastrarPaciente(callback, obj, res);
-  }
+function BuscarHash(callback, campo, valor, obj, res){
+  //var querySQL = querySQL = 'SELECT hashBC AS hashBC FROM PACIENTE WHERE ' + campo + '= "' + valor + '" ;';
+  var querySQL = 'call sp_LocalizarPaciente("' + campo + '", "' + valor + '");';
+  ConsultarDataBase(querySQL, ConsultarDataBaseEvent, obj, res, callback);
 }
 
 router.post('/paciente', function(req, res) {
