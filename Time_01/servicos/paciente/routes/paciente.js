@@ -131,12 +131,11 @@ router.post('/paciente', function(req, res) {
       ctrl = 1
       BuscarHash(finalizar, "nome", pacienteData.nome, pacienteData.obj, res);
     }
-
   }
-  else{
-    res.status(500).send({"result": "As informações do paciente não foram enviadas, não foi possível processar a solicitação."});
-  }
-
+  
+  if (!pacienteData || ctrl == 0)
+    finalizar("As informações para buscar o paciente não foram enviadas (CPF, RG, TELEFONE, SUS, NOME), não foi possível processar a solicitação.", res, 500);
+  
 });
 
 module.exports = router;
