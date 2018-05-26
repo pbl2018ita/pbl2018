@@ -109,27 +109,27 @@ router.post('/paciente', function(req, res) {
 
     if (pacienteData.cpf && ctrl == 0){
       ctrl = 1
-      BuscarHash(validarRetorno, "cpf", pacienteData.cpf, pacienteData.obj, res);
+      BuscarHash(finalizar, "cpf", pacienteData.cpf, pacienteData.obj, res);
     }
 
     if (pacienteData.rg && ctrl == 0){
       ctrl = 1
-      BuscarHash(validarRetorno, "rg", pacienteData.rg, pacienteData.obj, res);
+      BuscarHash(finalizar, "rg", pacienteData.rg, pacienteData.obj, res);
     }
     
     if (pacienteData.telefone && ctrl == 0){
       ctrl = 1
-      BuscarHash(validarRetorno, "telefone", pacienteData.telefone, pacienteData.obj, res);
+      BuscarHash(finalizar, "telefone", pacienteData.telefone, pacienteData.obj, res);
     }
   
     if (pacienteData.sus && ctrl == 0){
       ctrl = 1
-      BuscarHash(validarRetorno, "sus", pacienteData.sus, pacienteData.obj, res);
+      BuscarHash(finalizar, "sus", pacienteData.sus, pacienteData.obj, res);
     }
 
     if (pacienteData.nome && ctrl == 0){
       ctrl = 1
-      BuscarHash(validarRetorno, "nome", pacienteData.nome, pacienteData.obj, res);
+      BuscarHash(finalizar, "nome", pacienteData.nome, pacienteData.obj, res);
     }
 
   }
