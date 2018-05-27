@@ -45,7 +45,8 @@
     Browse your REST API at http://localhost:3000/explorer
 </p>
 <p>
-    <br>Dica</b>: Se estiver rodando em um servidor de cloud, substitua o localhost pelo endereço do seu servidor.
+    <b>Dica</b>: Se estiver rodando em um servidor de cloud, substitua o localhost pelo endereço do seu servidor.<br><br>
+    Em nosso projeto foi utilizado a AWS, por isso a URL foi: http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/explorer/
 </p>
 <p>
     <b><h3>Parando os serviços</h3></b><br>
