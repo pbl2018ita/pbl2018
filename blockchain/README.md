@@ -26,12 +26,12 @@
     [? Do you want to generate an empty template network? <b>No: generate a populated sample network</b>
 </p>
 <p>
-    ? Enter the name of the business network card to use: <b>admin@stagihobd</b><br>
-    ? Specify if you want namespaces in the generated REST API: <b>always use namespaces</b><br>
-    ? Specify if you want to use an API key to secure the REST API: <b>No</b><br>
-    ? Specify if you want to enable authentication for the REST API using Passport: <b>No</b><br>
-    ? Specify if you want to enable event publication over WebSockets: <b>Yes</b><br>
-    ? Specify if you want to enable TLS security for the REST API: <b>No</b>
+    [? Enter the name of the business network card to use: <b>admin@stagihobd</b><br>
+    [? Specify if you want namespaces in the generated REST API: <b>always use namespaces</b><br>
+    [? Specify if you want to use an API key to secure the REST API: <b>No</b><br>
+    [? Specify if you want to enable authentication for the REST API using Passport: <b>No</b><br>
+    [? Specify if you want to enable event publication over WebSockets: <b>Yes</b><br>
+    [? Specify if you want to enable TLS security for the REST API: <b>No</b>
 </p>
 <p>
     Quando aparecer as mensagens abaixo o sistema está configurado e em execução:<br><br>
