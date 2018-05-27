@@ -1,9 +1,10 @@
 #!/bin/bash
 clear && echo "Iniciando o tutorial"
 cd ~/home/ubuntu/sprint3/blockchain/
+mkdir fabric-server && cd fabric-server
 curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz
-tar -xvf fabric-dev-servers.tar.gz ./fabric-dev-servers/
-cd fabric-dev-servers/
+tar -vzxf fabric-dev-servers.tar.gz
+cd fabric-servers/
 ./downloadFabric.sh
 ./startFabric.sh
 yo hyperledger-composer:businessnetwork
