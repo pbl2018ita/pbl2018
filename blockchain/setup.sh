@@ -1,0 +1,17 @@
+#!/bin/bash
+clear && echo "Iniciando o tutorial"
+cd ~/home/ubuntu/sprint3/blockchain/
+curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz
+tar -xvf fabric-dev-servers.tar.gz ./fabric-dev-servers/
+cd fabric-dev-servers/
+./downloadFabric.sh
+./startFabric.sh
+yo hyperledger-composer:businessnetwork
+cd stagihobd/
+composer archive create -t dir -n .
+./createPeerAdminCard.sh
+composer network install --card PeerAdmin@hlfv1 --archiveFile stagihobd@0.0.1.bna
+composer network start --networkName stagihobd --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer card import --file networkadmin.card
+composer network ping --card admin@stagihobd
+composer-rest-server
