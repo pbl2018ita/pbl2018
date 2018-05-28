@@ -18,25 +18,28 @@
 
 namespace stagihobd.hc
 
-participant SampleParticipant identified by participantId {
-  o String participantId
-  o String firstName
-  o String lastName
+participant Paciente identified by pacienteId {
+  o String pacienteId
+  o String nome
+  o String cpf
+  o String rg
+  o String telefone
+  o String sus
 }
 
-asset SampleAsset identified by assetId {
-  o String assetId
-  --> SampleParticipant owner
-  o String value
+asset Cadastro identified by susId {
+  o String susId
+  --> Paciente owner
+  o String status
 }
 
-transaction SampleTransaction {
-  --> SampleAsset asset
+transaction HabilitarCadastro {
+  --> Cadastro asset
   o String newValue
 }
 
-event SampleEvent {
-  --> SampleAsset asset
+event TransacaoEfetivada {
+  --> Cadastro asset
   o String oldValue
   o String newValue
 }

@@ -19,23 +19,23 @@
 
 /**
  * Sample transaction
- * @param {stagihobd.hc.SampleTransaction} sampleTransaction
+ * @param {stagihobd.hc.HabilitarCadastro} habilitarCadastro
  * @transaction
  */
-async function sampleTransaction(tx) {
+async function HabilitarCadastro(tx) {
     // Save the old value of the asset.
-    const oldValue = tx.asset.value;
+    const oldValue = tx.asset.status;
 
     // Update the asset with the new value.
     tx.asset.value = tx.newValue;
 
     // Get the asset registry for the asset.
-    const assetRegistry = await getAssetRegistry('stagihobd.hc.SampleAsset');
+    const assetRegistry = await getAssetRegistry('stagihobd.hc.Cadastro');
     // Update the asset in the asset registry.
     await assetRegistry.update(tx.asset);
 
     // Emit an event for the modified asset.
-    let event = getFactory().newEvent('stagihobd.hc', 'SampleEvent');
+    let event = getFactory().newEvent('stagihobd.hc', 'TransacaoEfetivada');
     event.asset = tx.asset;
     event.oldValue = oldValue;
     event.newValue = tx.newValue;
