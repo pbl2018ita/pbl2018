@@ -27,14 +27,18 @@ tar -vzxf fabric-dev-servers.tar.gz
 #! Iniciando a configuração para a criação da rede stagihobd
 yo hyperledger-composer:businessnetwork
 
+echo 'Se o projeto criado se chamar stagihobd'
 #! Se o projeto criado se chamar stagihobd
 if [ ! -d "~/sprint3/blockchain/fabric-server/stagihobd" ]; then
-    #! O diretório deve ser apagado e 
+    #! O diretório deve ser apagado
     rm -rf ~/sprint3/blockchain/fabric-server/stagihobd
 
+    echo 'Copiar os dados do projeto do GIT'
     #! Copiar os dados do projeto do GIT
     cp -R ~/sprint3/blockchain/app ~/sprint3/blockchain/fabric-server/stagihobd
 fi
+
+pwd
 
 cd stagihobd/
 
