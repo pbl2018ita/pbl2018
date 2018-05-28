@@ -27,7 +27,7 @@ async function HabilitarCadastro(tx) {
     const oldValue = tx.asset.status;
 
     // Update the asset with the new value.
-    tx.asset.value = tx.newValue;
+    tx.asset.status = tx.newValue;
 
     // Get the asset registry for the asset.
     const assetRegistry = await getAssetRegistry('stagihobd.hc.Cadastro');
