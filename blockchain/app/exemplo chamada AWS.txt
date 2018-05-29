@@ -1,0 +1,48 @@
+Roteiro para Usar o BlockChain
+
+Passo 1: Cadastrar um participante
+    curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ \ 
+        "$class": "stagihobd.hc.SampleParticipant", \ 
+        "participantId": "Paciente1", \ 
+        "firstName": "111", \ 
+        "lastName": "last" \ 
+    }' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleParticipant'
+
+Passo 2: Consultar participantes cadastrados (ou apenas um participante)
+    curl -X GET --header 'Accept: application/json' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleParticipant'
+    curl -X GET --header 'Accept: application/json' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleParticipant/Paciente1'
+
+Passo 3: Cadastrar um Asset [ informar "assetId": "1", "owner": "resource:stagihobd.hc.SampleParticipant#Paciente1" ]
+    curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ \ 
+        "$class": "stagihobd.hc.SampleAsset", \ 
+        "assetId": "1", \ 
+        "owner": "resource:stagihobd.hc.SampleParticipant#Paciente1", \ 
+        "value": "string" \ 
+    }' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleAsset'
+
+Passo 4: Consultar Assets cadastrados (ou apenas um asset)
+    curl -X GET --header 'Accept: application/json' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleAsset'
+    curl -X GET --header 'Accept: application/json' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleAsset/1'
+
+Passo 5: Cadastrar uma Transação
+    curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ \ 
+        "$class": "stagihobd.hc.SampleTransaction", \ 
+        "asset": "stagihobd.hc.SampleAsset#1", \ 
+        "newValue": "%40123" \ 
+    }' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleTransaction'
+
+    Response Body:
+    {
+        "$class": "stagihobd.hc.SampleTransaction",
+        "asset": "stagihobd.hc.SampleAsset#1",
+        "newValue": "@123",
+        "transactionId": "9fe36501897554acc52bf1de368220930f1ff95509bee0009d7d5e142363f5f2"
+    }
+
+Passo 5: Consultar Transações (ou apenas uma)
+    curl -X GET --header 'Accept: application/json' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleTransaction'
+    curl -X GET --header 'Accept: application/json' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/stagihobd.hc.SampleTransaction/9fe36501897554acc52bf1de368220930f1ff95509bee0009d7d5e142363f5f2'
+
+
+Passo 6: Consultar Histórico de Transações no BlockChain
+    curl -X GET --header 'Accept: application/json' 'http://ec2-52-89-105-48.us-west-2.compute.amazonaws.com:3000/api/system/historian'
