@@ -18,25 +18,111 @@
 
 namespace stagihobd.atendimento
 
-participant Atendimento identified by atendimentoId {
-  o String atendimentoId
-  o String firstName
-  o String lastName
+participant Hospital identified by hospitalId {
+  o String hospitalId
+  o String nome
+  o String cnpj
+  o String endereco
+  o String numero
+  o String complemento
+  o String cep
+  o String bairro
+  o String municipio
+  o String uf
+}
+
+participant Medico identified by crm {
+  o String crm
+  o String nome
+}
+
+participant MedicoEspecialista extends Medico{
+  o String especialidade
+}
+
+participant Paciente identified by pacienteId{
+  o String pacienteId
+  o String responsavel
 }
 
 asset Autorizacao identified by autorizacaoId {
   o String autorizacaoId
-  --> Atendimento owner
-  o String value
+  --> Hospital owner
+  o String nomeOperador
+  o String data
+  o String pacienteId
 }
 
-transaction Registro {
+transaction RegistrarAutorizacao {
   --> Autorizacao asset
-  o String newValue
+  o String nomeOperador
+  o String data
+  o String pacienteId
 }
 
-event SampleEvent {
+event RegistrarAutorizacaoEvent {
   --> Autorizacao asset
-  o String oldValue
-  o String newValue
+  o String mensagem
+}
+
+asset AtendimentoClinico identified by atendimentoClinicoId{
+  o String atendimentoClinicoId
+  --> Medico owner
+  o String crm
+  o String autorizacaoId
+  o String pacienteId
+  o String dataAtendimento
+  o String dataRegistro
+  o String registroClinico
+  o String dadosColetados
+  o String avaliacao
+  o String plano
+}
+
+transaction RegistrarAtendimentoClinico{
+  --> AtendimentoClinico asset 
+  o String crm
+  o String autorizacaoId
+  o String pacienteId
+  o String dataAtendimento
+  o String dataRegistro
+  o String registroClinico
+  o String dadosColetados
+  o String avaliacao
+  o String plano
+}
+
+event RegistrarAtendimentoClinicoEvent {
+  --> AtendimentoClinico asset
+  o String mensagem
+}
+
+asset Prontuario identified by prontuarioId{
+ o String prontuarioId
+  --> Paciente owner
+  o String crm
+  o String autorizacaoId
+  o String dataAtendimento
+  o String dataRegistro
+  o String registroClinico
+  o String dadosColetados
+  o String avaliacao
+  o String plano
+}
+
+transaction RegistrarProntuario{
+  --> Prontuario asset 
+  o String crm
+  o String autorizacaoId
+  o String dataAtendimento
+  o String dataRegistro
+  o String registroClinico
+  o String dadosColetados
+  o String avaliacao
+  o String plano
+}
+
+event RegistrarProntuarioEvent{
+  --> Prontuario asset
+  o String mensagem
 }
