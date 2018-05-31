@@ -15,27 +15,78 @@
 /**
  * Sample access control list.
  */
-rule EverybodyCanReadEverything {
+rule HospitalPodeLerTudo {
     description: "Allow all participants read access to all resources"
-    participant: "stagihobd.atendimento.Atendimento"
+    participant: "stagihobd.atendimento.Hospital"
     operation: READ
     resource: "stagihobd.atendimento.*"
     action: ALLOW
 }
 
-rule EverybodyCanSubmitTransactions {
-    description: "Allow all participants to submit transactions"
-    participant: "stagihobd.atendimento.Atendimento"
-    operation: CREATE
-    resource: "stagihobd.atendimento.Registro"
+rule MedicoPodeLerTudo {
+    description: "Allow all participants read access to all resources"
+    participant: "stagihobd.atendimento.Medico"
+    operation: READ
+    resource: "stagihobd.atendimento.*"
     action: ALLOW
 }
 
-rule OwnerHasFullAccessToTheirAssets {
+rule PacientePodeLerTudo {
+    description: "Allow all participants read access to all resources"
+    participant: "stagihobd.atendimento.Paciente"
+    operation: READ
+    resource: "stagihobd.atendimento.*"
+    action: ALLOW
+}
+
+rule HospitalPodeSubmeterTransacoes {
+    description: "Allow all participants to submit transactions"
+    participant: "stagihobd.atendimento.Hospital"
+    operation: CREATE
+    resource: "stagihobd.atendimento.Autorizacao"
+    action: ALLOW
+}
+
+rule HospitalTemAcessoCompletoAosSeusAssets {
     description: "Allow all participants full access to their assets"
-    participant(p): "stagihobd.atendimento.Atendimento"
+    participant(p): "stagihobd.atendimento.Hospital"
     operation: ALL
     resource(r): "stagihobd.atendimento.Autorizacao"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule MedicoPodeSubmeterTransacoes {
+    description: "Allow all participants to submit transactions"
+    participant: "stagihobd.atendimento.Medico"
+    operation: CREATE
+    resource: "stagihobd.atendimento.RegistrarAtendimentoClinico"
+    action: ALLOW
+}
+
+rule MedicoTemAcessoCompletoAosSeusAssets {
+    description: "Allow all participants full access to their assets"
+    participant(p): "stagihobd.atendimento.Medico"
+    operation: ALL
+    resource(r): "stagihobd.atendimento.RegistrarAtendimentoClinico"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+
+rule PacientePodeSubmeterTransacoes {
+    description: "Allow all participants to submit transactions"
+    participant: "stagihobd.atendimento.Paciente"
+    operation: CREATE
+    resource: "stagihobd.atendimento.RegistrarProntuario"
+    action: ALLOW
+}
+
+rule PacienteTemAcessoCompletoAosSeusAssets {
+    description: "Allow all participants full access to their assets"
+    participant(p): "stagihobd.atendimento.Paciente"
+    operation: ALL
+    resource(r): "stagihobd.atendimento.RegistrarProntuario"
     condition: (r.owner.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
