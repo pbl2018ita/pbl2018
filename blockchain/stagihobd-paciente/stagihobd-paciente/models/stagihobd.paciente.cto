@@ -1,0 +1,66 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace stagihobd.paciente
+
+participant Paciente identified by pacienteId {
+  o String pacienteId
+  o String nome
+  o String sobrenome
+  o String cartao_sus
+  o String numero_prontuario
+  o String cpf
+  o String rg
+  o String orgao_expedidor
+  o String data_expedicao
+  o String data_nascimento
+  o String nome_da_mae
+  o String nome_do_pai
+  o String telefone_residencial
+  o String telefone_celular
+  o String telefone_trabalho
+  o String email
+  o String municipio_residencia
+  o String uf
+  o String tipo_de_logradouro
+  o String nome_logradouro
+  o String numero
+  o String complemento
+  o String bairro
+  o String cep
+  o String observacao_1
+  o String observacao_2
+  o String observacao_3
+}
+
+asset CadastroPaciente identified by cadastroId {
+  o String cadastroId
+  --> Paciente owner
+  o String value
+}
+
+transaction Habilitar_Desabilitar_Cadastro {
+  --> CadastroPaciente asset
+  o String newValue
+}
+
+event SampleEvent {
+  --> CadastroPaciente asset
+  o String oldValue
+  o String newValue
+}

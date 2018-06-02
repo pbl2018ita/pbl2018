@@ -55,6 +55,7 @@ function finalizarProcessamento(data, res){
   else {
     res.status(500).send({result: "fail - serviço kafka não está online"});
   }
+  
 }
 
 function processarVagas(callback, res){
@@ -75,6 +76,7 @@ function processarVagas(callback, res){
             }
           };
   callback(data, res);
+  
 }
 
 // Retorno
@@ -82,18 +84,21 @@ function retornoRecuperarPlantonistas(body, res){
   plantonista = JSON.parse(body);
     if (especialista && leito)
       processarVagas(finalizarProcessamento, res);
+  
 }
 
 function retornoRecuperarEspecialistas(body, res){
   especialista = JSON.parse(body);
   if (plantonista && leito)
     processarVagas(finalizarProcessamento, res);
+  
 }
 
 function retornoRecuperarLeitos(body, res){
   leito = JSON.parse(body);
   if (plantonista && especialista)  
     processarVagas(finalizarProcessamento, res);
+  
 }
 
 // Chamadas Principais
@@ -102,6 +107,7 @@ function RecuperarPlantonistas(callback, res){
   request.get(url, (error, response, body) => {
     callback(body, res);
   });
+  
 }
 
 function RecuperarEspecialistas(callback, res){
@@ -109,6 +115,7 @@ function RecuperarEspecialistas(callback, res){
   request.get(url, (error, response, body) => {
       callback(body, res);
   });
+  
 }
 
 function RecuperarLeitos(callback, res){
@@ -116,6 +123,7 @@ function RecuperarLeitos(callback, res){
   request.get(url, (error, response, body) => {
       callback(body, res);
     });
+    
 }
 
 // VAGA = leito + especialista + plantonista
@@ -123,6 +131,7 @@ router.get('/vagas', function(req, res) {
     RecuperarPlantonistas(retornoRecuperarPlantonistas, res);
     RecuperarEspecialistas(retornoRecuperarEspecialistas, res);
     RecuperarLeitos(retornoRecuperarLeitos, res);
+    
 });
 
 module.exports = router;

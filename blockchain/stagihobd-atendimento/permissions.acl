@@ -1,0 +1,116 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Sample access control list.
+ */
+rule HospitalPodeLerTudo {
+    description: "Allow all participants read access to all resources"
+    participant: "stagihobd.atendimento.Hospital"
+    operation: READ
+    resource: "stagihobd.atendimento.*"
+    action: ALLOW
+}
+
+rule MedicoPodeLerTudo {
+    description: "Allow all participants read access to all resources"
+    participant: "stagihobd.atendimento.Medico"
+    operation: READ
+    resource: "stagihobd.atendimento.*"
+    action: ALLOW
+}
+
+rule PacientePodeLerTudo {
+    description: "Allow all participants read access to all resources"
+    participant: "stagihobd.atendimento.Paciente"
+    operation: READ
+    resource: "stagihobd.atendimento.*"
+    action: ALLOW
+}
+
+rule HospitalPodeSubmeterTransacoes {
+    description: "Allow all participants to submit transactions"
+    participant: "stagihobd.atendimento.Hospital"
+    operation: CREATE
+    resource: "stagihobd.atendimento.Autorizacao"
+    action: ALLOW
+}
+
+rule HospitalTemAcessoCompletoAosSeusAssets {
+    description: "Allow all participants full access to their assets"
+    participant(p): "stagihobd.atendimento.Hospital"
+    operation: ALL
+    resource(r): "stagihobd.atendimento.Autorizacao"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule MedicoPodeSubmeterTransacoes {
+    description: "Allow all participants to submit transactions"
+    participant: "stagihobd.atendimento.Medico"
+    operation: CREATE
+    resource: "stagihobd.atendimento.RegistrarAtendimentoClinico"
+    action: ALLOW
+}
+
+rule MedicoTemAcessoCompletoAosSeusAssets {
+    description: "Allow all participants full access to their assets"
+    participant(p): "stagihobd.atendimento.Medico"
+    operation: ALL
+    resource(r): "stagihobd.atendimento.RegistrarAtendimentoClinico"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+
+rule PacientePodeSubmeterTransacoes {
+    description: "Allow all participants to submit transactions"
+    participant: "stagihobd.atendimento.Paciente"
+    operation: CREATE
+    resource: "stagihobd.atendimento.RegistrarProntuario"
+    action: ALLOW
+}
+
+rule PacienteTemAcessoCompletoAosSeusAssets {
+    description: "Allow all participants full access to their assets"
+    participant(p): "stagihobd.atendimento.Paciente"
+    operation: ALL
+    resource(r): "stagihobd.atendimento.RegistrarProntuario"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

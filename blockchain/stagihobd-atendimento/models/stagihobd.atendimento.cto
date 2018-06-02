@@ -1,0 +1,128 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace stagihobd.atendimento
+
+participant Hospital identified by hospitalId {
+  o String hospitalId
+  o String nome
+  o String cnpj
+  o String endereco
+  o String numero
+  o String complemento
+  o String cep
+  o String bairro
+  o String municipio
+  o String uf
+}
+
+participant Medico identified by crm {
+  o String crm
+  o String nome
+}
+
+participant MedicoEspecialista extends Medico{
+  o String especialidade
+}
+
+participant Paciente identified by pacienteId{
+  o String pacienteId
+  o String responsavel
+}
+
+asset Autorizacao identified by autorizacaoId {
+  o String autorizacaoId
+  --> Hospital owner
+  o String nomeOperador
+  o String data
+  o String pacienteId
+}
+
+transaction RegistrarAutorizacao {
+  --> Autorizacao asset
+  o String nomeOperador
+  o String data
+  o String pacienteId
+}
+
+event RegistrarAutorizacaoEvent {
+  --> Autorizacao asset
+  o String mensagem
+}
+
+asset AtendimentoClinico identified by atendimentoClinicoId{
+  o String atendimentoClinicoId
+  --> Medico owner
+  o String crm
+  o String autorizacaoId
+  o String pacienteId
+  o String dataAtendimento
+  o String dataRegistro
+  o String registroClinico
+  o String dadosColetados
+  o String avaliacao
+  o String plano
+}
+
+transaction RegistrarAtendimentoClinico{
+  --> AtendimentoClinico asset 
+  o String crm
+  o String autorizacaoId
+  o String pacienteId
+  o String dataAtendimento
+  o String dataRegistro
+  o String registroClinico
+  o String dadosColetados
+  o String avaliacao
+  o String plano
+}
+
+event RegistrarAtendimentoClinicoEvent {
+  --> AtendimentoClinico asset
+  o String mensagem
+}
+
+asset Prontuario identified by prontuarioId{
+ o String prontuarioId
+  --> Paciente owner
+  o String crm
+  o String autorizacaoId
+  o String dataAtendimento
+  o String dataRegistro
+  o String registroClinico
+  o String dadosColetados
+  o String avaliacao
+  o String plano
+}
+
+transaction RegistrarProntuario{
+  --> Prontuario asset 
+  o String crm
+  o String autorizacaoId
+  o String dataAtendimento
+  o String dataRegistro
+  o String registroClinico
+  o String dadosColetados
+  o String avaliacao
+  o String plano
+}
+
+event RegistrarProntuarioEvent{
+  --> Prontuario asset
+  o String mensagem
+}
