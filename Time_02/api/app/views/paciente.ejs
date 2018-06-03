@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+      <link href="https://getbootstrap.com/docs/4.0/examples/product/product.css" rel="stylesheet">
+      <title>Projeto STAGIHO-BD</title>
+   </head>
+   <body>
+      <nav class="site-header sticky-top py-1">
+         <div class="container d-flex flex-column flex-md-row justify-content-between">
+            <a class="py-2" href="#">
+            Projeto STAGIHO-BD
+            </a>
+            <a class="py-2 d-none d-md-inline-block" href="/view/leito">Leitos</a>
+            <a class="py-2 d-none d-md-inline-block" href="/view/reserva">Reseva</a>
+            <a class="py-2 d-none d-md-inline-block" href="/view/especialista">Especialista</a>
+            <a class="py-2 d-none d-md-inline-block" href="/view/plantonista">Plantonista</a>
+         </div>
+      </nav>
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3">
+         <h1 style="text-align: center;">Patient Blockchain</h1>
+         <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">New Patient</button><br><br>
+         <!--form class="form-inline" action="/view/paciente" method="get">
+            <label  for="inlineFormInput" style="margin-right: 20px;">Tipo de Busca: </label>
+            <select id="filterOption" name="filterOption" style="float: left;margin-right: 20px;" class="form-control">
+               <option value="nome">Nome</option>
+               <option value="cpf">CPF</option>
+               <option value="rg">RG</option>
+               <option value="telefone">Telefone</option>
+               <option value="sus">Cartão do SUS</option>
+            </select>
+            <input type="text" class="form-control" placeholder="" name="search" style="margin-right: 20px;">
+            <button type="submit" class="btn btn-primary" style="margin-right: 20px;">Buscar</button>
+         </form-->
+         <br>
+
+         
+
+
+
+         <h3>Patient List</h3>
+         <table class="table">
+           <thead>
+             <tr>
+               <th scope="col">ID</th>
+               <th scope="col">Name</th>
+               <th scope="col">Birthday</th>
+               <th scope="col">CPF</th>
+             </tr>
+           </thead>
+           <tbody>
+            <% for (ret of result){%>
+             <tr>
+               <th><%= ret.pacienteId %></th>
+               <th><%= ret.nome %></th>
+               <th><%= ret.data_nascimento %></th>
+               <th><%= ret.cpf %></th>
+               
+             </tr>
+             <% } %>
+           </tbody>
+         </table>
+
+                
+
+         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Novo Paciente</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form action="/view/paciente" method="POST">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Nome</label>
+                                 <input type="text" class="form-control" name="nome" required>    
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Sobrenome</label>
+                                 <input type="text" class="form-control" name="sobrenome" required>    
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Data de Nascimento</label>
+                                 <input type="text" class="form-control" name="data_nascimento"> 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Cartão do SUS</label>
+                                 <input type="text" class="form-control" name="cartao_sus">    
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>CPF</label>
+                                 <input type="text" class="form-control" name="cpf"> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Número do Prontuario</label>
+                                 <input type="text" class="form-control" name="numero_prontuario"> 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>RG</label>
+                                 <input type="text" class="form-control" name="rg"> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Orgão Expedidor</label>
+                                 <input type="text" class="form-control" name="orgao_expedidor"> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Data de Expedição</label>
+                                 <input type="text" class="form-control" name="data_expedicao"> 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Nome da Mãe</label>
+                                 <input type="text" class="form-control" name="nome_da_mae"> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Nome do Pai</label>
+                                 <input type="text" class="form-control" name="nome_do_pai"> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>E-mail</label>
+                                 <input type="email" class="form-control" name="email"> 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Telefone Residencial</label>
+                                 <input type="text" class="form-control" name="telefone_residencial" required> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Telefone Celular</label>
+                                 <input type="text" class="form-control" name="telefone_celular"> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Telefone Trabalho</label>
+                                 <input type="text" class="form-control" name="telefone_trabalho"> 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Estado</label>
+                                 <select name="uf" class="form-control">
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Cidade</label>
+                                 <input type="text" class="form-control" name="municipio_residencia"> 
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                              <div class="form-group">
+                                 <label>Rua</label>
+                                 <input type="text" class="form-control" name="nome_logradouro"> 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-3">
+                              <div class="form-group">
+                                 <label>Número</label>
+                                 <input type="text" class="form-control" name="numero"> 
+                              </div>
+                           </div>
+                           <div class="col-md-3">
+                              <div class="form-group">
+                                 <label>Complemento</label>
+                                 <input type="text" class="form-control" name="complemento"> 
+                              </div>
+                           </div>
+                           <div class="col-md-3">
+                              <div class="form-group">
+                                 <label>Bairro</label>
+                                 <input type="text" class="form-control" name="bairro"> 
+                              </div>
+                           </div>
+                           <div class="col-md-3">
+                              <div class="form-group">
+                                 <label>CEP</label>
+                                 <input type="text" class="form-control" name="cep"> 
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <label>Observação</label>
+                              <textarea class="form-control" name="observacao_1"></textarea>
+                           </div>
+                        </div>
+                        <br><br>
+                        <button type="submit" class="btn btn-primary">Inserir</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   </body>
+</html>
