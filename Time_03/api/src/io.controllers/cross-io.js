@@ -1,6 +1,15 @@
 'use strict';
 
 var request = require('request');
+//var mysql = require('mysql');
+
+//var con = mysql.createConnection({
+//    host: "stagihobd.hashtagsource.com",
+//    user: "root",
+//    password: "nai6eo3yahNaip3shoh3g",
+//    database: "stagihobd"
+//});
+
 
 module.exports = function (io) {
     //DEFINE TOPIC
@@ -12,9 +21,10 @@ module.exports = function (io) {
 //            kafka.send(JSON.stringify(message));
 //        });
 
-//{"idvitima":"234asfas23411asfd234","gravidade":"emergencia","lesao":"fratura","areacorporal":"cabeca","location":{"lat":37.4224764,"lng":-122.0842499}}
+//{"cpf":"111.111.111-11","gravidade":"emergencia","lesao":"fratura","areacorporal":"cabeca","location":{"lat":37.4224764,"lng":-122.0842499}}
 
         kafka.consumer.on('message', function (message) {
+            console.log(message);
             client.emit('toClient', "<hr>");
             client.emit('toClient', message.value);
 
@@ -23,6 +33,69 @@ module.exports = function (io) {
             var setor;
 
             let ocorrencia = JSON.parse(message.value);
+
+
+
+//////////////////////// ENCONTRAR A ESPECIALIDADE E O TIPO DE LEITO (LEITO BASEADO NUMA PONDERAÇÃO)
+/*
+    var sql = `SELECT * FROM stagihobd.TBL_AVALIACAO
+    where upper(PM_Descricao) = upper("%s")
+    and upper(LE_DESCRICAO) = upper("%s")
+    and upper(AC_DESCRICAO) = upper("%s")
+    ORDER BY prio desc
+    limit 1`
+
+    sql = util.format(sql, msg.gravidade, msg.lesao, msg.areacorporal);
+
+
+    con.connect(function (err) {
+        if (err) throw err;
+        con.query(sql, function (err, r1, fields) {
+            if (err) throw err;
+            //console.log(r1);
+            var h = 1;
+            if (r1.peso > 20) {
+                h = 5
+            }else if (r1.peso > 14){
+                h = 3
+            } else if (r1.pese >10){
+                h=2
+            }
+            var sql1 = `INSERT INTO  TBL_RESERVA 
+            (RES_StartDate ,
+             RES_EndDate ,
+             PAC_Id ,
+             LEI_Id ,
+             PLA_Id )
+            VALUES
+            (NOW(),
+            DATE_ADD(NOW(), INTERVAL %d HOUR),
+            %d ,
+            1,
+            %d )`
+
+            sql1 = util.format(sql1,
+                Math.floor(Math.random() * 4) + 1,
+                Math.floor(Math.random() * 3) + 1,
+                h);
+
+
+            con.query(sql1, function (err, result) {
+                if (err) throw err;
+                console.log("1 record inserted");
+
+                //res.status(200).send(result);
+                exports.reservas(req, res, next);
+            });
+
+
+        });
+    });
+
+*/
+////////////////////////
+
+
 
             //banco de especialidades
             let bdEspecialidade = [
@@ -57,7 +130,6 @@ module.exports = function (io) {
             var dest = gMaps.getDateFromGoogleMaps([ocorrencia.location.lat + ' , ' + ocorrencia.location.lng],
                 [hospital.location.lat + ' , ' + hospital.location.lng]);
 
-
             dest.asPromise()
                 .then((response) => {
                     var g = response.json;
@@ -69,7 +141,6 @@ module.exports = function (io) {
                 .catch((err) => {
                     console.log(err);
                 });
-
 
             //matching e reserva de leito
             for (let i = 0; i < hospital.leitos.length; i++) {
