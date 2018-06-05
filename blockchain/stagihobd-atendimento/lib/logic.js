@@ -15,75 +15,93 @@
 'use strict';
 
 /**
- * Funcao generalizada para transacoes no blockchain e chamar eventos
- * @param {stagihobd.atendimento.RegistrarAutorizacao} registrarAutorizacao
- * @transaction
- 
-
-async function registrar(tx, asset, event, msg){
-    const assetRegistry = await getAssetRegistry('stagihobd.atendimento.'+asset);
-    await assetRegistry.update(tx.asset);
-
-    let evt = getFactory().newEvent('stagihobd.atendimento', event);
-    evt.asset = tx.asset;
-    evt.mensagem = msg;
-    emit(evt);
-}
-*/
-
-/**
- * Funcao para registrar Autorizacao do Hospital
- * @param {stagihobd.atendimento.RegistrarAutorizacao} registrarAutorizacao
+ * Transação para Autorizar o Atendimento
+ * @param {stagihobd.atendimento.AutorizarTransaction} autorizarTransaction
  * @transaction
  */
-async function registrarAutorizacao(tx) {
-    /* 
-        registrar(tx, 'RegistrarAutorizacao', 'RegistrarAutorizacaoEvent', 'Autorizacao de Atendimento Registrada com Sucesso' ); 
-    */
-    
-    const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarAutorizacao');
+async function autorizarTransaction(tx) {
+    const statusAntigo = tx.asset.status;
+    tx.asset.status = tx.status;
+
+    const assetRegistry = await getAssetRegistry('stagihobd.atendimento.AutorizacaoAsset');
     await assetRegistry.update(tx.asset);
 
-    let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarAutorizacaoEvent');
+    let event = getFactory().newEvent('stagihobd.atendimento', 'AutorizarEvent');
+
+    console.log( 'event.asset = '+tx.asset +
+                'event.pacienteID = '+tx.status +
+                'event.status = '+tx.asset.status + 
+                'event.hospitalID = '+tx.asset.dono.hospitalID +
+                'event.statusAntigo = '+statusAntigo);
+
     event.asset = tx.asset;
-    event.mensagem = 'Autorizacao de Atendimento Registrada com Sucesso';
-    emit(event);
-
-}
-
-/**
- * Funcao para registrar o Atendimento Clinico do Medico
- * @param {stagihobd.atendimento.RegistrarAtendimentoClinico} registrarAtendimentoClinico
- * @transaction
- */
-async function registrarAtendimentoClinico(tx) {
-    /*
-        registrar(tx, 'RegistrarAtendimentoClinico', 'RegistrarAtendimentoClinicoEvent', 'Atendimento Clinico Registrado com Sucesso' );
-    */
-
-    const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarAtendimentoClinico');
-    await assetRegistry.update(tx.asset);
-
-    let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarAtendimentoClinicoEvent');
-    event.asset = tx.asset;
-    event.mensagem = 'Atendimento Clinico Registrado com Sucesso';
+    event.pacienteID = tx.status;
+    event.status = tx.asset.status; 
+    event.hospitalID = tx.asset.dono.hospitalID;
+    event.statusAntigo = statusAntigo;
     emit(event);
 }
 
 /**
- * Funcao para registrar o Prontuario do Paciente
- * @param {stagihobd.atendimento.RegistrarProntuario} registrarProntuario
+ * Transação para Autorizar o Realizar Atendimento Clínico
+ * @param {stagihobd.atendimento.AtenderTransaction} atenderTransaction
  * @transaction
  */
-async function registrarProntuario(tx) {
-    /*
-        registrar(tx, 'RegistrarProntuario', 'RegistrarProntuarioEvent', 'Prontuario Registrado com Sucesso');
-    */
-     const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarProntuario');
+async function atenderTransaction(tx) {
+    const statusAntigo = tx.asset.status;
+    tx.asset.status = tx.status;
+
+    const assetRegistry = await getAssetRegistry('stagihobd.atendimento.AtendimentoAsset');
+    await assetRegistry.update(tx.asset);
+
+    let event = getFactory().newEvent('stagihobd.atendimento', 'AtenderEvent');
+    console.log( 'event.asset = '+tx.asset +
+                'event.autorizacaoID = '+tx.asset.autorizacaoID +
+                'event.pacienteID = '+tx.asset.pacienteID + 
+                'event.status = '+tx.asset.status +
+                'event.atendimentoID = '+tx.asset.atendimentoID +
+                'event.crm = '+tx.asset.dono.crm +
+                'event.statusAntigo = '+statusAntigo);
+
+    event.asset = tx.asset;
+    event.autorizacaoID = tx.asset.autorizacaoID;
+    event.pacienteID = tx.asset.pacienteID;
+    event.status = tx.asset.status;
+    event.atendimentoID = tx.asset.atendimentoID;
+    event.crm = tx.asset.dono.crm;
+    event.statusAntigo = statusAntigo;
+    emit(event);
+}
+
+/**
+ * Transação para Autorizar o Realizar Atendimento Clínico
+ * @param {stagihobd.atendimento.RegistrarProntuarioTransaction} registrarProntuarioTransaction
+ * @transaction
+ */
+async function registrarProntuarioTransaction(tx) {
+    const statusAntigo = tx.asset.status;
+    tx.asset.status = tx.status;
+
+    const assetRegistry = await getAssetRegistry('stagihobd.atendimento.ProntuarioAsset');
     await assetRegistry.update(tx.asset);
 
     let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarProntuarioEvent');
+    console.log( 'event.asset = '+tx.asset +
+                'event.prontuarioID = '+tx.asset.prontuarioID +
+                'event.atendimentoID = '+tx.asset.atendimentoID +
+                'event.autorizacaoID = '+tx.asset.autorizacaoID +
+                'event.pacienteID = '+tx.asset.pacienteID + 
+                'event.status = '+tx.asset.status +
+                'event.crm = '+tx.asset.dono.crm +
+                'event.statusAntigo = '+statusAntigo);
     event.asset = tx.asset;
-    event.mensagem = 'Prontuario Registrado com Sucesso';
+    event.prontuarioID = tx.asset.prontuarioID;
+    event.atendimentoID = tx.asset.atendimentoID;
+    event.autorizacaoID = tx.asset.autorizacaoID;
+    event.pacienteID = tx.asset.pacienteID;
+    event.status = tx.asset.status;
+    event.crm = tx.asset.dono.crm;
+    event.statusAntigo = statusAntigo;
     emit(event);
+
 }

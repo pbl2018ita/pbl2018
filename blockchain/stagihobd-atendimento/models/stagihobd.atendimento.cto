@@ -18,8 +18,16 @@
 
 namespace stagihobd.atendimento
 
-participant Hospital identified by hospitalId {
-  o String hospitalId
+/** 
+ * ETAPA: ANTES 
+ * Fluxo:
+ *  1. Cadastrar HospitalParticipant
+ *  2. Cadastrar AutorizacaoAsset, ligado ao HospitalParticipant
+ *  3. Realizar a transação AutorizarTransaction
+ *  4. Retornar o IdTransaction (Hash do BlockChain)
+ */
+participant HospitalParticipant identified by hospitalID {
+  o String hospitalID
   o String nome
   o String cnpj
   o String endereco
@@ -31,80 +39,103 @@ participant Hospital identified by hospitalId {
   o String uf
 }
 
-asset Autorizacao identified by autorizacaoId {
-  o String autorizacaoId
-  --> Hospital owner
+asset AutorizacaoAsset identified by autorizacaoID {
+  o String autorizacaoID
+  --> HospitalParticipant dono
+  o String status
 }
 
-transaction RegistrarAutorizacao {
-  --> Autorizacao asset
-  o String nomeOperador default="PLANTAO CONTROLADOR"
-  o String pacienteId
-  o DateTime data
+transaction AutorizarTransaction {
+  --> AutorizacaoAsset asset
+  o String pacienteID
+  o String status
 }
 
-event RegistrarAutorizacaoEvent {
-  --> Autorizacao asset
-  o String mensagem
+event AutorizarEvent {
+  --> AutorizacaoAsset asset
+  o String pacienteID optional
+  o String status optional
+  o String hospitalID optional         /* buscar no Asset, antes de invocar o evento */
+  o String statusAntigo optional      /* buscar objeto, antes de atualizar */
 }
 
-participant Medico identified by crm {
+/** 
+ * ETAPA: DURANTE
+ * Fluxo:
+ *  1. Cadastrar MedicoParticipant ou MedicoEspecialistaParticipant
+ *  2. Cadastrar AtendimentoAsset, ligado ao MedicoParticipant
+ *  3. Obter o pacienteID (Hash)
+ *  4. Realizar a transação AtenderTransaction
+ *  5. Retornar o IdTransaction (Hash do BlockChain)
+ */
+participant MedicoParticipant identified by crm {
   o String crm
   o String nome
 }
 
-participant MedicoEspecialista extends Medico{
+participant MedicoEspecialistaParticipant extends MedicoParticipant{
   o String especialidade
 }
 
-asset AtendimentoClinico identified by atendimentoClinicoId{
-  o String atendimentoClinicoId
-  --> Medico owner
+asset AtendimentoAsset identified by atendimentoID {
+  o String atendimentoID
+  --> MedicoParticipant dono
+  o String status
 }
 
-transaction RegistrarAtendimentoClinico{
-  --> AtendimentoClinico asset 
-  o String autorizacao
-  o String medico
-  o String paciente
-  o DateTime dataAtendimento
-  o DateTime dataRegistro
+transaction AtenderTransaction {
+  --> AtendimentoAsset asset
+  o String autorizacaoID
+  o String pacienteID
+  o String status
+}
+
+event AtenderEvent {
+  --> AtendimentoAsset asset
+  o String autorizacaoID optional
+  o String pacienteID optional
+  o String status optional
+  o String atendimentoID  optional     /* buscar no Asset, antes de invocar o evento */
+  o String crm  optional               /* buscar no Asset, antes de invocar o evento */
+  o String statusAntigo  optional      /* buscar objeto, antes de atualizar */
+}
+
+/** 
+ * ETAPA: APÓS
+ * Fluxo:
+ *  1. Cadastrar MedicoParticipant ou MedicoEspecialistaParticipant
+ *  2. Cadastrar ProntuarioAsset, ligado ao MedicoParticipant
+ *  3. Obter o pacienteID (Hash)
+ *  4. Realizar a transação RegistrarProntuarioTransaction
+ *  5. Retornar o IdTransaction (Hash do BlockChain)
+ */
+asset ProntuarioAsset identified by prontuarioID {
+  o String prontuarioID
+  --> MedicoParticipant dono
+  o String status
+}
+
+transaction RegistrarProntuarioTransaction {
+  --> ProntuarioAsset asset
+  o String prontuarioID
+  o String atendimentoID
+  o String autorizacaoID
+  o String pacienteID
+  o String status
   o String registroClinico
   o String dadosColetados
   o String avaliacao
   o String plano
-}
-
-event RegistrarAtendimentoClinicoEvent {
-  --> AtendimentoClinico asset
-  o String mensagem
-}
-
-participant Paciente identified by pacienteId{
-  o String pacienteId
-  o String responsavel optional
-}
-
-asset Prontuario identified by prontuarioId{
- o String prontuarioId
-  --> Paciente owner
-  /* --> Participant Medico */
-}
-
-transaction RegistrarProntuario{
-  --> Prontuario asset 
-  o String autorizacao
-  o String medico
-  o String paciente
   o DateTime dataAtendimento
-  o DateTime dataRegistro
-  o String registroClinico
-  o String dadosColetados
-  o String avaliacao
-  o String plano
 }
 
 event RegistrarProntuarioEvent{
-  --> Prontuario asset
-  o String mensagem
+  --> ProntuarioAsset asset
+  o String prontuarioID optional
+  o String atendimentoID optional
+  o String autorizacaoID optional
+  o String pacienteID optional
+  o String status optional
+  o String crm optional                /* buscar no Asset, antes de invocar o evento */
+  o String statusAntigo  optional        /* buscar objeto, antes de atualizar */
 }

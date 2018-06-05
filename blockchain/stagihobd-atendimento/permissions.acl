@@ -15,9 +15,11 @@
 /**
  * Sample access control list.
  */
+
+/*
 rule HospitalPodeLerTudo {
     description: "Allow all participants read access to all resources"
-    participant: "stagihobd.atendimento.Hospital"
+    participant: "stagihobd.atendimento.HospitalParticipant"
     operation: READ
     resource: "stagihobd.atendimento.*"
     action: ALLOW
@@ -25,15 +27,7 @@ rule HospitalPodeLerTudo {
 
 rule MedicoPodeLerTudo {
     description: "Allow all participants read access to all resources"
-    participant: "stagihobd.atendimento.Medico"
-    operation: READ
-    resource: "stagihobd.atendimento.*"
-    action: ALLOW
-}
-
-rule PacientePodeLerTudo {
-    description: "Allow all participants read access to all resources"
-    participant: "stagihobd.atendimento.Paciente"
+    participant: "stagihobd.atendimento.MedicoParticipant"
     operation: READ
     resource: "stagihobd.atendimento.*"
     action: ALLOW
@@ -41,57 +35,56 @@ rule PacientePodeLerTudo {
 
 rule HospitalPodeSubmeterTransacoes {
     description: "Allow all participants to submit transactions"
-    participant: "stagihobd.atendimento.Hospital"
+    participant: "stagihobd.atendimento.HospitalParticipant"
     operation: CREATE
-    resource: "stagihobd.atendimento.Autorizacao"
+    resource: "stagihobd.atendimento.AutorizacaoAsset"
     action: ALLOW
 }
 
 rule HospitalTemAcessoCompletoAosSeusAssets {
     description: "Allow all participants full access to their assets"
-    participant(p): "stagihobd.atendimento.Hospital"
+    participant(p): "stagihobd.atendimento.HospitalParticipant"
     operation: ALL
-    resource(r): "stagihobd.atendimento.Autorizacao"
+    resource(r): "stagihobd.atendimento.AutorizacaoAsset"
     condition: (r.owner.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
 
-rule MedicoPodeSubmeterTransacoes {
+rule MedicoPodeSubmeterAtendimento {
     description: "Allow all participants to submit transactions"
-    participant: "stagihobd.atendimento.Medico"
+    participant: "stagihobd.atendimento.MedicoParticipant"
     operation: CREATE
-    resource: "stagihobd.atendimento.RegistrarAtendimentoClinico"
+    resource: "stagihobd.atendimento.AtendimentoAsset"
     action: ALLOW
 }
 
-rule MedicoTemAcessoCompletoAosSeusAssets {
+rule MedicoTemAcessoCompletoAosSeusAtendimentosAssets {
     description: "Allow all participants full access to their assets"
-    participant(p): "stagihobd.atendimento.Medico"
+    participant(p): "stagihobd.atendimento.MedicoParticipant"
     operation: ALL
-    resource(r): "stagihobd.atendimento.RegistrarAtendimentoClinico"
+    resource(r): "stagihobd.atendimento.AtendimentoAsset"
     condition: (r.owner.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
 
-
-rule PacientePodeSubmeterTransacoes {
+rule MedicoPodeSubmeterProntuario {
     description: "Allow all participants to submit transactions"
-    participant: "stagihobd.atendimento.Paciente"
+    participant: "stagihobd.atendimento.MedicoParticipant"
     operation: CREATE
-    resource: "stagihobd.atendimento.RegistrarProntuario"
+    resource: "stagihobd.atendimento.ProntuarioAsset"
     action: ALLOW
 }
 
-rule PacienteTemAcessoCompletoAosSeusAssets {
+rule MedicoTemAcessoCompletoAosSeusAProntuarioAssets {
     description: "Allow all participants full access to their assets"
-    participant(p): "stagihobd.atendimento.Paciente"
+    participant(p): "stagihobd.atendimento.MedicoParticipant"
     operation: ALL
-    resource(r): "stagihobd.atendimento.RegistrarProntuario"
+    resource(r): "stagihobd.atendimento.ProntuarioAsset"
     condition: (r.owner.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
-
-rule SystemACL {
+*/
+ rule SystemACL {
   description:  "System ACL to permit all access"
   participant: "org.hyperledger.composer.system.Participant"
   operation: ALL
