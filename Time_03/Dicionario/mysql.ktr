@@ -599,45 +599,6 @@ FROM TBL_PLANTONISTA
     </GUI>
   </step>
   <step>
-    <name>TBL_RESERVA</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>stagihobd</connection>
-    <sql>SELECT
-  RES_Id
-, RES_StartDate
-, RES_EndDate
-, PAC_Id
-, LEI_Id
-, PLA_Id
-FROM TBL_RESERVA
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Select values</name>
     <type>SelectValues</type>
     <description/>
@@ -733,7 +694,7 @@ FROM TBL_HOSPITAL
     </GUI>
   </step>
   <step>
-    <name>VW_RESERVA_PACIENTE</name>
+    <name>TBL_RESERVA</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -744,8 +705,14 @@ FROM TBL_HOSPITAL
       <schema_name/>
     </partitioning>
     <connection>stagihobd</connection>
-    <sql>SELECT *
-FROM VW_RESERVA_PACIENTE
+    <sql>SELECT
+  RES_Id
+, RES_StartDate
+, RES_EndDate
+, PAC_Id
+, LEI_Id
+, PLA_Id
+FROM TBL_RESERVA
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -760,8 +727,8 @@ FROM VW_RESERVA_PACIENTE
       </output>
     </remotesteps>
     <GUI>
-      <xloc>389</xloc>
-      <yloc>199</yloc>
+      <xloc>288</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -795,6 +762,37 @@ FROM taxaocupacaomedicos
     <GUI>
       <xloc>112</xloc>
       <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table TBL_AVALIACAO</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>stagihobd</connection>
+    <sql>SELECT * FROM TBL_AVALIACAO </sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>560</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
