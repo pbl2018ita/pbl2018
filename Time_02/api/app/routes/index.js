@@ -28,4 +28,7 @@ module.exports = function (app) {
   app.get('/view/especialista', viewHandlers.getEspecialistaView); //US299d
   app.get('/view/plantonista', viewHandlers.getPlantonistaView); //US299d
 
+  app.get('/view/paciente', viewHandlers.getPacienteView); 
+  app.post('/view/paciente', viewHandlers.postPaciente); 
+
 }

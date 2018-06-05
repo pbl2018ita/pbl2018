@@ -18,17 +18,18 @@
  * Funcao generalizada para transacoes no blockchain e chamar eventos
  * @param {stagihobd.atendimento.RegistrarAutorizacao} registrarAutorizacao
  * @transaction
- */
+ 
 
 async function registrar(tx, asset, event, msg){
     const assetRegistry = await getAssetRegistry('stagihobd.atendimento.'+asset);
     await assetRegistry.update(tx.asset);
 
-    let event = getFactory().newEvent('stagihobd.atendimento', event);
-    event.asset = tx.asset;
-    event.mensagem = msg;
-    emit(event);
+    let evt = getFactory().newEvent('stagihobd.atendimento', event);
+    evt.asset = tx.asset;
+    evt.mensagem = msg;
+    emit(evt);
 }
+*/
 
 /**
  * Funcao para registrar Autorizacao do Hospital
@@ -36,16 +37,18 @@ async function registrar(tx, asset, event, msg){
  * @transaction
  */
 async function registrarAutorizacao(tx) {
-    registrar(tx, 'RegistrarAutorizacao', 'RegistrarAutorizacaoEvent', 'Autorizacao de Atendimento Registrada com Sucesso' );
-    /*
-        const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarAutorizacao');
-        await assetRegistry.update(tx.asset);
-
-        let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarAutorizacaoEvent');
-        event.asset = tx.asset;
-        event.mensagem = 'Autorizacao de Atendimento Registrada com Sucesso';
-        emit(event);
+    /* 
+        registrar(tx, 'RegistrarAutorizacao', 'RegistrarAutorizacaoEvent', 'Autorizacao de Atendimento Registrada com Sucesso' ); 
     */
+    
+    const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarAutorizacao');
+    await assetRegistry.update(tx.asset);
+
+    let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarAutorizacaoEvent');
+    event.asset = tx.asset;
+    event.mensagem = 'Autorizacao de Atendimento Registrada com Sucesso';
+    emit(event);
+
 }
 
 /**
@@ -54,16 +57,17 @@ async function registrarAutorizacao(tx) {
  * @transaction
  */
 async function registrarAtendimentoClinico(tx) {
-    registrar(tx, 'RegistrarAtendimentoClinico', 'RegistrarAtendimentoClinicoEvent', 'Atendimento Clinico Registrado com Sucesso' );
     /*
-        const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarAtendimentoClinico');
-        await assetRegistry.update(tx.asset);
-
-        let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarAtendimentoClinicoEvent');
-        event.asset = tx.asset;
-        event.mensagem = 'Atendimento Clinico Registrado com Sucesso';
-        emit(event);
+        registrar(tx, 'RegistrarAtendimentoClinico', 'RegistrarAtendimentoClinicoEvent', 'Atendimento Clinico Registrado com Sucesso' );
     */
+
+    const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarAtendimentoClinico');
+    await assetRegistry.update(tx.asset);
+
+    let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarAtendimentoClinicoEvent');
+    event.asset = tx.asset;
+    event.mensagem = 'Atendimento Clinico Registrado com Sucesso';
+    emit(event);
 }
 
 /**
@@ -72,14 +76,14 @@ async function registrarAtendimentoClinico(tx) {
  * @transaction
  */
 async function registrarProntuario(tx) {
-    registrar(tx, 'RegistrarProntuario', 'RegistrarProntuarioEvent', 'Prontuario Registrado com Sucesso');
     /*
-        const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarProntuario');
-        await assetRegistry.update(tx.asset);
-
-        let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarProntuarioEvent');
-        event.asset = tx.asset;
-        event.mensagem = 'Prontuario Registrado com Sucesso';
-        emit(event);
+        registrar(tx, 'RegistrarProntuario', 'RegistrarProntuarioEvent', 'Prontuario Registrado com Sucesso');
     */
+     const assetRegistry = await getAssetRegistry('stagihobd.atendimento.RegistrarProntuario');
+    await assetRegistry.update(tx.asset);
+
+    let event = getFactory().newEvent('stagihobd.atendimento', 'RegistrarProntuarioEvent');
+    event.asset = tx.asset;
+    event.mensagem = 'Prontuario Registrado com Sucesso';
+    emit(event);
 }

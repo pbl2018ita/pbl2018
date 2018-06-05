@@ -24,11 +24,28 @@ participant Hospital identified by hospitalId {
   o String cnpj
   o String endereco
   o String numero
-  o String complemento
+  o String complemento optional
   o String cep
   o String bairro
   o String municipio
   o String uf
+}
+
+asset Autorizacao identified by autorizacaoId {
+  o String autorizacaoId
+  --> Hospital owner
+}
+
+transaction RegistrarAutorizacao {
+  --> Autorizacao asset
+  o String nomeOperador default="PLANTAO CONTROLADOR"
+  o String pacienteId
+  o DateTime data
+}
+
+event RegistrarAutorizacaoEvent {
+  --> Autorizacao asset
+  o String mensagem
 }
 
 participant Medico identified by crm {
@@ -40,52 +57,18 @@ participant MedicoEspecialista extends Medico{
   o String especialidade
 }
 
-participant Paciente identified by pacienteId{
-  o String pacienteId
-  o String responsavel
-}
-
-asset Autorizacao identified by autorizacaoId {
-  o String autorizacaoId
-  --> Hospital owner
-  o String nomeOperador
-  o String data
-  o String pacienteId
-}
-
-transaction RegistrarAutorizacao {
-  --> Autorizacao asset
-  o String nomeOperador
-  o String data
-  o String pacienteId
-}
-
-event RegistrarAutorizacaoEvent {
-  --> Autorizacao asset
-  o String mensagem
-}
-
 asset AtendimentoClinico identified by atendimentoClinicoId{
   o String atendimentoClinicoId
   --> Medico owner
-  o String crm
-  o String autorizacaoId
-  o String pacienteId
-  o String dataAtendimento
-  o String dataRegistro
-  o String registroClinico
-  o String dadosColetados
-  o String avaliacao
-  o String plano
 }
 
 transaction RegistrarAtendimentoClinico{
   --> AtendimentoClinico asset 
-  o String crm
-  o String autorizacaoId
-  o String pacienteId
-  o String dataAtendimento
-  o String dataRegistro
+  o String autorizacao
+  o String medico
+  o String paciente
+  o DateTime dataAtendimento
+  o DateTime dataRegistro
   o String registroClinico
   o String dadosColetados
   o String avaliacao
@@ -97,25 +80,24 @@ event RegistrarAtendimentoClinicoEvent {
   o String mensagem
 }
 
+participant Paciente identified by pacienteId{
+  o String pacienteId
+  o String responsavel optional
+}
+
 asset Prontuario identified by prontuarioId{
  o String prontuarioId
   --> Paciente owner
-  o String crm
-  o String autorizacaoId
-  o String dataAtendimento
-  o String dataRegistro
-  o String registroClinico
-  o String dadosColetados
-  o String avaliacao
-  o String plano
+  /* --> Participant Medico */
 }
 
 transaction RegistrarProntuario{
   --> Prontuario asset 
-  o String crm
-  o String autorizacaoId
-  o String dataAtendimento
-  o String dataRegistro
+  o String autorizacao
+  o String medico
+  o String paciente
+  o DateTime dataAtendimento
+  o DateTime dataRegistro
   o String registroClinico
   o String dadosColetados
   o String avaliacao
