@@ -39,7 +39,7 @@
          <div class="row">
             <% for (ret of result.leitos){%>
             <%if (ret.status == 'livre') { %>
-            <div class="col-md-3 mx-auto" data-toggle="modal" data-target="#modal_leito" style="margin-top: 25px;">
+            <div class="col-md-3 mx-auto" data-toggle="modal" data-target="#modal_reserva" style="margin-top: 25px;">
                <div class="card" style="width: 18rem; text-align: left;">
                   <div class="card-body" style="background-color: #5dc776; color:#0a2310">
                      <p><b>Hospital: </b> <%= ret.hospital %></p>
@@ -65,22 +65,22 @@
                   </button>
                </div>
                <div class="modal-body">
-                  <form>
+                  <form action="/leito/reserva" method="post">
                      <div class="form-group">
-                        <label for="exampleInputEmail1">Paciente</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">    
+                        <label for="id_paciente">Paciente</label>
+                        <input type="text" class="form-control" id="id_paciente" name="id_paciente">
                      </div>
                      <div class="form-group">
-                        <label for="exampleInputPassword1">Leito</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <label for="id_leito">Leito</label>
+                        <input type="text" class="form-control" id="id_leito" name="id_leito">
                      </div>
                      <div class="form-group">
-                        <label for="exampleInputPassword1">Especialista</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <label for="id_especialista">Especialista</label>
+                        <input type="text" class="form-control" id="id_especialista" name="id_especialista">
                      </div>
                      <div class="form-group">
-                        <label for="exampleInputPassword1">Plantonista</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <label for="id_plantonista">Plantonista</label>
+                        <input type="text" class="form-control" id="id_plantonista" name="id_plantonista">
                      </div>
                      <button type="submit" class="btn btn-primary">Atualizar</button>
                   </form>
@@ -101,7 +101,7 @@
                   <form>
                      <div class="form-group">
                         <label for="exampleInputEmail1">Hospital</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="Hospital das Clinicas">    
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="Hospital das Clinicas">
                      </div>
                      <div class="form-group">
                         <label for="exampleInputPassword1">Status</label>
