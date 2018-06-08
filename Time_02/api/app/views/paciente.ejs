@@ -20,49 +20,39 @@
             <a class="py-2 d-none d-md-inline-block" href="/view/reserva">Reseva</a>
             <a class="py-2 d-none d-md-inline-block" href="/view/especialista">Especialista</a>
             <a class="py-2 d-none d-md-inline-block" href="/view/plantonista">Plantonista</a>
-            <a class="py-2 d-none d-md-inline-block" href="/view/paciente">Paciente</a>
          </div>
       </nav>
       <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3">
          <h1 style="text-align: center;">Patient Blockchain</h1>
          <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">New Patient</button><br><br>
-         <!--form class="form-inline" action="/view/paciente" method="get">
-            <label  for="inlineFormInput" style="margin-right: 20px;">Tipo de Busca: </label>
-            <select id="filterOption" name="filterOption" style="float: left;margin-right: 20px;" class="form-control">
-               <option value="nome">Nome</option>
-               <option value="cpf">CPF</option>
-               <option value="rg">RG</option>
-               <option value="telefone">Telefone</option>
-               <option value="sus">Cartão do SUS</option>
-            </select>
-            <input type="text" class="form-control" placeholder="" name="search" style="margin-right: 20px;">
-            <button type="submit" class="btn btn-primary" style="margin-right: 20px;">Buscar</button>
-         </form-->
          <br>
 
-         
+         <%if (transaction_id != '') { %>
+            <h4><b>Patient Hash Blockchain: </b><%= transaction_id %></h4>
+          <% } %>
 
-
+         <hr>
 
          <h3>Patient List</h3>
          <table class="table">
            <thead>
              <tr>
-               <th scope="col">ID</th>
+               <th scope="col">Hash</th>
                <th scope="col">Name</th>
                <th scope="col">Birthday</th>
                <th scope="col">CPF</th>
              </tr>
            </thead>
            <tbody>
+
             <% for (ret of result){%>
-             <tr>
-               <th><%= ret.pacienteId %></th>
-               <th><%= ret.nome %></th>
-               <th><%= ret.data_nascimento %></th>
-               <th><%= ret.cpf %></th>
-               
-             </tr>
+            <tr>
+                  <th><%= ret[0].transactionId %></th>
+                  <th><%= ret[1].nome %></th>
+                  <th><%= ret[1].data_nascimento %></th>
+                  <th><%= ret[1].cpf %></th>
+                </tr>
+
              <% } %>
            </tbody>
          </table>

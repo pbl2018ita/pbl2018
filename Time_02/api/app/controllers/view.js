@@ -7,6 +7,7 @@ const async = require('async');
 var request = require('request');
 var leitos_disponiveis;
 var reserva;
+var pacientes;
 
 function getLeitos(callback) {
   Leitos.find({}, function(err, leitos) {
@@ -55,6 +56,99 @@ function httpGet(url, callback) {
     }
   );
 }
+
+
+
+
+function joinObjects() {
+  var idMap = {};
+  // Iterate over arguments
+  for(var i = 0; i < arguments.length; i++) { 
+    // Iterate over individual argument arrays (aka json1, json2)
+    for(var j = 0; j < arguments[i].length; j++) {
+       var currentID = arguments[i][j]['pacienteId'];
+       if(!idMap[currentID]) {
+          idMap[currentID] = {};
+        }
+       // Iterate over properties of objects in arrays (aka id, name, etc.)
+      for(var key in arguments[i][j]) {
+          idMap[currentID][key] = arguments[i][j][key];
+      }
+    }
+  }
+
+  // push properties of idMap into an array
+  var newArray = [];
+  for(var property in idMap) {
+    newArray.push(idMap[property]);
+  }
+  return newArray;
+}
+
+
+
+
+
+function joinInfos(wInfos){
+    var groupedData = {};
+      for (var it = 0; it < wInfos.length; it++) {
+        var item = wInfos[it];
+        if (!groupedData[item.pacienteId]){
+          groupedData[item.pacienteId] = [];
+        }
+        groupedData[item.pacienteId].push(item);
+      }
+    return groupedData;
+}
+
+
+
+function prepareObjects(transaction) {
+
+  var array = []
+  for(var i in transaction) { 
+      var obj = {}
+    var paciente_id = transaction[i]['asset'].split("#")[1]
+    obj["pacienteId"] = paciente_id;
+    obj["transactionId"] = transaction[i]['transactionId'];
+
+    array.push(obj)
+
+  }
+
+  return array;
+}
+
+
+function getPaciente(callback) {
+  var obj = {}
+    var url = ['http://34.220.241.225:3000/api/stagihobd.paciente.Paciente',
+               'http://34.220.241.225:3000/api/stagihobd.paciente.Habilitar_Desabilitar_Cadastro']
+    async.map(url, httpGet, function (err, data){
+      if (err) return console.log(err);
+      obj['participant'] = data[0];
+      obj['transaction'] = data[1];
+      
+
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, obj);
+      }
+
+    });
+}
+
+getPaciente(function(err, paciente) {
+    if (err) {
+        console.log(err);
+    }
+   pacientes = paciente
+});
+
+
+
+
 
 
 exports.getReservaView = function (req, res) {
@@ -111,19 +205,20 @@ exports.getPlantonistaView = function (req, res) {
 }
 
 
+
+
 exports.getPacienteView = function (req, res) {
   var obj = {}
-  try {  
-    var url = ['http://34.220.241.225:3000/api/stagihobd.paciente.Paciente']
-    async.map(url, httpGet, function (err, data){
-      if (err) return console.log(err);
-      console.log(data[0])
-      res.render('paciente.ejs', {result: data[0]})
-    });
-  } catch(err) {
-    console.log(err)
-    res.send('Ocorreu um erro')
+  var result_trans = prepareObjects(pacientes['transaction']);
+  var obj = Object.assign(pacientes['participant'], result_trans);
+  var merge = joinInfos(obj); 
+  var t = [];
+  for(var i in merge){
+    if(merge[i].length == 2 && merge[i][1]['$class'] != undefined) {
+      t.push(merge[i]);
+    } 
   }
+  res.render('paciente.ejs', {result: t, transaction_id: ""})
 }
 
 
@@ -210,8 +305,18 @@ exports.postPaciente = function (req, res) {
                   }, function(error, response, body){
                     console.log('passou aqui 3')
                     if(response.statusCode == 200){
-                      console.log(body);
-                      res.render('paciente.ejs', {result: body.transactionId})
+                      try {  
+                        var url = ['http://34.220.241.225:3000/api/stagihobd.paciente.Paciente']
+                        async.map(url, httpGet, function (err, data){
+                          if (err) return console.log(err);
+                          console.log(data[0])
+                          res.render('paciente.ejs', {result: data[0], transaction_id: body.transactionId})
+                        });
+                      } catch(err) {
+                        console.log(err)
+                        res.send('Ocorreu um erro')
+                      }
+
                     }
                   })
               }
