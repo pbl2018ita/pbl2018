@@ -7,6 +7,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var pacienteRouter = require('./routes/paciente');
 
+var atendimentoHospitalRouter = require('./routes/atendimento-hospital');
+var atendimentoMedicoRouter = require('./routes/atendimento-medico');
+
 var atendimentoRouter = require('./routes/atendimento');
 
 var app = express();
@@ -27,6 +30,16 @@ console.log('Serviço PACIENTE iniciado.');
 
 app.use('/api', atendimentoRouter);
 console.log('Serviço ATENDIMENTO iniciado.');
+
+app.use('/api', atendimentoRouter);
+console.log('Serviço ATENDIMENTO iniciado.');
+
+app.use('/api', atendimentoHospitalRouter);
+console.log('Serviço ATENDIMENTO-HOSPITAL iniciado.');
+
+app.use('/api', atendimentoMedicoRouter);
+console.log('ServiçoS ATENDIMENTO-MEDICO e ATENDIMENTO-ESPECIALISTA iniciado.');
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

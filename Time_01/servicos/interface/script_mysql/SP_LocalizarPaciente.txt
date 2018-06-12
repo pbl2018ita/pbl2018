@@ -1,0 +1,13 @@
+USE time1;
+DROP PROCEDURE IF EXISTS sp_LocalizarPaciente;
+
+delimiter // 
+CREATE PROCEDURE sp_LocalizarPaciente(IN campo VARCHAR(30),  IN valor VARCHAR(100))
+BEGIN
+   SET @s = CONCAT('SELECT hashBC AS hashBC FROM PACIENTE WHERE ', campo, '=\'', valor, '\''); 
+   PREPARE stmt FROM @s;
+   EXECUTE stmt;
+   DEALLOCATE PREPARE stmt;
+END
+//
+delimiter ;
