@@ -24,7 +24,7 @@ producer.on('error', function (err) {
   console.error("Não foi possível iniciar o Producer do Kafka"+err);
 });
 
-// enviar mensagem ao Kafka
+// enviar mensagem ao Kafka 
 function sendMessageKafka(topic, msg) {
   payloads = [ { topic: topic, messages: msg } ];
 
