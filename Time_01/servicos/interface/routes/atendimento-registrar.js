@@ -62,8 +62,10 @@ function RealizarProntuarioAsset(req, res){
     };
 
     request(options, (error, response, body) => {
-        if (!error && response.statusCode == 200)
-          sendMessageKafka(topico, JSON.stringify(options));
+        if (!error && response.statusCode == 200){
+            sendMessageKafka(topico, JSON.stringify(options));
+            RealizarProntuarioTransaction(req, res);
+        }
         retornarStatus(res, response.statusCode, options, error);
     });
 }
@@ -100,7 +102,6 @@ function RealizarProntuarioTransaction(req, res){
 // API para realizar o cadastro do prontuário (Asset + Transaction)
 router.post('/atendimento-prontuario', function(req, res) {
     RealizarProntuarioAsset(req, res)
-    RealizarProntuarioTransaction(req, res);
 });
 
 // API para buscar o prontuário
@@ -110,3 +111,5 @@ router.get('/atendimento-prontuario/:id', function(req, res) {
         retornarStatus(res, response.statusCode, url, error);
       });
   });  
+
+  module.exports = router;

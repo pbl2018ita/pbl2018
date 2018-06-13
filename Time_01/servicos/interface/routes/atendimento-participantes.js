@@ -2,53 +2,20 @@ var express = require('express');
 var request = require('request');
 var router  = express.Router();
 
-var wwDominio = 'http://w.blockchain.wgetdev.tech:3000/'
+var wwDominio = 'http://w.blockchain.wgetdev.tech:3000' //'http://18.231.181.57:3000'
 
-//TODO: Refatorar o Kafka em Serviço
-
-/* --[ KAFKA ]-- */
-var kafka = require('kafka-node')
-var Producer = kafka.Producer
-var client = new kafka.Client("stagihobd.hashtagsource.com:2181")
-var producer = new Producer(client);
-
-var topico = "atendimento-hospital";
-var topicoOnline = false ;
-
-// Configurando o Kafka
-producer.on('ready', function () {
-  console.log("Producer para VAGA está pronto, no tópico 'cross'");
-  topicoOnline = true;
-});
-
-producer.on('error', function (err) {
-  console.error("Não foi possível iniciar o Producer do Kafka"+err);
-});
-
-// enviar mensagem ao Kafka
-function sendMessageKafka(topic, msg) {
-  payloads = [ { topic: topic, messages: msg } ];
-
-  if (topicoOnline) {
-    producer.send(payloads, function (err, data) {
-        console.log(data);
-    });
-  } else {
-      console.error("desculpe, topico 'cross' não está pronto, falha ao enviar a mensagem ao Kafka.");
-  }
-}
-/* --[ KAFKA - fim ]-- */
-
+// função para realizar o retorno dos micro-servicos
 function retornarStatus(res, statusCode, infos, erro){
   if (statusCode == 200 || statusCode == 201)
-    res.status(200).send({ result: "Operacao Efetuada com Sucesso " + JSON.stringify(infos)});
-
+    res.status(200).send({result:"Operação realizada com sucesso", retorno: infos});
+  
   if (statusCode == 500)
       res.status(500).send({ result: "Erro ao tentar realizar a Operacao\n:" +  + JSON.stringify(infos) + " \n: " + erro});
 }
 
 // API para cadastrar hospital
 router.post('/atendimento-hospital', function(req, res) {
+
   var dados = {
     "$class": "stagihobd.atendimento.HospitalParticipant", 
     "hospitalID": req.body.hospitalID,
@@ -61,6 +28,7 @@ router.post('/atendimento-hospital', function(req, res) {
     "municipio": req.body.municipio, 
     "uf": req.body.uf
   };
+
   var options = {
     uri   : wwDominio+'/api/stagihobd.atendimento.HospitalParticipant',
     method: 'POST',
@@ -69,17 +37,18 @@ router.post('/atendimento-hospital', function(req, res) {
 
   request(options, (error, response, body) => {
     if (!error && response.statusCode == 200)
-      sendMessageKafka(topico, JSON.stringify(options));
-    retornarStatus(res, response.statusCode, options, error);
-  });
+      retornarStatus(res, response.statusCode, body, '');
+    else
+      retornarStatus(res, response.statusCode, options, error);
+  })
 });
 
 // API para buscar hospital
 router.get('/atendimento-hospital/:id', function(req, res) {
     var url = wwDominio+'/api/stagihobd.atendimento.HospitalParticipant/'+req.params.id
-    request.get(url, (error, response, body) => {
-        retornarStatus(res, response.statusCode, url, error);
-      });
+    request.get(url, (error, response, body) =>{
+      retornarStatus(res, response.statusCode, body, error);
+    });
 });
 
 function medicoPOST(res, dados, url){
@@ -90,8 +59,9 @@ function medicoPOST(res, dados, url){
     };
 
     request(options, (error, response, body) => {
-        if (!error && response.statusCode == 200)
-        sendMessageKafka(topico, JSON.stringify(options));
+      if (!error && response.statusCode == 200)
+        retornarStatus(res, response.statusCode, body, error);
+      else
         retornarStatus(res, response.statusCode, options, error);
     });
 }
@@ -121,14 +91,16 @@ router.post('/atendimento-especialista', function(req, res) {
 router.get('/atendimento-medico/:id', function(req, res) {
     var url = wwDominio+'/api/stagihobd.atendimento.MedicoParticipant/'+req.params.id
     request.get(url, (error, response, body) => {
-        retornarStatus(res, response.statusCode, url, error);
-      });
+      retornarStatus(res, response.statusCode, body, error);
+    });
 });
   
 // API para buscar especialistas
 router.get('/atendimento-especialista/:id', function(req, res) {
     var url = wwDominio+'/api/stagihobd.atendimento.MedicoEspecialistaParticipant/'+req.params.id
     request.get(url, (error, response, body) => {
-        retornarStatus(res, response.statusCode, url, error);
-      });
+      retornarStatus(res, response.statusCode, body, error);
+    });
 });
+
+module.exports = router;

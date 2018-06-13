@@ -1,16 +1,16 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var pacienteRouter = require('./routes/paciente');
-
-var atendimentoHospitalRouter = require('./routes/atendimento-hospital');
-var atendimentoMedicoRouter = require('./routes/atendimento-medico');
-
-var atendimentoRouter = require('./routes/atendimento');
+var indexRouter                   = require('./routes/index');
+var pacienteRouter                = require('./routes/paciente');
+var atendimentoParticipanteRouter = require('./routes/atendimento-participantes');
+var atendimentoAutorizarRouter    = require('./routes/atendimento-autorizar');
+var atendimentoRealizarRouter     = require('./routes/atendimento-realizar');
+var atendimentoRegistrarRouter    = require('./routes/atendimento-registrar');
 
 var app = express();
 
@@ -28,18 +28,19 @@ app.use('/', indexRouter);
 app.use('/api', pacienteRouter);
 console.log('Serviço PACIENTE iniciado.');
 
-app.use('/api', atendimentoRouter);
-console.log('Serviço ATENDIMENTO iniciado.');
-
-app.use('/api', atendimentoRouter);
-console.log('Serviço ATENDIMENTO iniciado.');
-
-app.use('/api', atendimentoHospitalRouter);
+app.use('/api', atendimentoParticipanteRouter);
 console.log('Serviço ATENDIMENTO-HOSPITAL iniciado.');
+console.log('Serviço ATENDIMENTO-MEDICO iniciado.');
+console.log('Serviço ATENDIMENTO-ESPECIALISTA iniciado.');
 
-app.use('/api', atendimentoMedicoRouter);
-console.log('ServiçoS ATENDIMENTO-MEDICO e ATENDIMENTO-ESPECIALISTA iniciado.');
+app.use('/api', atendimentoAutorizarRouter);
+console.log('Serviço ATENDIMENTO-HOSPITAL-AUTORIZACAO iniciado.');
 
+app.use('/api', atendimentoRealizarRouter);
+console.log('Serviço ATENDIMENTO-REALIZAR iniciado.');
+
+app.use('/api', atendimentoRegistrarRouter);
+console.log('Serviço ATENDIMENTO-PRONTUARIO iniciado.');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -47,8 +47,8 @@ function retornarStatus(res, statusCode, infos, erro){
       res.status(500).send({ result: "Erro ao tentar realizar a Operacao\n:" +  + JSON.stringify(infos) + " \n: " + erro});
 }
 
-// API para buscar autorizacao
-router.post('/atendimento-hospital-autorizacao', function(req, res) {
+
+function AutorizarAtendimentoAsset(req, res){
   var dados = {
     "$class": "stagihobd.atendimento.AutorizacaoAsset",
     "autorizacaoID": req.body.autorizacao,
@@ -63,24 +63,15 @@ router.post('/atendimento-hospital-autorizacao', function(req, res) {
   };
 
   request(options, (error, response, body) => {
-    if (!error && response.statusCode == 200)
+    if (!error && response.statusCode == 200){
       sendMessageKafka(topico, JSON.stringify(options));
+      AutorizarAtendimentoTransaction(req, res);
+    }
     retornarStatus(res, response.statusCode, options, error);
   });
-});
+}
 
-// API para buscar autorizacao
-router.get('/atendimento-hospital-autorizacao/:id', function(req, res) {
-  var url = wwDominio+'/api/stagihobd.atendimento.AutorizacaoAsset/'+req.params.id
-  request.get(url, (error, response, body) => {
-      retornarStatus(res, response.statusCode, url, error);
-    });
-});
-
-
-// API para realizar uma transacao de autorizacao
-router.post('/atendimento-hospital-autorizacao', function(req, res) {
-
+function AutorizarAtendimentoTransaction(req, res){
   var dados = {
     "$class": "stagihobd.atendimento.AutorizarTransaction",
     "asset": "resource:stagihobd.atendimento.AutorizacaoAsset#"+req.body.autorizacao,
@@ -100,5 +91,19 @@ router.post('/atendimento-hospital-autorizacao', function(req, res) {
     retornarStatus(res, response.statusCode, options, error);
   });
 
+}
+
+// API para realizar uma transacao de autorizacao
+router.post('/atendimento-hospital-autorizacao', function(req, res) {
+  AutorizarAtendimentoAsset(req, res);
 });
 
+// API para buscar autorizacao
+router.get('/atendimento-hospital-autorizacao/:id', function(req, res) {
+  var url = wwDominio+'/api/stagihobd.atendimento.AutorizacaoAsset/'+req.params.id
+  request.get(url, (error, response, body) => {
+      retornarStatus(res, response.statusCode, url, error);
+    });
+});
+
+module.exports = router;

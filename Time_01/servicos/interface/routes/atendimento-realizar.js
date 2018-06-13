@@ -62,8 +62,10 @@ function RealizarAtendimentoAsset(req, res){
     };
 
     request(options, (error, response, body) => {
-        if (!error && response.statusCode == 200)
-          sendMessageKafka(topico, JSON.stringify(options));
+        if (!error && response.statusCode == 200){
+            sendMessageKafka(topico, JSON.stringify(options));
+            RealizarAtendimentoTransaction(req, res);
+        }
         retornarStatus(res, response.statusCode, options, error);
     });
 }
@@ -91,15 +93,16 @@ function RealizarAtendimentoTransaction(req, res){
 }
 
 // API para realizar o atendimento (Asset + Transaction)
-router.post('/atendimento-atender', function(req, res) {
+router.post('/atendimento-realizar', function(req, res) {
     RealizarAtendimentoAsset(req, res)
-    RealizarAtendimentoTransaction(req, res);
 });
 
 // API para buscar o atendimento
-router.get('/atendimento-atender/:id', function(req, res) {
+router.get('/atendimento-realizar/:id', function(req, res) {
     var url = wwDominio+'/api/stagihobd.atendimento.AtendimentoAsset/'+req.params.id
     request.get(url, (error, response, body) => {
         retornarStatus(res, response.statusCode, url, error);
       });
   });  
+
+module.exports = router;

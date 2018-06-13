@@ -11,6 +11,7 @@
     "ejs": "^2.6.1",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
+    "kafka-node": "^2.6.1",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "request": "^2.87.0"
