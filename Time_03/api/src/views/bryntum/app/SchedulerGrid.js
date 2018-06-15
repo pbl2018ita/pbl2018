@@ -11,14 +11,28 @@ var g = null;
 
 var socket = io();
 
-socket.on('toSchedule', function (message) {
-    var msg = JSON.parse(message);
+$.post('/scheduler/reserva', '' , function(resp, textStatus) {
+    //data contains the JSON object
+    //textStatus contains the status: success, error, etc
+    g.resourceStore.loadRawData(resp.resources);
+    g.eventStore.loadData(resp.events);
+    console.log(resp);
+  }, "json");
 
-    $.post('/scheduler/reserva', msg.message, function(resp, textStatus) {
+socket.on('toSchedule', function (message) {
+
+    console.log(message);
+
+    //var msg = JSON.parse(message);
+
+    
+
+    $.post('/scheduler/reserva', message, function(resp, textStatus) {
         //data contains the JSON object
         //textStatus contains the status: success, error, etc
         g.resourceStore.loadRawData(resp.resources);
         g.eventStore.loadData(resp.events);
+        console.log(resp);
       }, "json");
 
 
@@ -48,7 +62,7 @@ Ext.onReady(function() {
 relativo ao painel de recursos, Static Panel
 configuracao das colunas do Painel estatico
 ----------------------------------------------------------------*/
-Ext.define('Resource', { extend: 'Sch.model.Resource', fields: [{ Id: 'ResourceId' }] });
+Ext.define('Resource', { extend: 'Sch.model.Resource', fields: [{ Id: 'ResourceId' }, {name: "crm"}] });
 var resourceStore = Ext.create('Sch.data.ResourceStore', { model: 'Resource', sorters: { property: 'Id', direction: "ASC" /*--> relativo ordencao da coluna, static Panel*/ } });
 
 /*---------------------------------------------------------------------------------------------
@@ -56,7 +70,8 @@ relativo aos eventos, linhas de schedule, Dynamic Panel
 http://www.bryntum.com/docs/scheduling/4.x/?#!/api/Sch.data.EventStore
 Relativo ao Template de Formatacao e Renderizacao das barras dinamicas customizadas
 -----------------------------------------------------------------------------------------------*/
-Ext.define('Event', { extend: 'Sch.model.Event', nameField: 'Title', fields: [{ name: 'Title', mapping: 'Title' }, { name: 'ResourceId' }, { name: 'StartDate' }, { name: 'EndDate' }, { name: 'PatientId' }, { name: 'Name' }, { name: 'Title' },{ name: 'age' }, { name: 'blood' }, { name: 'temperature' }, { name: 'heartbeat' },  { name: 'text' } , { name: 'place' }] });
+//Ext.define('Event', { extend: 'Sch.model.Event', nameField: 'Title', fields: [{ name: 'Title', mapping: 'Title' }, { name: 'ResourceId' }, { name: 'StartDate' }, { name: 'EndDate' }, { name: 'PatientId' }, { name: 'Name' }, { name: 'Title' },{ name: 'age' }, { name: 'blood' }, { name: 'temperature' }, { name: 'heartbeat' },  { name: 'text' } , { name: 'place' }] });
+Ext.define('Event', { extend: 'Sch.model.Event', nameField: 'Title', fields: [{ Id: 'PatientId' }, { name: 'ResourceId', mapping: 'ResourceId' }, { name: 'StartDate', mapping: 'StartDate'  }, { name: 'EndDate', mapping: 'EndDate'  }, { name: 'LEI_Id'}, { name: 'ESP_ID'} ] });
 var eventStore = Ext.create('Sch.data.EventStore', { model: 'Event' });
 
 /* globals io: true */
@@ -76,10 +91,13 @@ Ext.define('app.SchedulerGrid', {
         'app.ext.configHeaderBar',
         'app.ext.tooltip'
     ],
+    load: function(store, events, o){
+        console.log(store);
+    },
 
     title: 'STAGIHO-BD / Centro Cirúrgico HS',
-    startDate: new Date(2018, 4, 18, 0),
-    endDate: new Date(2018, 4, 20, 20),
+    startDate: new Date(2018, 5, 15, 15),
+    endDate: new Date(2018, 5, 16, 4),
     //  setTimeColumnWidth: 40,
     //draggingRecord     : null,
     //socketHost         : null,
@@ -99,6 +117,7 @@ Ext.define('app.SchedulerGrid', {
     columns: [
         //{ header: '#', width: 40, dataIndex: 'Id', sortable: true },
         { header: 'Nome', width: 120, dataIndex: 'Name', sortable: true },
+        { header: 'CRM', width: 60, dataIndex: 'crm', sortable: false },
         { header: 'Recurso', width: 120, dataIndex: 'Resource', sortable: true },
     ],
 
@@ -115,10 +134,11 @@ Ext.define('app.SchedulerGrid', {
         } else {
             tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'p1')
         };
+        //console.log(event);
         return event.data;
     },
     //Template de exibicao em cada Evento
-    eventBodyTemplate: '{PLA_Name}',
+    eventBodyTemplate: '{Title}',
 
     resourceStore: resourceStore,
     eventStore:eventStore,

@@ -138,17 +138,18 @@ module.exports = function (io) {
                                         var duration = 1;
                                         sql = util.format(sql, duration, reserva.id_paciente, reserva.id_leito, reserva.id_plantonista, reserva.id_especialista);
 
-                                        console.log('Pesquisa Setor: ' + sql);
+                                        //console.log('Insert Tabela Reserva: ' + sql);
 
-                                        var result = conn.query(sql);
+                                        //var result = conn.query(sql);
+
+                                        //Raise de evento do Schedule
+                                        client.emit('toSchedule', "reserva");
                                     }).catch(function (err) {
                                         console.log(err);
                                     });
 
 
 
-                                    //Raise de evento do Schedule
-                                    //client.emit('toSchedule', reserva);
 
                                     //reporta o tópico reservas
                                     //t_reservas.send(JSON.stringify(reserva));
