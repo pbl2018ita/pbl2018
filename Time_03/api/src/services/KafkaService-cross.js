@@ -5,13 +5,10 @@
  * cross => Para comunicar um evento de acidente e reserva de vaga
  * schedule => Para ser usado pelo Scheduler
 */
+var kafka = require('kafka-node');
 
-module.exports = module = function (topic) {
-    const kafka = require('kafka-node');
-    const client = new kafka.Client(process.env.ZOOKEEPER || 'stagihobd.hashtagsource.com:2181');
-
-    //analisar quais topicos devem existir no sistema. ex: cross, hospital_a, hospital_b, hospital_c
-    //topic = process.env.TOPIC || "cross";
+module.exports = function (topic) {
+    const client = new kafka.Client(process.env.ZOOKEEPER || 'stagihobd.hashtagsource.com');
 
     const producer = new kafka.HighLevelProducer(client);
     producer.on("ready", function () {
@@ -25,11 +22,12 @@ module.exports = module = function (topic) {
 
     //producer
     module.send = (data) => {
-        const payload = [{
+        var payload = [{
             topic: topic,
             messages: data
         }];
 
+        //console.log(payload);
         producer.send(payload, function (err, data) {
             if (err) {
                 console.log(err);

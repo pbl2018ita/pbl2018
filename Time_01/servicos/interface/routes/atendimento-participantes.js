@@ -59,7 +59,7 @@ function medicoPOST(res, dados, url){
     };
 
     request(options, (error, response, body) => {
-      if (!error && response.statusCode == 200)
+      if (response.statusCode == 200)
         retornarStatus(res, response.statusCode, body, error);
       else
         retornarStatus(res, response.statusCode, options, error);

@@ -1,8 +1,7 @@
 'use strict';
 
 module.exports = function (io) {
-    const topic = "schedule";
-    const kafka = require('../services/KafkaService')(topic);
+    const kafka = new (require('../services/KafkaService-schedule'))('schedule');
     //var DB = require('../models/scheduler-model')
 
     io.sockets.on('connection', function (socket) {
