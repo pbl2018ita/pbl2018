@@ -130,9 +130,9 @@ Ext.define('app.SchedulerGrid', {
 
         //Deixa em vermelho o paciente que tem temperatura acima de 37 C
         if ( event.get('manchester') > 3 ) { //event.get('temperature') > 37
-            tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'p2')
+            tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'manch' + event.get('manchester'))
         } else {
-            tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'p1')
+            tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'manch' + event.get('manchester'))
         };
         //console.log(event);
         return event.data;

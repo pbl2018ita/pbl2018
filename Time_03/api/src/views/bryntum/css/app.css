@@ -59,7 +59,13 @@
 .p1{
     background-color: #a0c409 !important ;color: #000; 
 }
-.p2{background-color: #f00 !important; color: #fff; }
+.p3{background-color: #f00 !important; color: #fff; }
+
+.manch1{ background-color: #0303b6!important; color:white!important;}
+.manch2{ background-color: #369957!important; color:white!important;}
+.manch3{ background-color: #ffee00!important; color:black!important;}
+.manch4{ background-color: #ff9c08!important; color:black!important;}
+.manch5{ background-color: #ff0000!important; color:black!important;}
 
 /*
 .x-tip{
@@ -78,3 +84,5 @@
 }
 
 .verticalLine { border-left: 3px dashed rgba(255, 0, 0, 0.5)!important; z-index:999999  }
+
+

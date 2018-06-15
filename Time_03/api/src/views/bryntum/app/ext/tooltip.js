@@ -28,7 +28,7 @@ Ext.define('app.ext.tooltip', {
                                 <p>{name}</p>
                                 <p>{Age} Y.O.</p>
                                 <p class="detail">Wound: {wound}</p> 
-                                <p class="detail">Manchester: {manchester}</p>
+                                <p class="manch{manchester}">Manchester: {manchester}</p>
                                 <p class="detail">Body Part: {body_part}</p>
                             </td>
                         </tr>
