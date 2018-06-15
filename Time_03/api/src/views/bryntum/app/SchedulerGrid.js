@@ -71,7 +71,7 @@ http://www.bryntum.com/docs/scheduling/4.x/?#!/api/Sch.data.EventStore
 Relativo ao Template de Formatacao e Renderizacao das barras dinamicas customizadas
 -----------------------------------------------------------------------------------------------*/
 //Ext.define('Event', { extend: 'Sch.model.Event', nameField: 'Title', fields: [{ name: 'Title', mapping: 'Title' }, { name: 'ResourceId' }, { name: 'StartDate' }, { name: 'EndDate' }, { name: 'PatientId' }, { name: 'Name' }, { name: 'Title' },{ name: 'age' }, { name: 'blood' }, { name: 'temperature' }, { name: 'heartbeat' },  { name: 'text' } , { name: 'place' }] });
-Ext.define('Event', { extend: 'Sch.model.Event', nameField: 'Title', fields: [{ Id: 'PatientId' }, { name: 'ResourceId', mapping: 'ResourceId' }, { name: 'StartDate', mapping: 'StartDate'  }, { name: 'EndDate', mapping: 'EndDate'  }, { name: 'LEI_Id'}, { name: 'ESP_ID'} ] });
+Ext.define('Event', { extend: 'Sch.model.Event', nameField: 'name', fields: [{ Id: 'PatientId' }, { name: 'ResourceId', mapping: 'ResourceId' }, { name: 'StartDate', mapping: 'StartDate'  }, { name: 'EndDate', mapping: 'EndDate'  }, { name: 'LEI_Id'}, { name: 'ESP_ID'},{ name: 'age' }, { name: 'blood' }, { name: 'temperature' }, { name: 'heartbeat' }  ] });
 var eventStore = Ext.create('Sch.data.EventStore', { model: 'Event' });
 
 /* globals io: true */
@@ -129,7 +129,7 @@ Ext.define('app.SchedulerGrid', {
         var cls = 'evt-{0} paciente {1} {2}'
 
         //Deixa em vermelho o paciente que tem temperatura acima de 37 C
-        if (event.get('temperature') > 37) {
+        if ( event.get('manchester') > 3 ) { //event.get('temperature') > 37
             tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'p2')
         } else {
             tplData.cls = Ext.String.format(cls, event.data.ResourceId, 'p1')
@@ -138,7 +138,7 @@ Ext.define('app.SchedulerGrid', {
         return event.data;
     },
     //Template de exibicao em cada Evento
-    eventBodyTemplate: '{Title}',
+    eventBodyTemplate: '{name}',
 
     resourceStore: resourceStore,
     eventStore:eventStore,

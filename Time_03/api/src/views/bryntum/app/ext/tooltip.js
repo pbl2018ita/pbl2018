@@ -18,15 +18,18 @@ Ext.define('app.ext.tooltip', {
                         <!--
                         <i class="fa fa-venus"></i>
                         -->
-                        Id Paciente: {PatientId}
+                        Name: {name}
+                        <!--Id Paciente: {PatientId}-->
                     </legend>
                     <table>
                         <tr>
                             <td><img src="images/{PatientId}.png" alt="{Name}" style="width:60px"></td>
                             <td>
-                                <p>{Name}</p>
-                                <p>{age} Anos</p>
-                                <p class="detail">{text}</p> 
+                                <p>{name}</p>
+                                <p>{Age} Y.O.</p>
+                                <p class="detail">Wound: {wound}</p> 
+                                <p class="detail">Manchester: {manchester}</p>
+                                <p class="detail">Body Part: {body_part}</p>
                             </td>
                         </tr>
                     </table            

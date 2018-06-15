@@ -85,10 +85,9 @@ exports.reservasPost = (req, res, next) => {
         password: "nai6eo3yahNaip3shoh3g",
         database: "stagihobd"
     }).then(function (conn) {
-        var sql = `SELECT CONCAT('Paciente ', RES_Id) as Title, PLA_ID as ResourceId, PAC_Id as PatientId, LEI_Id, ESP_ID,
-                            RES_StartDate StartDate, 
-                            RES_EndDate EndDate  
-                       FROM TBL_NEW_RESERVA`;
+        var sql = `SELECT name, PLA_ID as ResourceId, PAC_Id as PatientId, LEI_Id, ESP_ID,
+                        RES_StartDate StartDate, RES_EndDate EndDate , Age, Blood, temperature, heartbeat,wound,manchester,body_part  
+                    FROM TBL_NEW_RESERVA`;
 
         var result = conn.query(sql);
         conn.end();

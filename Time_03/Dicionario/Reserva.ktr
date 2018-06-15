@@ -499,6 +499,118 @@
     </hop>
   </order>
   <step>
+    <name>Insert / Update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>stagihobd</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>TBL_NEW_RESERVA</table>
+      <key>
+        <name>RES_Id</name>
+        <field>RES_Id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>RES_Id</name>
+        <rename>RES_Id</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>Name</name>
+        <rename>Name</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RES_StartDate</name>
+        <rename>RES_StartDate</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>RES_EndDate</name>
+        <rename>RES_EndDate</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>PAC_Id</name>
+        <rename>PAC_Id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>LEI_Id</name>
+        <rename>LEI_Id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>PLA_Id</name>
+        <rename>PLA_Id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>ESP_ID</name>
+        <rename>ESP_ID</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Age</name>
+        <rename>Age</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>Blood</name>
+        <rename>Blood</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>temperature</name>
+        <rename>temperature</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>heartbeat</name>
+        <rename>heartbeat</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>wound</name>
+        <rename>wound</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>manchester</name>
+        <rename>manchester</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>body_part</name>
+        <rename>body_part</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Microsoft Excel Input</name>
     <type>ExcelInput</type>
     <description/>
@@ -545,6 +657,18 @@
         <group/>
       </field>
       <field>
+        <name>Name</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
         <name>RES_StartDate</name>
         <type>Date</type>
         <length>-1</length>
@@ -616,6 +740,90 @@
         <decimal/>
         <group/>
       </field>
+      <field>
+        <name>Age</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>Blood</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>temperature</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>heartbeat</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>wound</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>manchester</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>body_part</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
     </fields>
     <sheets>
       <sheet>
@@ -651,78 +859,6 @@
     </remotesteps>
     <GUI>
       <xloc>208</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insert / Update</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>stagihobd</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema/>
-      <table>TBL_NEW_RESERVA</table>
-      <key>
-        <name>RES_Id</name>
-        <field>RES_Id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>RES_Id</name>
-        <rename>RES_Id</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>RES_StartDate</name>
-        <rename>RES_StartDate</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>RES_EndDate</name>
-        <rename>RES_EndDate</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>PAC_Id</name>
-        <rename>PAC_Id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>LEI_Id</name>
-        <rename>LEI_Id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>PLA_Id</name>
-        <rename>PLA_Id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>ESP_ID</name>
-        <rename>ESP_ID</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>544</xloc>
       <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
