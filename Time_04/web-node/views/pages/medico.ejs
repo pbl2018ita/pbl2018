@@ -1,0 +1,202 @@
+<%- contentFor('body') %>
+
+<div class="card">
+    <div class="card-header">
+      Pesquisa:
+    </div>
+    <div class="card-body">
+      <div class="row">
+            
+        <div class="col-6" id="specialty">
+          <label>Médico</label><br>
+          <select class="custom-select col-10" id="select_medic">
+            <option selected>Selecione o Médico(a)</option>
+            <option value="Dr. Takito">763 - Dr. Takito</option>
+            <option value="Dr. Mauro Junior">673 - Dr. Mauro Junior</option>
+            <option value="Dra. Vera Lucia">151 - Dra. Vera Lucia</option>
+            <option value="Dra. Marli Cristina">821 - Dra. Marli Cristina</option>
+            <option value="Dr. Lucas Tadeu">908 - Dr. Lucas Tadeu</option>
+            <option value="Dr. Sergio Harimo">788 - Dr. Sergio Harimo</option>
+            <option value="Dr. Juan Gonzales">654 - Dr. Juan Gonzales</option>
+          </select>
+        </div>
+  
+  
+        <div class="col-4" id="specialty">
+          <label >Especialidade</label><br>
+          <select class="custom-select col-10" id="select_especialidade">
+            <option selected>Selecione a Especialidade</option>
+            <option value="Cardiologista">Cardiologista</option>
+            <option value="Plantonista">Plantonista</option>
+            <option value="Clínico Geral">Clínico Geral</option>
+          </select>
+        </div>
+       
+      </div>
+
+      <p style="margin-top:2%;margin-left:5%">
+        <a class="btn btn-primary" id="pesquisar" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="iniciarIndicadores();">
+          Pesquisar
+        </a>
+       
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <h4 id="alerta" class="center"></h4>
+  
+          <button class="btn white" type="button"  onclick="Close()">
+              close
+            </button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+<div>
+    <div class="row">
+      <div class="col-s12" style="margin-left:43%">
+          <h5>Hospital das Clínicas</h5>
+      </div>
+    </div>
+    <div class="mapa_01">
+      <img src="../../img/bluep-01.jpg"/>
+    </div>
+    <div class="tabela">
+     <table >
+        <tbody id="grid">
+            <tbody id="gridTime">
+            </tbody>
+        </tbody>
+      </table>
+    </div>
+  
+  
+  
+  </div>
+
+  <script>
+    var linhas =  10;
+    var colunas =  10;
+    
+    
+    
+    
+    function iniciarIndicadores(){
+    
+    document.getElementById("pesquisar").style.visibility = "hidden";
+      var medico =  document.getElementById('select_medic').value;
+      if(medico == 'Selecione o Médico(a)' ){
+        alert('Selecione um médico para fazer a pesquisa!')
+        location.reload();
+      }else{
+      var m = 0;
+      for(var i=1; i< linhas; i++){
+        //Essa linha é vertical
+        
+        document.getElementById('grid').innerHTML += "<tr id = "+i+"></tr>";
+        for(var j = 1; j<colunas; j++){
+          //Essa linha é horizontal
+          m =  m + 10//pq do m?
+          document.getElementById(i).innerHTML += "<td id="+m+"></td>";
+        }
+      
+      }
+        gerarMedico();
+      }
+    }
+    
+    function gerarMedico(){
+      var medico  =    Math.floor(Math.random() * 80) * 10;
+      //medico  =  medico + ((medico - 10)*(-1))
+      //document.getElementById(this.medico).style.backgroundColor = red;
+      //alert(medico);
+      //document.getElementById(medico).innerHTML =  "MÈDICO";
+     // document.getElementById(medico).style.backgroundColor =  "blue";
+     document.getElementById(medico).style.backgroundRepeat = "no-repeat";
+      document.getElementById(medico).style.backgroundImage = "url('../../img/doctor2.2.png')";
+      gerarAtendimento(medico);
+       
+    }
+    
+    function gerarAtendimento(x){
+      var atendimento  =    Math.floor(Math.random() * 80) * 10;
+      if(atendimento == x){
+        atendimento  =    Math.floor(Math.random() * 80) * 10;
+    
+        document.getElementById(atendimento+20).style.backgroundRepeat = "no-repeat";
+        document.getElementById(atendimento+20).style.backgroundImage = "url('../../img/flag.png')";
+      }else{
+        document.getElementById(atendimento+20).style.backgroundRepeat = "no-repeat";
+        document.getElementById(atendimento+20).style.backgroundImage = "url('../../img/flag.png')";
+      }
+      timeGerado(x,atendimento);
+      medico_posicao = x;
+    
+    }
+    
+    function Close(){
+    
+      location.reload();
+      
+    }
+    
+    
+    function timeGerado(x, y)
+     {
+    
+    var medico =  document.getElementById('select_medic').value;
+    var especialidade = document.getElementById('select_especialidade').value;
+    
+      /*var time;
+    
+    
+        if (x > y) {
+    
+          time = (((x - y)/10)*3)*0.6;
+         
+    
+         }else{
+           time = (((y - x)/10)*3)*0.6;
+         }
+    
+    
+         time = time.toString();
+    
+          var h= time;
+          if(time.length == 3){ 
+            h  =  time.substr(0,1) + ' min ' + time.substr(1,time.lenth);
+           }
+    */
+    var data  = new Date();
+      
+    
+      m = Math.floor(Math.random() * 3);
+      s = data.getSeconds();
+      document.getElementById("alerta").innerHTML= "<h5><b>"+"TEMPO DE ESPERA:"+"</b></br></h5>"+m+' min '+s+' segundos para o médico(a) '+medico+' chegar ao local do atendimento.';
+    
+     }
+    
+    </script>
+    
+    
+    
+    <!--
+    
+    -->
+    
+    
+    <!-- Optional JavaScript
+    https://pt.stackoverflow.com/questions/285773/desenhar-um-ponto-em-uma-imagem-com-base-em-suas-coordenadas-ao-clicar-sobre-ela
+    https://www.youtube.com/watch?v=ZbpiLwUrh38
+    https://www.w3schools.com/tags/canvas_drawimage.asp
+    https://www.w3schools.com/tags/ref_canvas.asp
+    https://www.youtube.com/watch?v=Lxsv4mYHXWQ
+    https://www.youtube.com/watch?v=LBD-wD39UOc
+    
+    
+    
+    -->
+       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
