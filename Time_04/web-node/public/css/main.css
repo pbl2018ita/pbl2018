@@ -1,0 +1,46 @@
+body { overflow-x: hidden; }
+
+.mapa{
+
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width:auto; /*comrpimento de largura eixo x 1350px*/
+    height:auto;
+    position: absolute;/*trava a img*/
+    /*background-image: url("img/bluep-01.jpg");*/
+    /*z-index: 1;*/
+}
+
+.form{
+    display: block;
+   /* margin-left: 4%;*/
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+#specialty{
+  /*margin-top: -7px;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content: center;
+
+}
+#btnSearch{
+ /* margin-left: -3%;*/
+  justify-content: center;
+}
+
+#canvas{
+display: block;
+margin-top: 1%;
+width:1350px;
+height:auto;
+/*z-index: 2;*/
+}
+
