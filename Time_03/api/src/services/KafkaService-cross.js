@@ -27,6 +27,7 @@ module.exports = function (topic) {
             messages: data
         }];
 
+        //console.log(payload);
         producer.send(payload, function (err, data) {
             if (err) {
                 console.log(err);

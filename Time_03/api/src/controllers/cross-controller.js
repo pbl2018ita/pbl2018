@@ -4,6 +4,7 @@ var kafka = new (require('../services/KafkaService-cross'))('cross');
 
 //post -> enviar informacoes
 exports.post = (req, res, next) => {
+    //console.log(req);
     try {
         kafka.send(JSON.stringify(req.body));
 
