@@ -18,7 +18,7 @@ Ext.define('app.ext.tooltip', {
                         <!--
                         <i class="fa fa-venus"></i>
                         -->
-                        Name: {name}
+                        Nome: {name}
                         <!--Id Paciente: {PatientId}-->
                     </legend>
                     <table>
@@ -26,10 +26,10 @@ Ext.define('app.ext.tooltip', {
                             <td><img src="images/{PatientId}.png" alt="{Name}" style="width:60px"></td>
                             <td>
                                 <p>{name}</p>
-                                <p>{Age} Y.O.</p>
-                                <p class="detail">Wound: {wound}</p> 
+                                <p>Idade: {Age} </p>
+                                <p class="detail">Lesão: {wound}</p> 
                                 <p class="manch{manchester}">Manchester: {manchester}</p>
-                                <p class="detail">Body Part: {body_part}</p>
+                                <p class="detail">Região do corpo: {body_part}</p>
                             </td>
                         </tr>
                     </table            
@@ -46,7 +46,7 @@ Ext.define('app.ext.tooltip', {
                     <i class="fa fa-wheelchair"></i>
                     <i class="fa fa-ambulance"></i>
                     -->
-                    <i class="fa fa-bed"></i> {place}
+                    <i class="fa fa-bed"></i>CID V29.9
                 </p>
                 <fieldset class="medkit">
                     <legend>

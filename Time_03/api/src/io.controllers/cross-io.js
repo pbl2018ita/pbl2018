@@ -120,27 +120,45 @@ module.exports = function (io) {
                                         password: "nai6eo3yahNaip3shoh3g",
                                         database: "stagihobd"
                                     }).then(function (conn) {
+                                        var manchester = 0;
+
+                                        switch (ocorrencia.gravidade.toLowerCase()) {
+                                            case 'emergencia':
+                                                manchester = 5;
+                                                break;
+                                            case 'muito urgente':
+                                                manchester = 4;
+                                                break;
+                                            case 'urgente':
+                                                manchester = 3;
+                                                break;
+                                            case 'pouco urgente':
+                                                manchester = 2;
+                                                break;
+                                            default:
+                                                manchester = 1;
+                                        }
+
+
                                         var sql = `INSERT INTO  TBL_NEW_RESERVA 
-                                                (RES_StartDate ,
-                                                RES_EndDate ,
-                                                PAC_Id ,
-                                                LEI_Id ,
-                                                PLA_Id,
-                                                ESP_ID )
+                                                (RES_StartDate, RES_EndDate, PAC_Id, LEI_Id, PLA_Id,ESP_ID,
+                                                Age, Blood, temperature, heartbeat, Name, wound, manchester, body_part
+                                                )
                                                 VALUES
-                                                (NOW(),
+                                                (DATE_ADD(NOW(), INTERVAL %d HOUR),
                                                 DATE_ADD(NOW(), INTERVAL %d HOUR),
-                                                "%s",
-                                                "%s",
-                                                "%s",
-                                                "%s")`
+                                                "%s", "%s", "%s", "%s",
+                                                %d, "%s", %d, %d, CONCAT('Paciente ', RES_Id), "%s", %d, "%s")`
 
+                                        var utcDelta = -3;
                                         var duration = 1;
-                                        sql = util.format(sql, duration, reserva.id_paciente, reserva.id_leito, reserva.id_plantonista, reserva.id_especialista);
 
-                                        //console.log('Insert Tabela Reserva: ' + sql);
+                                        sql = util.format(sql, utcDelta, utcDelta + duration, reserva.id_paciente, reserva.id_leito, reserva.id_plantonista, reserva.id_especialista,
+                                            Math.floor(Math.random() * 50) + 18, 'O+', 36.6, 85, ocorrencia.lesao, manchester, ocorrencia.areacorporal);
 
-                                        //var result = conn.query(sql);
+                                        console.log('Insert Tabela Reserva: ' + sql);
+
+                                        var result = conn.query(sql);
 
                                         //Raise de evento do Schedule
                                         client.emit('toSchedule', "reserva");

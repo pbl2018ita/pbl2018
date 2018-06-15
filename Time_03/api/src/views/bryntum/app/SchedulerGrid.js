@@ -25,11 +25,10 @@ socket.on('toSchedule', function (message) {
 
     //var msg = JSON.parse(message);
 
-    
-
     $.post('/scheduler/reserva', message, function(resp, textStatus) {
         //data contains the JSON object
         //textStatus contains the status: success, error, etc
+        
         g.resourceStore.loadRawData(resp.resources);
         g.eventStore.loadData(resp.events);
         console.log(resp);

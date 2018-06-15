@@ -101,7 +101,7 @@ exports.reservasPost = (req, res, next) => {
             events: rows
         }
 
-        console.log(data);
+        //console.log(data);
 
         res.status(200).send(JSON.stringify(data));
         //res.status(200).send(result);
