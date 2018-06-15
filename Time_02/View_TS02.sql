@@ -1,1 +1,14 @@
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `stagihobd`.`VW_LEITO_HOSPITAL` AS select `LE`.`LEI_Id` AS `LEI_Id`,`LE`.`LEI_Name` AS `LEI_Name`,`LE`.`LEI_Setor` AS `LEI_Setor`,`LE`.`LEI_Andar` AS `LEI_Andar`,`LE`.`LEI_Ala` AS `LEI_Ala`,`LE`.`LEI_Tipo` AS `LEI_Tipo`,`LE`.`LEI_Disponibilidade` AS `LEI_Disponibilidade`,`LE`.`HOS_Id` AS `HOS_Id`,`HO`.`HOS_Name` AS `HOS_Name`,`HO`.`HOS_Endereco` AS `HOS_Endereco` from (`stagihobd`.`TBL_LEITO` `LE` left join `stagihobd`.`TBL_HOSPITAL` `HO` on((`HO`.`HOS_Id` = `LE`.`HOS_Id`)));
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`%` 
+    SQL SECURITY DEFINER
+VIEW `stagihobd`.`VW_LEITO_HOSPITAL` AS
+    SELECT 
+        `LE`.`LEI_Id` AS `LEI_Id`,
+        `LE`.`L_Tipo` AS `LEI_Tipo`,
+        `LE`.`HOS_Id` AS `HOS_Id`,
+        `HO`.`HOS_Name` AS `HOS_Name`,
+        `HO`.`HOS_Endereco` AS `HOS_Endereco`
+    FROM
+        (`stagihobd`.`TBL_LEITO` `LE`
+        LEFT JOIN `stagihobd`.`TBL_HOSPITAL` `HO` ON ((`HO`.`HOS_Id` = `LE`.`HOS_Id`)))
