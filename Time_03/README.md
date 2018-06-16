@@ -14,3 +14,7 @@ Para deploy a partir do subdiretorio do Repositorio GIT... Ir para a raiz do dir
 
 Para deploy a partir do clone do repositorio da Heroku:
 <li> git push heroku master 
+
+
+
+https://stagihobd-ts03.herokuapp.com/

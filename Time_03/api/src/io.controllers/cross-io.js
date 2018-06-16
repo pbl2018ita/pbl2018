@@ -58,8 +58,6 @@ module.exports = function (io) {
 
                         var result = conn.query(sql);
 
-
-
                         conn.end();
 
                         return result; //{ conn: conn, result: result};
@@ -97,7 +95,7 @@ module.exports = function (io) {
                             hospital.location.lat = -23.5546416;
                             hospital.location.lng = -46.6744325;
 
-                            console.log('Hospital:' + hospital.nome);
+                            console.log('Hospital: ' + hospital.nome);
 
                             //matching da vítima com o leito
                             for (let i = 0; i < hospital.leitos.length; i++) {
@@ -141,14 +139,14 @@ module.exports = function (io) {
 
 
                                         var sql = `INSERT INTO  TBL_NEW_RESERVA 
-                                                (RES_StartDate, RES_EndDate, PAC_Id, LEI_Id, PLA_Id,ESP_ID,
+                                                (RES_Id, RES_StartDate, RES_EndDate, PAC_Id, LEI_Id, PLA_Id,ESP_ID,
                                                 Age, Blood, temperature, heartbeat, Name, wound, manchester, body_part
                                                 )
                                                 VALUES
-                                                (DATE_ADD(NOW(), INTERVAL %d HOUR),
+                                                (8, DATE_ADD(NOW(), INTERVAL %d HOUR),
                                                 DATE_ADD(NOW(), INTERVAL %d HOUR),
                                                 "%s", "%s", "%s", "%s",
-                                                %d, "%s", %d, %d, CONCAT('Paciente ', RES_Id), "%s", %d, "%s")`
+                                                %d, "%s", %d, %d, CONCAT('Paciente ', '8'), "%s", %d, "%s")`
 
                                         var utcDelta = -3;
                                         var duration = 1;
@@ -158,7 +156,7 @@ module.exports = function (io) {
 
                                         console.log('Insert Tabela Reserva: ' + sql);
 
-                                        var result = conn.query(sql);
+                                        conn.query(sql);                        
 
                                         //Raise de evento do Schedule
                                         client.emit('toSchedule', "reserva");
