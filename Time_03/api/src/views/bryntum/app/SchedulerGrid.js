@@ -156,7 +156,7 @@ Ext.define('app.SchedulerGrid', {
         - Linha do Agora
         ----------------------------------------------------------------*/
         Ext.define('Line', { extend: 'Ext.data.Model', fields: ['Date', 'Text', 'Cls'] });
-        var lineStore = Ext.create('Ext.data.JsonStore', { model: 'Line', data: [{ Date: moment(Date.now()).add(-4, 'hours'), Text: '', Cls: 'verticalLine' }] });
+        var lineStore = Ext.create('Ext.data.JsonStore', { model: 'Line', data: [{ Date: moment(Date.now()).add(-3, 'hours'), Text: '', Cls: 'verticalLine' }] });
         plugins = [Ext.create("Sch.plugin.Lines", { store: lineStore })];
 
         //create a WebSocket and connect to the server running at host domain
